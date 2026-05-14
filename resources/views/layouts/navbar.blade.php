@@ -1,24 +1,24 @@
 <style>
-    .nav-link text-body.active {
+    .navbar-nav .nav-item .nav-link.text-body.active {
         background-color: #ff7c9d !important;
         color: white !important;
         border-radius: 8px !important;
         font-weight: 600 !important;
         box-shadow: 0 2px 4px rgba(231, 109, 139, 0.3) !important;
         transition: all 0.2s ease-in-out !important;
+        margin: 0 4px !important;
     }
 
-    .nav-link text-body {
+    .nav-link.text-body {
         transition: all 0.2s ease-in-out !important;
     }
 
-    /* Fix dropdown items hover */
     .dropdown-item {
         transition: all 0.2s ease-in-out !important;
     }
 
     .dropdown-item:hover,
-    .nav-link text-body:hover {
+    .nav-link.text-body:hover {
         background-color: #ff7c9d !important;
         color: white !important;
         border-radius: 6px !important;
@@ -38,12 +38,8 @@
         margin-top: 5px !important;
     }
 
-    .navbar-nav .nav-link text-body.active {
-        margin: 0 4px !important;
-    }
-
     @media (max-width: 991px) {
-        .nav-link text-body.active {
+        .nav-link.text-body.active {
             margin: 4px 0 !important;
         }
     }
@@ -163,11 +159,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('showExam')}}">Exam</a>
+                    <a class="nav-link text-body {{ request()->routeIs('showExam') ? 'active' : '' }}" href="{{route('showExam')}}">Exam</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('showTopPassers')}}">Top Passers</a>
+                    <a class="nav-link text-body {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{route('showTopPassers')}}">Top Passers</a>
                 </li>
 
                 @endif
@@ -232,3 +228,18 @@
         </div>
     </div>
 </nav>
+
+<script>
+    // 1. Get all the nav links
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // 2. Remove 'active' from all links
+            navLinks.forEach(node => node.classList.remove('active'));
+            
+            // 3. Add 'active' to the one you just clicked
+            this.classList.add('active');
+        });
+    });
+</script>
