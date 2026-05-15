@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body text-center bg-white">
-                    <h2 class="fw-bold mb-4" style="color: #ff7c9d;">{{ $attempt->mark }} / 100</h2>
+                    <h2 class="fw-bold mb-4" style="color: #ff7c9d;">{{ $attempt->mark }} / 50</h2>
                     <h5 class="fw-bold mb-4">Pass mark : {{$exam->pass_mark}}</h5>
 
                     <div class="row mb-4">

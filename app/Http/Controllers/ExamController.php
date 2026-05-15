@@ -100,7 +100,7 @@ class ExamController extends Controller
         $answers = $request->input('answers', []); // answers[question_id] = option_id
         $timeTaken = (int) $request->input('time_taken', 0);
 
-        $totalQuestions = $exam->questions->count();
+        $totalQuestions = 5;
         $correctAnswers = 0;
 
         foreach ($exam->questions as $question) {
