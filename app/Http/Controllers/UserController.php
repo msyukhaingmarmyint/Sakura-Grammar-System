@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CertificateMail;
 
 class UserController extends Controller
 {
@@ -198,9 +201,21 @@ class UserController extends Controller
         Certificate::create([
             'attempt_id' => $attempt->id,
         ]);
+// pdf send via email - mtza
+        $data = [
+        'student_name' => $attempt->user->name,
+        'topic'        => $attempt->exam->title,
+        'score'        => $attempt->mark,
+        'date'         => $attempt->created_at->timezone('Asia/Yangon')->format('d M Y , H:i:s'),
+    ];
+    $pdf = Pdf::loadView('user.certificate_pdf_template', $data)
+              ->setPaper('a4', 'landscape');
+              Mail::to($attempt->user->email)->send(new CertificateMail($attempt->user, $pdf->output(), $attempt->exam->title));
 
-        return back()->with('success', 'Received Certificate successfully!');
+       
+        return $pdf->download('Certificate_' . $attempt->user->name . '.pdf');
     }
+
 
     public function userStatus(Request $request, $id)
     {
