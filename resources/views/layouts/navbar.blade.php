@@ -82,51 +82,51 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{ url('/') }}#about">About</a>
+                    <a class="nav-link text-body {{ request()->is('/#about') ? 'active' : '' }}" href="{{ url('/') }}#about">About</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{ url('/') }}#jlpt">JLPT</a>
+                    <a class="nav-link text-body {{ request()->is('/#jlpt') ? 'active' : '' }}" href="{{ url('/') }}#jlpt">JLPT</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{ url('/') }}#contact">Contact</a>
+                    <a class="nav-link text-body {{ request()->is('/#contact') ? 'active' : '' }}" href="{{ url('/') }}#contact">Contact</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('showExam')}}">Exam</a>
+                    <a class="nav-link text-body {{ request()->routeIs('showExam') ? 'active' : '' }}" href="{{route('showExam')}}">Exam</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('showTopPassers')}}">Top Passers</a>
+                    <a class="nav-link text-body {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{route('showTopPassers')}}">Top Passers</a>
                 </li>
 
                 @else
 
                 @if(Auth::user()->role === 'admin')
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('admin')}}">Dashboard</a>
+                    <a class="nav-link text-body {{ request()->routeIs('admin') ? 'active' : '' }}" href="{{route('admin')}}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('levels.index')}}">Levels</a>
+                    <a class="nav-link text-body {{ request()->routeIs('levels.index') ? 'active' : '' }}" href="{{route('levels.index')}}">Levels</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('lessons.index')}}">Lessons</a>
+                    <a class="nav-link text-body {{ request()->routeIs('lessons.index') ? 'active' : '' }}" href="{{route('lessons.index')}}">Lessons</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('questions.index')}}">Questions</a>
+                    <a class="nav-link text-body {{ request()->routeIs('questions.index') ? 'active' : '' }}" href="{{route('questions.index')}}">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('exams.index')}}">Exams</a>
+                    <a class="nav-link text-body {{ request()->routeIs('exams.index') ? 'active' : '' }}" href="{{route('exams.index')}}">Exams</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('users.index')}}">Users</a>
+                    <a class="nav-link text-body {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{route('users.index')}}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('scores.index')}}">Certificates</a>
+                    <a class="nav-link text-body {{ request()->routeIs('scores.index') ? 'active' : '' }}" href="{{route('scores.index')}}">Certificates</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{route('showTopPassers')}}">Top Passers</a>
+                    <a class="nav-link text-body {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{route('showTopPassers')}}">Top Passers</a>
                 </li>
                 @else
                 <li class="nav-item dropdown">
@@ -147,15 +147,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{ url('/') }}#about">About</a>
+                    <a class="nav-link text-body {{ request()->is('/#about') ? 'active' : '' }}" href="{{ url('/') }}#about">About</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{ url('/') }}#jlpt">JLPT</a>
+                    <a class="nav-link text-body {{ request()->is('/#jlpt') ? 'active' : '' }}" href="{{ url('/') }}#jlpt">JLPT</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-body" href="{{ url('/') }}#contact">Contact</a>
+                    <a class="nav-link text-body {{ request()->is('/#contact') ? 'active' : '' }}" href="{{ url('/') }}#contact">Contact</a>
                 </li>
 
                 <li class="nav-item">
@@ -230,15 +230,12 @@
 </nav>
 
 <script>
-    // 1. Get all the nav links
     const navLinks = document.querySelectorAll('.nav-link');
 
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            // 2. Remove 'active' from all links
+
             navLinks.forEach(node => node.classList.remove('active'));
-            
-            // 3. Add 'active' to the one you just clicked
             this.classList.add('active');
         });
     });
