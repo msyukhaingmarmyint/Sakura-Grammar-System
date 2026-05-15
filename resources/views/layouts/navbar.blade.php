@@ -1,6 +1,6 @@
 <style>
     .navbar-nav .nav-item .nav-link.text-body.active {
-        background-color: #ff7c9d !important;
+        background-color: #dd4c70 !important;
         color: white !important;
         border-radius: 8px !important;
         font-weight: 600 !important;
@@ -45,7 +45,7 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-md bg-body shadow-sm sticky-top">
+<nav class="navbar navbar-expand-md  shadow-sm sticky-top"  style="background: linear-gradient(90deg, #f8d5de, #f0e3e6);">
     <div class="container">
         <a class="navbar-brand fw-bold fs-3 text-lowercase" href="{{ route('home') }}" style="color: #ff7c9d;">
             <span class="fw-bold text-uppercase">S</span>akura Grammar
@@ -214,13 +214,14 @@
                         @endif
 
                         <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="nav-link text-body text-start w-100">
-                                    <i class="fas fa-sign-out-alt"></i> Logout
-                                </button>
-                            </form>
-                        </li>
+        <!-- Logout Button -->
+                <button type="button"
+        class="nav-link text-body text-start w-100 border-0 bg-transparent"
+        data-bs-toggle="modal"
+        data-bs-target="#logoutModal">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+</li>
                     </ul>
                 </li>
                 @endguest
@@ -228,7 +229,46 @@
         </div>
     </div>
 </nav>
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Confirm Logout
+                </h5>
+
+                <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                Are you sure you want to logout?
+            </div>
+
+            <div class="modal-footer">
+                <!-- Cancel -->
+                <button type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <!-- OK Logout -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">
+                        OK
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script>
     const navLinks = document.querySelectorAll('.nav-link');
 
