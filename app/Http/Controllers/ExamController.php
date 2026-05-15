@@ -97,7 +97,7 @@ class ExamController extends Controller
             return back()->with('error', 'You have reached the maximum 3 attempts for this exam.');
         }
 
-        $answers = $request->input('answers', []); // answers[question_id] = option_id
+        $answers = $request->input('answers', []); 
         $timeTaken = (int) $request->input('time_taken', 0);
 
         $totalQuestions = 5;

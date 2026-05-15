@@ -43,12 +43,14 @@
                 <div class="card p-3 mb-3">
                     <h5>{{ $question->question }}</h5>
 
-                    @foreach($question->options as $option)
+                    @foreach($question->options->shuffle() as $option)
                     <div>
-                        <input type="radio"
-                            name="answers[{{ $question->id }}]"
-                            value="{{ $option->id }}">
-                        {{ $option->option_text }}
+                        <label style="display:block; cursor:pointer; margin-bottom:10px;">
+                            <input type="radio"
+                                name="answers[{{ $question->id }}]"
+                                value="{{ $option->id }}">
+                            {{ $option->option_text }}
+                        </label>
                     </div>
                     @endforeach
                 </div>

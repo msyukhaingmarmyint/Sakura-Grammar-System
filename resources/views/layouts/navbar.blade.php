@@ -45,7 +45,7 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-md  shadow-sm sticky-top"  style="background: linear-gradient(90deg, #f8d5de, #f0e3e6);">
+<nav class="navbar navbar-expand-md shadow-sm sticky-top"  style="background: linear-gradient(90deg, #f0e3e6, #fc94ae);">
     <div class="container">
         <a class="navbar-brand fw-bold fs-3 text-lowercase" href="{{ route('home') }}" style="color: #ff7c9d;">
             <span class="fw-bold text-uppercase">S</span>akura Grammar
@@ -175,7 +175,7 @@
             <ul class="navbar-nav ms-auto mt-2">
                 <li class="nav-item me-3">
                     <i id="themeToggle" class="bi bi-brightness-high"
-                        style="color: #000; font-size:25px;">
+                        style="color: #000; font-size:28px;">
                     </i>
                 </li>
                 @guest

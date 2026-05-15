@@ -34,8 +34,12 @@
             color: #000;
         }
 
-        [data-bs-theme="dark"] .nav-link {
-            color: #ccc !important;
+        [data-bs-theme="dark"] .navbar .nav-link {
+            color: #000000 !important;
+        }
+
+        [data-bs-theme="light"] .navbar .nav-link {
+            color: #000000 !important;
         }
 
         [data-bs-theme="dark"] .nav-link:hover {
@@ -80,11 +84,11 @@
 
                 if (theme === 'dark') {
                     toggle.className = 'bi bi-moon-stars-fill';
-                    toggle.style.color = '#ffff00';
+                    toggle.style.color = '#000';
                     if (logo) logo.src = "{{ asset('img/logo-dark.png') }}";
                 } else {
-                    toggle.className = 'bi bi-brightness-high';
-                    toggle.style.color = '#000';
+                    toggle.className = 'bi bi-sun-fill';
+                    toggle.style.color = '#fff';
                     if (logo) logo.src = "{{ asset('img/logo-light.png') }}";
                 }
             }
