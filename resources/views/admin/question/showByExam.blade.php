@@ -41,7 +41,7 @@
                 
                 @foreach($questions as $question)
                 <div class="card p-3 mb-3">
-                    <h5>{{ $question->question }}</h5>
+                    <h5>{{ $loop->iteration }}. {{ $question->question }}</h5>
 
                     @foreach($question->options->shuffle() as $option)
                     <div>

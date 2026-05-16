@@ -47,7 +47,7 @@
 
 <nav class="navbar navbar-expand-md shadow-sm sticky-top"  style="background: linear-gradient(90deg, #f0e3e6, #fc94ae);">
     <div class="container">
-        <a class="navbar-brand fw-bold fs-3 text-lowercase" href="{{ route('home') }}" style="color: #ff7c9d;">
+        <a class="navbar-brand fw-bold fs-2 text-lowercase" href="{{ route('home') }}" style="color: #ff7c9d;">
             <span class="fw-bold text-uppercase">S</span>akura Grammar
         </a>
 
@@ -197,31 +197,28 @@
                         {{ Auth::user()->name }}
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="nav-item">
+                        <li class="my-3">
                             @if(Auth::user()->role == 'admin')
-                            <a class="nav-link text-body" href="{{route('admin')}}">Dashboard</a>
+                            <a class="dropdown-item text-body" href="{{route('admin')}}">Dashboard</a>
                             @else
-                            <a class="nav-link text-body" href="{{route('user')}}">Dashboard</a>
+                            <a class="dropdown-item text-body" href="{{route('user')}}">Dashboard</a>
                             @endif
                         </li>
 
                         @if(Auth::user()->role == 'admin')
-                        <li class="nav-item">
-                            <a class="nav-link text-body text-start" href="{{route('user.profile',Auth::user()->id)}}">
+                        <li class="my-3">
+                            <a class="dropdown-item text-body text-start" href="{{route('user.profile',Auth::user()->id)}}">
                                 <i class="fa-solid fa-circle-user me-2"></i>Profile
                             </a>
                         </li>
                         @endif
 
-                        <li class="nav-item">
-        <!-- Logout Button -->
-                <button type="button"
-        class="nav-link text-body text-start w-100 border-0 bg-transparent"
-        data-bs-toggle="modal"
-        data-bs-target="#logoutModal">
-        <i class="fas fa-sign-out-alt"></i> Logout
-    </button>
-</li>
+                        <li>
+                            <button type="button" class="dropdown-item text-body text-start w-100 border-0 bg-transparent"
+                                    data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </li>
                     </ul>
                 </li>
                 @endguest
