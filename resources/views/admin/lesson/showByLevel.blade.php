@@ -147,7 +147,27 @@
         <main class="my-content flex-grow-1" id="mainContent">
             @foreach($lessons as $lesson)
             <div id="lesson-{{ $lesson->id }}" class="mb-5" style="scroll-margin-top: 100px;">
-                <h2 style="color: {{$levelColor}} !important;">{{ $lesson->title }}</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 style="color: {{$levelColor}} !important;">{{ $lesson->title }}</h2>
+                    
+                    <form action="{{ route('bookmark.toggle', $lesson->id) }}" method="POST">
+                        @csrf
+
+                        @php
+                        $isBookmarked = \App\Models\Bookmark::where('user_id', auth()->id())
+                            ->where('lesson_id', $lesson->id)
+                            ->exists();
+                        @endphp
+                        <input type="hidden" name="scroll_to" value="lesson-{{ $lesson->id }}">
+                        <button type="submit" style="border:none; background:none;">
+                            @if($isBookmarked)
+                                <i class="bi bi-star-fill" style="font-size : 24px; color: {{$levelColor}} !important;" ></i>
+                            @else
+                                <i class="bi bi-star" style="font-size: 24px; color: {{$levelColor}} !important;"></i>
+                            @endif
+                        </button>
+                    </form>
+                </div>
 
                 @if($lesson->structure)
                     <div class="mb-3">
@@ -233,4 +253,5 @@
         if (firstLink) firstLink.classList.add('active');
     });
 </script>
+
 @endsection

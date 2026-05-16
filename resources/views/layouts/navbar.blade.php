@@ -199,9 +199,9 @@
                     <ul class="dropdown-menu">
                         <li class="my-3">
                             @if(Auth::user()->role == 'admin')
-                            <a class="dropdown-item text-body" href="{{route('admin')}}">Dashboard</a>
+                            <a class="dropdown-item text-body" href="{{route('admin')}}"><i class="bi bi-clipboard2-fill me-2"></i>Dashboard</a>
                             @else
-                            <a class="dropdown-item text-body" href="{{route('user')}}">Dashboard</a>
+                            <a class="dropdown-item text-body" href="{{route('user')}}"><i class="bi bi-clipboard2-fill me-2"></i>Dashboard</a>
                             @endif
                         </li>
 
@@ -209,6 +209,14 @@
                         <li class="my-3">
                             <a class="dropdown-item text-body text-start" href="{{route('user.profile',Auth::user()->id)}}">
                                 <i class="fa-solid fa-circle-user me-2"></i>Profile
+                            </a>
+                        </li>
+                        @endif
+
+                        @if(Auth::user()->role == 'user')
+                        <li class="my-3">
+                            <a class="dropdown-item text-body text-start" href="{{route('user.bookmarks',Auth::user()->id)}}">
+                                <i class="bi bi-star-fill me-2"></i>Bookmark
                             </a>
                         </li>
                         @endif

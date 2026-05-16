@@ -21,4 +21,8 @@ class Level extends Model
     {
         return $this->hasOne(Exam::class);
     }
+
+    public function bookmarks(){
+        return $this->hasMany(Bookmark::class);
+    }
 }
