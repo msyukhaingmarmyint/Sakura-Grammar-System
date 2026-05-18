@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -105,3 +106,7 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 Route::post('/bookmark/toggle/{lesson_id}', [BookmarkController::class, 'toggle'])->name('bookmark.toggle')->middleware('auth');
 Route::get('/bookmarks/{user_id}', [BookmarkController::class, 'showBookmarks'])->name('user.bookmarks')->middleware('auth');
 Route::delete('/bookmark/{id}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy')->middleware('auth');
+Route::post('/reactivation-request',[UserController::class, 'sendRequest'])->name('reactivation.request');
+Route::get('/admin/mailbox',[AdminController::class, 'mailbox'])->name('admin.mailbox');
+Route::get('/admin/reactivation/accept/{id}',[AdminController::class, 'accept'])->name('reactivation.accept');
+Route::get('/admin/reactivation/reject/{id}',[AdminController::class, 'reject'])->name('reactivation.reject');

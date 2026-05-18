@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CertificateMail;
+use App\Models\ReactivationRequest;
 
 class UserController extends Controller
 {
@@ -201,18 +202,18 @@ class UserController extends Controller
         Certificate::create([
             'attempt_id' => $attempt->id,
         ]);
-// pdf send via email - mtza
-        $data = [
-        'student_name' => $attempt->user->name,
-        'topic'        => $attempt->exam->title,
-        'score'        => $attempt->mark,
-        'date'         => $attempt->created_at->timezone('Asia/Yangon')->format('d M Y , H:i:s'),
-    ];
-    $pdf = Pdf::loadView('user.certificate_pdf_template', $data)
-              ->setPaper('a4', 'landscape');
-              Mail::to($attempt->user->email)->send(new CertificateMail($attempt->user, $pdf->output(), $attempt->exam->title));
 
-       
+        $data = [
+            'student_name' => $attempt->user->name,
+            'topic'        => $attempt->exam->title,
+            'score'        => $attempt->mark,
+            'date'         => $attempt->created_at->timezone('Asia/Yangon')->format('d M Y , H:i:s'),
+        ];
+        $pdf = Pdf::loadView('user.certificate_pdf_template', $data)
+            ->setPaper('a4', 'landscape');
+        Mail::to($attempt->user->email)->send(new CertificateMail($attempt->user, $pdf->output(), $attempt->exam->title));
+
+
         return $pdf->download('Certificate_' . $attempt->user->name . '.pdf');
     }
 
@@ -278,5 +279,39 @@ class UserController extends Controller
         $user->password = Hash::make($request->new_password);
         $user->save();
         return redirect()->route('user')->with('success', 'Password changed successfully');
+    }
+
+
+    public function sendRequest(Request $request)
+    {
+        $user = User::where('email',$request->email)->first();
+
+        if (!$user) {
+            return back()->with('error','User not found.');
+        }
+
+        $existingRequest = ReactivationRequest::where('user_id', $user->id)
+        ->where('status', 'pending')
+        ->first();
+
+        if ($existingRequest) {
+            return back()->with('error', 'Reactivation request already sent. Please wait for admin response.');
+        }
+
+        ReactivationRequest::create([
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'status' => 'pending'
+        ]);
+
+        Mail::raw(
+            'New Reactivation Request From: ' . $user->email,
+
+            function ($message) {
+                $message->to('admin@gmail.com')->subject('Reactivation Request');
+            }
+        );
+
+        return back()->with('success','Request sent successfully.');
     }
 }

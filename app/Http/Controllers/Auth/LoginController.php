@@ -67,8 +67,8 @@ class LoginController extends Controller
         if ($user->status === 'inactive') {
             Auth::logout();
             return redirect()->back()->with([
-            'error' => 'Your account is already deactivated!',
-            'inactive_email' => $user->email
+                'error' => 'Your account is already deactivated!',
+                'inactive_email' => $user->email
             ]);
         }
 

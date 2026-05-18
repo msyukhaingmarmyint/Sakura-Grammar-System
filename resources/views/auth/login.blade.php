@@ -56,21 +56,21 @@
                             <a href="{{ route('register') }}" class="text-decoration-none">Register</a>
                         </small>
                     </div>
+                </form>
 
-                    @if(session('inactive_email'))
+                @if(session('inactive_email'))
                     <div class="text-center mt-3">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('reactivation.request') }}">
                             @csrf
+                            <input type="hidden"name="email" value="{{ session('inactive_email') }}">
 
-                            <input type="hidden" name="email" value="{{ session('inactive_email') }}">
-
-                            <button type="submit" class="btn text-white rounded-3 py-2" style="background-color: #1A237E;">
+                            <button type="submit" class="btn text-white rounded-3 w-100 py-2" style="background-color:#1A237E;">
                                 Reactivate Account
                             </button>
                         </form>
                     </div>
-                    @endif
-                </form>
+                @endif
+
             </div>
         </div>
     </div>

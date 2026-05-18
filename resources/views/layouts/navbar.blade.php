@@ -45,7 +45,7 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-md shadow-sm sticky-top"  style="background: linear-gradient(90deg, #f0e3e6, #fc94ae);">
+<nav class="navbar navbar-expand-md shadow-sm sticky-top" style="background: linear-gradient(90deg, #f0e3e6, #fc94ae);">
     <div class="container">
         <a class="navbar-brand fw-bold fs-2 text-lowercase" href="{{ route('home') }}" style="color: #ff7c9d;">
             <span class="fw-bold text-uppercase">S</span>akura Grammar
@@ -211,6 +211,16 @@
                                 <i class="fa-solid fa-circle-user me-2"></i>Profile
                             </a>
                         </li>
+
+                        @php
+                            $count = \App\Models\ReactivationRequest::where('status','pending')->count();
+                        @endphp
+
+                        <li class="my-3">
+                            <a class="dropdown-item text-body text-start" href="{{ route('admin.mailbox') }}">
+                                <i class="bi bi-envelope-arrow-down-fill me-2"></i>Mail Box <span class="badge bg-danger">{{ $count }}</span>
+                            </a>
+                        </li>
                         @endif
 
                         @if(Auth::user()->role == 'user')
@@ -223,7 +233,7 @@
 
                         <li>
                             <button type="button" class="dropdown-item text-body text-start w-100 border-0 bg-transparent"
-                                    data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                data-bs-toggle="modal" data-bs-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </button>
                         </li>
