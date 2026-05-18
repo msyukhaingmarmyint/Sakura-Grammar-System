@@ -21,7 +21,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // Validate email and password
     protected function validateLogin(Request $request)
     {
         $request->validate([
@@ -34,7 +33,7 @@ class LoginController extends Controller
         ]);
     }
 
-    // Handle login attempt
+    
     protected function attemptLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -47,16 +46,14 @@ class LoginController extends Controller
         return false;
     }
 
-    // Custom error messages
+    
     protected function sendFailedLoginResponse(Request $request)
     {
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
-            // Email exists but password is wrong
             $errors = ['password' => 'Password is incorrect.'];
         } else {
-            // Email does not exist
             $errors = ['email' => 'This email has not been already existed.'];
         }
 
@@ -69,8 +66,10 @@ class LoginController extends Controller
     {
         if ($user->status === 'inactive') {
             Auth::logout();
-            return redirect()->back()
-                ->with('error', 'Your account is already deactivated!');
+            return redirect()->back()->with([
+            'error' => 'Your account is already deactivated!',
+            'inactive_email' => $user->email
+            ]);
         }
 
         if ($user->role === 'admin') {

@@ -33,7 +33,6 @@ class BookmarkController extends Controller
     {
         $bookmarks = Bookmark::with('lesson')
             ->where('user_id', $user_id)
-            ->latest()
             ->get();
         return view('user.bookmarks', compact('bookmarks'));
     }
