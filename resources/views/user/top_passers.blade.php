@@ -2,22 +2,13 @@
 
 @section('content')
 
-<div class="container py-5">
-
+<div class="container">
     <div class="text-center mb-5 position-relative">
-
         <h1 class="fw-bold" style="color: #ff7c9d;">Top Passers</h1>
-
         <a href="{{ auth()->check() ? (auth()->user()->role == 'admin' ? route('admin') : route('home')) : route('home') }}"
-
             class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
-
-            <i class="fa fa-arrow-left me-2"></i>Back
-
+            <i class="fa fa-arrow-left me-2"></i><span class="d-none d-sm-inline">Back</span>
         </a>
-
-
-
     </div>
 
     <div class="row">
@@ -35,8 +26,8 @@
             </h3>
 
             <div class="card shadow-sm rounded-4 border-0 overflow-hidden">
-                <div class="table-responsive">
-                    <table class="table align-middle m-0">
+                <div class="table-responsive" >
+                    <table class="table table-danger align-middle m-0">
                         <thead class="table-cherry-header text-uppercase small tracking-wider text-white">
                             <tr>
                                 <th class="ps-4 py-3 text-center" style="width: 100px;">Rank</th>
@@ -79,7 +70,7 @@
                                 </td>
 
                                 <td class="pe-4 py-3 text-end small font-mono">
-                                    <i class="fa fa-clock text-muted me-1"></i>
+                                    
                                     {{ $attempt->time_taken }}s
                                 </td>
                             </tr>

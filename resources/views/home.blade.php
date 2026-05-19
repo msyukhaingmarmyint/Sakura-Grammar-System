@@ -3,15 +3,26 @@
 @section('content')
 <style>
     .level-circle {
-        width: 100px !important;
-        height: 100px !important;
-        font-size: 20px !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
+        width: 100px;
+        height: 100px;
+        font-size: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .level-circle:hover {
+        width: 110px;
+        height: 110px;
+        transition: all 0.3s ease;
     }
 
     .card-btn {
         background-color: #1A237E;
+        color: #fff;
+    }
+
+    .card-btn:hover {
+        background-color: rgba(26, 35, 126, 0.5);
         color: #fff;
     }
 
@@ -37,7 +48,7 @@
     <div class="mb-3 d-flex justify-content-center">
         <div class="col-md-8">
             <img src="{{ asset('img/logo-light.png') }}" id="themeLogo" alt="Logo" class="w-100 h-75">
-            <h3 class="text-center quote" style="color: #ff7c9d; font-family: 'Noto Sans JP', sans-serif;">
+            <h3 class="text-center quote" style="color: #dd4c70; font-family: 'Noto Sans JP', sans-serif;">
                 🌸 Bloom in Japanese, petal by petal 🌸
             </h3>
         </div>
@@ -209,23 +220,33 @@
                 <p>"We'd love to hear from you. Reach out anytime."</p>
             </div>
 
-            <div class="col-md-4 ps-5 my-2">
+            <div class="col-md-5 ps-5 my-2">
                 <div class="mb-3">
                     @foreach($levels as $index => $level)
                     <a href="{{ route('lesson.byLevel', urlencode($level->name)) }}" class="text-decoration-none">
-                        <span class="me-5 fw-bold"
+                        <span class="me-4 fw-bold"
                             style="color: {{ $colors[$index % count($colors)] }}">
                             {{ $level->name }}
                         </span>
                     </a>
                     @endforeach
                 </div>
-                <p><i class="fa-solid fa-envelope me-3" style="color: #1A237E;"></i> sakuragrammar@gmail.com</p>
-                
+
+                <p>
+                    <i class="fa-solid fa-envelope me-3" style="color: #1A237E;"></i>
+                    <a href="mailto:khaingkhainglay984@gmail.com" class="text-decoration-none">sakuragrammar@gmail.com</a>
+                </p>
+
             </div>
         </div>
 
-        <div class="p-3 text-center fw-bold" style="color: #ff7c9d;"> Copyright &copy; All rights reserved | This template is made by me</div>
+        <div class="p-3 text-center fw-bold" style="color: #dd4c70;">
+            <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                <span>Copyright &copy; All rights reserved</span>
+                <span class="d-none d-sm-inline">|</span>
+                <span>Developed by GCG students</span>
+            </div>
+        </div>
     </section>
 </div>
 @endsection

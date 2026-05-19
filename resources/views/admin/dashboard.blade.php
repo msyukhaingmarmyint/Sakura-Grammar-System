@@ -64,7 +64,7 @@
                 <span class="wave-hand">👋</span>
             </h1>
 
-            <div class="d-flex justify-content-center mb-3">
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
                 <a href="{{route('levels.create')}}" class="btn btn-outline-primary rounded-pill px-4 me-3"><i class="fa-solid fa-plus"></i> Add Level</a>
                 <a href="{{route('lessons.create')}}" class="btn btn-outline-danger rounded-pill px-4 me-3"><i class="fa-solid fa-plus"></i> Add Lesson</a>
                 <a href="{{route('questions.create')}}" class="btn btn-outline-success rounded-pill px-4 me-3"><i class="fa-solid fa-plus"></i> Add Question</a>

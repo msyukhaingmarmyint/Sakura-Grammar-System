@@ -25,12 +25,13 @@
         transform: translateY(-5px);
     }
 
-    [data-bs-theme="dark"] .d-flex p, .d-flex small {
-            color: #000 !important;
+    [data-bs-theme="dark"] .d-flex p,
+    .d-flex small {
+        color: #000 !important;
     }
 
     [data-bs-theme="dark"] .stats-card {
-            border-color: #fff !important;
+        border-color: #fff !important;
     }
 </style>
 
@@ -38,9 +39,9 @@
     <div class="position-relative mb-3">
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Exams' List</h1>
         <a href="{{ route('admin') }}" class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
-            <i class="fa fa-arrow-left me-2"></i>Back
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
-        </div>
+    </div>
 
     <div class="row mb-4 g-3 d-flex justify-content-center">
         <div class="col-md-2">
@@ -115,9 +116,9 @@
                     </div>
                 </div>
             </div>
-        
-            @empty 
-            <p class="text-center text-muted mt-4">No exams available.</p> 
+
+            @empty
+            <p class="text-center text-muted mt-4">No exams available.</p>
             @endforelse
 
             <div class="d-flex justify-content-center mt-4">

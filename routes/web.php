@@ -94,14 +94,11 @@ Route::get('/get/certificates/{id}', [UserController::class, 'getCertificate'])-
 Route::get('/taken/certificates/{id}', [UserController::class, 'showTakenCertificates'])->name('user.takenCertificates');
 
 
-
 Route::get('/scores', [UserController::class, 'showScore'])->name('scores.index');
 Route::get('/top/passers', [UserController::class, 'showTopPassers'])->name('showTopPassers');
 
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 Route::post('/bookmark/toggle/{lesson_id}', [BookmarkController::class, 'toggle'])->name('bookmark.toggle')->middleware('auth');
 Route::get('/bookmarks/{user_id}', [BookmarkController::class, 'showBookmarks'])->name('user.bookmarks')->middleware('auth');

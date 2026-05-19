@@ -308,7 +308,7 @@ class UserController extends Controller
             'New Reactivation Request From: ' . $user->email,
 
             function ($message) {
-                $message->to('admin@gmail.com')->subject('Reactivation Request');
+                $message->to('khaingkhainglay984@gmail.com')->subject('Reactivation Request');
             }
         );
 

@@ -1,6 +1,6 @@
 <div class="card shadow-sm rounded-4 border-0 overflow-hidden">
     <div class="table-responsive">
-        <table class="table align-middle m-0">
+        <table class="table table-danger text-white align-middle m-0">
             <thead class="table-cherry-header text-uppercase small tracking-wider">
                 <tr>
                     <th class="ps-4 py-3">User Email</th>
@@ -15,7 +15,7 @@
                 @forelse($filteredRequests as $request)
                 <tr class="hover-row transition">
                     <td class="ps-4 py-3 fw-medium text-secondary">
-                        <i class="fa fa-envelope text-muted me-2 small"></i>{{ $request->email }}
+                        {{ $request->email }}
                     </td>
 
                     <td class="py-3 text small">
@@ -35,12 +35,21 @@
                     <!-- Actions (Only for Pending) -->
                     @if($type === 'pending')
                     <td class="pe-4 py-3 text-end">
-                        <a href="{{ route('reactivation.accept', $request->id) }}" class="btn btn-sm text-white px-3 rounded-3 me-1 shadow-sm transition" style="background-color: #2ecc71; border: none;">
-                            <i class="fa fa-check me-1"></i> Accept
-                        </a>
-                        <a href="{{ route('reactivation.reject', $request->id) }}" class="btn btn-sm text-white px-3 rounded-3 shadow-sm transition" style="background-color: #e74c3c; border: none;">
-                            <i class="fa fa-trash me-1"></i> Reject
-                        </a>
+                        <div class="d-flex flex-column flex-md-row gap-2 justify-content-end">
+
+                            <a href="{{ route('reactivation.accept', $request->id) }}"
+                                class="btn btn-sm text-white px-3 rounded-3 shadow-sm"
+                                style="background-color: #2ecc71;">
+                                <i class="fa fa-check me-1"></i> Accept
+                            </a>
+
+                            <a href="{{ route('reactivation.reject', $request->id) }}"
+                                class="btn btn-sm text-white px-3 rounded-3 shadow-sm"
+                                style="background-color: #e74c3c;">
+                                <i class="fa fa-trash me-1"></i> Reject
+                            </a>
+
+                        </div>
                     </td>
                     @endif
                 </tr>

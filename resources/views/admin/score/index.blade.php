@@ -36,13 +36,13 @@
 
 </style>
 
-<div class="container py-4">
-    <div class="position-relative mb-5">
-        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Certificates List</h1>
+<div class="container">
+    <div class="position-relative mb-3">
+        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Certificates' List</h1>
         <a href="{{ route('admin') }}" class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
-            <i class="fa fa-arrow-left me-2"></i>Back
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
-        </div>
+    </div>
 
     <div class="row mb-4 g-3 d-flex justify-content-center">
         <div class="col-md-2">

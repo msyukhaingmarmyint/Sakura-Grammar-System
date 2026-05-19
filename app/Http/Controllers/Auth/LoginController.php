@@ -33,7 +33,7 @@ class LoginController extends Controller
         ]);
     }
 
-    
+
     protected function attemptLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -46,26 +46,28 @@ class LoginController extends Controller
         return false;
     }
 
-    
-    protected function sendFailedLoginResponse(Request $request)
+    public function login(Request $request)
     {
+        $credentials = $request->only('email', 'password');
         $user = User::where('email', $request->email)->first();
 
-        if ($user) {
-            $errors = ['password' => 'Password is incorrect.'];
-        } else {
-            $errors = ['email' => 'This email has not been already existed.'];
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'Email has not already registered!'
+            ])->withInput();
         }
 
-        return redirect()->back()
-            ->withInput($request->only('email'))
-            ->withErrors($errors);
-    }
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors([
+                'password' => 'Password is incorrect!'
+            ])->withInput();
+        }
+        
+        Auth::login($user);
 
-    protected function authenticated(Request $request, $user)
-    {
         if ($user->status === 'inactive') {
             Auth::logout();
+
             return redirect()->back()->with([
                 'error' => 'Your account is already deactivated!',
                 'inactive_email' => $user->email
@@ -73,9 +75,9 @@ class LoginController extends Controller
         }
 
         if ($user->role === 'admin') {
-            return redirect('/admin')->with('success', 'Login Succesfully!');
+            return redirect('/admin')->with('success', 'Login Successfully!');
         }
 
-        return redirect('/')->with('success', 'Login Succesfully!');
+        return redirect('/')->with('success', 'Login Successfully!');
     }
 }

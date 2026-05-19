@@ -2,20 +2,17 @@
 
 @section('content')
 <div class="container">
-    <div class="mb-3 row justify-content-center">
-        <div class="position-relative mb-5">
-            <h1 class="fw-bold text-center justify-content-center m-0" style="color: #ff7c9d;">Reactivation Requests</h1>
-        
-        <a href="{{ route('admin') }}" class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-2">
+        <h1 class="fw-bold m-0 text-center text-md-start flex-grow-1" style="color: #ff7c9d;">User Requests' List</h1>
+
+        <a href="{{ route('admin') }}" class="btn rounded-3 text-white shadow-sm px-4 ms-auto ms-md-0" style="background-color: #6c757d;">
             <i class="fa fa-arrow-left me-2"></i>Back
         </a>
-        </div>
-
     </div>
 
     <div class="card shadow-sm rounded-4 border-0 overflow-hidden mb-4">
-        <div class="bg-white p-2">
-            <ul class="nav nav-pills nav-justified" id="requestTabs" role="tablist">
+        <div class="bg-light p-2">
+            <ul class="nav nav-pills flex-column flex-md-row gap-2" id="requestTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active fw-semibold rounded-3 py-2" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" style="color: #ff7c9d;">
                         <i class="fa fa-clock me-2"></i>Pending Requests
