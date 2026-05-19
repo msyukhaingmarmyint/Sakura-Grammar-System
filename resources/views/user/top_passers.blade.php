@@ -31,11 +31,12 @@
 
 <div class="container py-5">
     <div class="text-center mb-5 position-relative">
-        <h1 class="fw-bold">Top Passers</h1>
+        <h1 class="fw-bold" style="color: #ff7c9d;">Top Passers</h1>
         <a href="{{ auth()->check() ? (auth()->user()->role == 'admin' ? route('admin') : route('home')) : route('home') }}"
-           class="btn btn-secondary position-absolute end-0 top-0">
-            Back
+           class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
+             <i class="fa fa-arrow-left me-2"></i>Back
         </a>
+               
     </div>
 
     <div class="row justify-content-center g-4">

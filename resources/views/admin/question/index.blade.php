@@ -36,9 +36,11 @@
 
 <div class="container">
     <div class="position-relative mb-3">
-        <h1 class="fw-bold text-center">Questions' List</h1>
-        <a href="{{ route('admin') }}" class="btn btn-secondary position-absolute end-0 top-0">Back</a>
-    </div>
+        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Questions' List</h1>
+        <a href="{{ route('admin') }}" class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
+            <i class="fa fa-arrow-left me-2"></i>Back
+        </a>
+        </div>
 
     <div class="row mb-4 g-3 d-flex justify-content-center">
         <div class="col-md-2">
