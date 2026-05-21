@@ -2,12 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-2">
-        <h1 class="fw-bold m-0 text-center text-md-start flex-grow-1" style="color: #ff7c9d;">User Requests' List</h1>
-
-        <a href="{{ route('admin') }}" class="btn rounded-3 text-white shadow-sm px-4 ms-auto ms-md-0" style="background-color: #6c757d;">
-            <i class="fa fa-arrow-left me-2"></i>Back
+    <div class="position-relative mb-4">
+        <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
+        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Users Requests' List</h1>
     </div>
 
     <div class="card shadow-sm rounded-4 border-0 overflow-hidden mb-4">
@@ -19,12 +18,12 @@
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-semibold rounded-3 py-2" id="accepted-tab" data-bs-toggle="tab" data-bs-target="#accepted" type="button" role="tab" style="color: #495057;">
+                    <button class="nav-link fw-semibold rounded-3 py-2" id="accepted-tab" data-bs-toggle="tab" data-bs-target="#accepted" type="button" role="tab" style="color: #ff7c9d;">
                         <i class="fa fa-check-circle me-2"></i>Accepted Accounts
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-semibold rounded-3 py-2" id="rejected-tab" data-bs-toggle="tab" data-bs-target="#rejected" type="button" role="tab" style="color: #495057;">
+                    <button class="nav-link fw-semibold rounded-3 py-2" id="rejected-tab" data-bs-toggle="tab" data-bs-target="#rejected" type="button" role="tab" style="color: #ff7c9d;">
                         <i class="fa fa-times-circle me-2"></i>Rejected Requests
                     </button>
                 </li>

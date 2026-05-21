@@ -19,7 +19,8 @@ class ExamController extends Controller
     }
 
     public function showExam()
-    {
+    {   
+        $levels = Level::where('status','active')->with('exam')->get();
         $exams = Exam::all();
         $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
         return view('admin.exam.showExam', compact('exams', 'colors'));

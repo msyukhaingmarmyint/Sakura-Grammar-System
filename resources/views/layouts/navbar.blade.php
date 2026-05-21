@@ -101,7 +101,7 @@
                         Level
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach($levels as $level)
+                        @foreach($levels as $index => $level)
                         <li>
                             <a class="dropdown-item {{ $activeLevel === $level->name ? 'active' : '' }}"
                                 href="{{ route('lesson.byLevel', urlencode($level->name)) }}">
@@ -165,7 +165,7 @@
                         Level
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach($levels as $level)
+                        @foreach($navLevels as $index => $level)
                         <li>
                             <a class="dropdown-item {{ $activeLevel === $level->name ? 'active' : '' }}"
                                 href="{{ route('lesson.byLevel', urlencode($level->name)) }}">

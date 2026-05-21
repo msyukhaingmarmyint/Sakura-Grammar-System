@@ -87,7 +87,7 @@
 
         <button
             type="button"
-            class="btn btn-sm btn-outline-danger px-3"
+            class="btn btn-sm btn-danger px-3"
             data-bs-toggle="modal"
             data-bs-target="#deleteModal"
             data-user-id="{{ $user->id }}"

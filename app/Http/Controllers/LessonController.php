@@ -11,7 +11,7 @@ class LessonController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role:admin'])->only(['index','create','store','update','edit','changeStatus']);
+        $this->middleware(['auth', 'role:admin'])->only(['index', 'create', 'store', 'update', 'edit', 'changeStatus']);
     }
 
     public function index(Request $request)
@@ -41,12 +41,12 @@ class LessonController extends Controller
     public function store(LessonRequest $request)
     {
         Lesson::create($request->validated());
-        return redirect()->route('lessons.index')->with('success','New lesson added successfully!');
+        return redirect()->route('lessons.index')->with('success', 'New lesson added successfully!');
     }
 
     public function edit($id)
     {
-        $levels = Level::where('status','active')->get();
+        $levels = Level::where('status', 'active')->get();
         $lesson = Lesson::findOrFail($id);
         return view('admin.lesson.update', compact('levels', 'lesson'));
     }
@@ -56,7 +56,7 @@ class LessonController extends Controller
         $lesson = Lesson::findOrFail($id);
         $lesson->update($request->validated());
 
-        return redirect()->route('lessons.index')->with('success','Updated successfully!');
+        return redirect()->route('lessons.index')->with('success', 'Updated successfully!');
     }
 
     public function changeStatus($id)
@@ -69,17 +69,20 @@ class LessonController extends Controller
             $lesson->status = 'active';
         }
         $lesson->save();
-        return back()->with('success','Change status successfully!');
+        return back()->with('success', 'Change status successfully!');
     }
 
     public function showByLevel(string $name)
     {
-        $level = Level::where('name', $name)->firstOrFail();
-        $allLevels = Level::where('status', 'active')->get();
-        $lessons = $level->lessons;
+        $level = Level::where('name', $name)
+            ->where('status', 'active')
+            ->firstOrFail();
 
-        $colors = ['#ff7c9d','#e9c00a','#69c03a','#6e9ce0','#bd4af3',];
-        $levelColor = $colors[($level->id - 1 )% count($colors)];
-        return view('admin.lesson.showByLevel', compact('level', 'lessons', 'allLevels','levelColor'));
+        $lessons = $level->lessons;
+        $allLevels = Level::where('status', 'active')->get();
+
+        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3',];
+        $levelColor = $colors[($level->id - 1) % count($colors)];
+        return view('admin.lesson.showByLevel', compact('level', 'lessons', 'allLevels', 'levelColor'));
     }
 }

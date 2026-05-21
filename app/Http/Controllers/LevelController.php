@@ -18,11 +18,11 @@ class LevelController extends Controller
         $status = $request->status;
 
         if ($status == 'active') {
-            $levels = Level::where('status', 'active')->get();
+            $levels = Level::where('status', 'active')->paginate(6);
         } elseif ($status == 'inactive') {
-            $levels = Level::where('status', 'inactive')->get();
+            $levels = Level::where('status', 'inactive')->paginate(6);
         } else {
-            $levels = Level::all();
+            $levels = Level::paginate(6);
         }
 
         $totalLevels = Level::count();

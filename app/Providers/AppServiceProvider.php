@@ -25,10 +25,11 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {   Paginator::useBootstrap();
+    {
+        Paginator::useBootstrap();
 
-        View::composer('layouts.navbar', function ($view) {
-            $view->with('levels', Level::all());
+        View::composer('*', function ($view) {
+            $view->with('navLevels', Level::where('status', 'active')->get());
         });
     }
 }

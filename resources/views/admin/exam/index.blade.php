@@ -103,11 +103,11 @@
                                 @csrf
                                 @if($exam->status == 'active')
                                 <button class="btn btn-sm btn-danger">
-                                    Deactivate
+                                    Inactive
                                 </button>
                                 @else
                                 <button class="btn btn-sm btn-success">
-                                    Activate
+                                    Active
                                 </button>
                                 @endif
                             </form>
