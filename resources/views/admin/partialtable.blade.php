@@ -7,14 +7,14 @@
                     <th class="py-3">Requested At</th>
                     <th class="py-3 text-center">Status</th>
                     @if($type === 'pending')
-                    <th class="pe-4 py-3 text-end">Actions</th>
+                    <th class="py-3 text-center">Actions</th>
                     @endif
                 </tr>
             </thead>
             <tbody>
                 @forelse($filteredRequests as $request)
                 <tr class="hover-row transition">
-                    <td class="ps-4 py-3 fw-medium text-secondary">
+                    <td class="ps-4 py-3 fw-medium ">
                         {{ $request->email }}
                     </td>
 
@@ -24,19 +24,17 @@
 
                     <td class="py-3 text-center">
                         @if($type === 'pending')
-                        <span class="badge rounded-pill bg-warning text-dark px-3 py-2 small fw-semibold">Pending</span>
+                        <span class="badge   text-dark px-3 py-2 fs-6 fw-bold">Pending</span>
                         @elseif($type === 'accepted')
-                        <span class="badge rounded-pill bg-success text-white px-3 py-2 small fw-semibold">Active</span>
+                        <span class="badge   text-success px-3 py-2 fs-6 fw-bold">Active</span>
                         @else
-                        <span class="badge rounded-pill bg-danger text-white px-3 py-2 small fw-semibold">Inactive</span>
+                        <span class="badge  text-danger px-3 py-2 fs-6 fw-bold">Inactive</span>
                         @endif
                     </td>
 
-                    <!-- Actions (Only for Pending) -->
                     @if($type === 'pending')
-                    <td class="pe-4 py-3 text-end">
-                        <div class="d-flex flex-column flex-md-row gap-2 justify-content-end">
-
+                 <td class="py-3 text-center">
+                        <div class="d-flex flex-column flex-md-row gap-2 justify-content-center">
                             <a href="{{ route('reactivation.accept', $request->id) }}"
                                 class="btn btn-sm text-white px-3 rounded-3 shadow-sm"
                                 style="background-color: #2ecc71;">

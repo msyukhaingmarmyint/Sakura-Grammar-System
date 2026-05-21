@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rules\Password;
 class RegisterController extends Controller
 {
     /*
@@ -73,8 +73,27 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => [
+            'required', 
+            'string', 
+            'email', 
+            'max:255', 
+            'unique:users',
+            'regex:/^[a-zA-Z0-9.]+@gmail\.com$/i' 
+        ],
+            'password' => [
+            'required', 
+            'string', 
+            'confirmed',
+            Password::min(8)             // Enforces a secure minimum length of 12 characters
+                ->letters()               // Requires at least one letter
+                ->mixedCase()             // Requires both uppercase and lowercase letters
+                ->numbers()               // Requires at least one numeric character
+                ->symbols()               // Requires special characters (!, @, #, $, etc.)
+               
+        ],
+
+
             'password_confirmation' => ['required'],
         ], [
             'name.required' => 'Please enter your full name.',
