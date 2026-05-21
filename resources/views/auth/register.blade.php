@@ -157,8 +157,8 @@
             return;
         }
 
-        if (password.length >= 12) score += 25;
-        if (password.length >= 16) score += 15;
+        if (password.length >= 8) score += 25;
+        if (password.length >= 12) score += 15;
         if (/[A-Z]/.test(password)) score += 15; 
         if (/[a-z]/.test(password)) score += 15; 
         if (/[0-9]/.test(password)) score += 15; 

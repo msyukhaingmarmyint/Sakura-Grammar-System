@@ -59,7 +59,7 @@
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <h1 class="text-center welcome-title">
+            <h1 class="text-center welcome-title" style="color: #ff7c9d;">
                 Hello {{ Auth::user()->name }}
                 <span class="wave-hand">👋</span>
             </h1>

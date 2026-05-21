@@ -1,92 +1,103 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-5">
     <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-7 col-md-9">
 
-        <div class="col-md-7">
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-header bg-dark text-white text-center py-3 rounded-top-4">
-                    <h3 class="mb-0">Add Lesson</h3>
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-dark text-white text-center py-3 border-0">
+                    <h4 class="mb-0 fw-bold">Add New Lesson</h4>
                 </div>
 
-                <div class="card-body p-4">
+                <div class="card-body p-4 bg-white">
                     <form action="{{ route('lessons.store') }}" method="POST">
                         @csrf
-                        <div class="row mb-3">
-                            <label for="" class="form-label text-body semibold">Lesson Title</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-angle-right"></i></span>
-                                <input type="text" name="title" value="{{old('title')}}" class="form-control">
-                            </div>
-                        </div>
-                        @error('title')
-                        <p class="text-danger">{{$message}}</p>
-                        @enderror
-
-
-                        <div class="row mb-3">
-                            <label for="" class="form-label text-body semibold">Structure</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-angle-right"></i></span>
-                                <input type="text" name="structure" value="{{old('structure')}}" class="form-control">
-                            </div>
-                        </div>
-                        @error('structure')
-                        <p class="text-danger">{{$message}}</p>
-                        @enderror
-
-                        <div class="row mb-3">
-                            <label for="" class="form-label text-body semibold">Explanation</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-angle-right"></i></span>
-                                <input type="text" name="explanation" value="{{old('explanation')}}" class="form-control">
-                            </div>
-                        </div>
-                        @error('explanation')
-                        <p class="text-danger">{{$message}}</p>
-                        @enderror
-
-
-                        <div class="row mb-3">
-                            <label for="" class="form-label text-body semibold">Example</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-angle-right"></i></span>
-                                <input type="text" name="example" value="{{old('example')}}" class="form-control">
-                            </div>
-                        </div>
-                        @error('example')
-                        <p class="text-danger">{{$message}}</p>
-                        @enderror
 
                         <div class="mb-3">
-                            <label for="" class="form-label text-body semibold">Level</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-angle-right"></i></span>
-                                <select name="level_id" class="form-control">
-                                    <option value="">---Select Level---</option>
-                                    @foreach($levels as $l)
-                                    <option value="{{ $l->id }}"
-                                        {{ (string) old('level_id', $lesson->level_id ?? '') === (string) $l->id ? 'selected' : '' }}>
-                                        {{ $l->name }}
-                                    </option>
-                                    @endforeach
-                                </select><br>
+                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Lesson Title</label>
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </span>
+                                <input type="text" name="title" class="form-control bg-light border-start-0 ps-2" value="{{ old('title') }}" placeholder="e.g. Using ~てください">
                             </div>
+                            @error('title')
+                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('level_id')
-                        <p class="text-danger">
-                            {{$message}}
-                        </p>
-                        @enderror
 
-                        <button type="submit" class="btn btn-primary rounded-pill px-4">Create</button>
-                        <a href="{{route('admin')}}" class="btn btn-danger rounded-pill px-4">Cancel</a>
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Structure / Pattern</label>
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                    <i class="fa-solid fa-code-branch"></i>
+                                </span>
+                                <input type="text" name="structure" class="form-control bg-light border-start-0 ps-2" value="{{ old('structure') }}" placeholder="e.g. Verb [Te-Form] + ください">
+                            </div>
+                            @error('structure')
+                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                            @enderror
+                        </div>
 
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Explanation</label>
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </span>
+                                <input type="text" name="explanation" class="form-control bg-light border-start-0 ps-2" value="{{ old('explanation') }}" placeholder="Used when making a polite request...">
+                            </div>
+                            @error('explanation')
+                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Example Sentence</label>
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                    <i class="fa-solid fa-quote-left"></i>
+                                </span>
+                                <input type="text" name="example" class="form-control bg-light border-start-0 ps-2" value="{{ old('example') }}" placeholder="e.g. 日本語を教えてください。">
+                            </div>
+                            @error('example')
+                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Proficiency Level</label>
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                </span>
+                                <select name="level_id" class="form-select bg-light border-start-0 ps-2">
+                                    <option value="">--- Select Level ---</option>
+                                    @foreach($levels as $l)
+                                        <option value="{{ $l->id }}" {{ (string) old('level_id') === (string) $l->id ? 'selected' : '' }}>
+                                            {{ $l->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('level_id')
+                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <button type="submit" class="btn text-white px-4 rounded-3 fw-medium shadow-sm" style="background-color: #dd4c70;">
+                                Create
+                            </button>
+                            <a href="{{ route('admin') }}" class="btn btn-secondary px-4 rounded-3 fw-medium">
+                                Cancel
+                            </a>
+                        </div>
                     </form>
-
                 </div>
             </div>
+
         </div>
     </div>
 </div>
