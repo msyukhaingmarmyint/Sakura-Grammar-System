@@ -35,11 +35,11 @@
 </style>
 
 <div class="container">
-    <div class="position-relative mb-3">
-        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Levels' List</h1>
-        <a href="{{ route('admin') }}" class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
+    <div class="position-relative mb-4">
+        <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
+        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Levels' List</h1>
     </div>
 
     <div class="row mb-4 g-3 d-flex justify-content-center">
@@ -75,39 +75,36 @@
         <div class="row g-3">
             @forelse($levels as $level)
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card shadow-sm border-0">
                     <div class="card-body user-card">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h5 class="fw-bold">{{ $level->name }}</h5>
-                                <p class="text-muted mb-1">{{ $level->description }}</p>
-                                <small class="text-secondary">Level ID : {{ $level->id }}</small>
+                                <p class="mb-1">{{ $level->description }}</p>
                             </div>
 
                             <div>
                                 @if($level->status == 'active')
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge rounded-pill p-2 bg-success">Active</span>
                                 @else
-                                <span class="badge bg-danger">Inactive</span>
+                                <span class="badge rounded-pill p-2 bg-danger">Inactive</span>
                                 @endif
                             </div>
                         </div>
 
-                        <hr>
-
-                        <div class="d-flex justify-content-end">
-                            <a href="{{route('levels.edit',$level->id)}}" class="btn btn-sm btn-primary rounded-pill me-2">
+                        <div class="d-flex justify-content-start mt-3">
+                            <a href="{{route('levels.edit',$level->id)}}" class="btn btn-sm btn-primary me-2">
                                 Edit
                             </a>
                             <form action="{{route('level.status',$level->id)}}" method="POST">
                                 @csrf
                                 @if($level->status == 'active')
-                                <button class="btn btn-sm btn-danger rounded-pill">
-                                    Deactivate
+                                <button class="btn btn-sm btn-danger">
+                                    Inactive
                                 </button>
                                 @else
-                                <button class="btn btn-sm btn-success rounded-pill">
-                                    Activate
+                                <button class="btn btn-sm btn-success">
+                                    Active
                                 </button>
                                 @endif
                             </form>

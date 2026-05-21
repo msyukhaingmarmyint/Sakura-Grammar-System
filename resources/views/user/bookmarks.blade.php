@@ -4,10 +4,10 @@
 
 <div class="container">
     <div class="text-center mb-5 position-relative">
-        <h1 class="fw-bold" style="color: #ff7c9d;">Bookmark</h1>
-        <a href="{{ route('user') }}" class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
-            <i class="fa fa-arrow-left me-2"></i>Back
+        <a href="{{ route('user') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
+        <h1 class="fw-bold" style="color: #ff7c9d;">Bookmark</h1>
     </div>
 
     <div class="row justify-content-center">

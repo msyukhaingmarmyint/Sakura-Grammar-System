@@ -48,19 +48,11 @@
 </style>
 
 <div class="container">
-    <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-2">
-
-        <h1 class="fw-bold m-0 text-center text-md-start flex-grow-1"
-            style="color: #ff7c9d;">
-            Taken certificates
-        </h1>
-
-        <a href="{{ route('user') }}"
-            class="btn rounded-3 text-white shadow-sm px-4 ms-auto ms-md-0"
-            style="background-color: #6c757d;">
-            <i class="fa fa-arrow-left me-2"></i>Back
+    <div class="text-center mb-5 position-relative">
+        <a href="{{ route('user') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
-
+        <h1 class="fw-bold" style="color: #ff7c9d;">Taken Certificates</h1>
     </div>
 
     <div class="row justify-content-center">

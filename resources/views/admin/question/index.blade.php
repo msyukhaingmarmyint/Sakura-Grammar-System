@@ -35,11 +35,11 @@
 </style>
 
 <div class="container">
-    <div class="position-relative mb-3">
-        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Questions' List</h1>
-        <a href="{{ route('admin') }}" class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
+    <div class="position-relative mb-4">
+        <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
+        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Questions' List</h1>
     </div>
 
     <div class="row mb-4 g-3 d-flex justify-content-center">
@@ -80,32 +80,29 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h5 class="fw-bold">{{ $question->question }}</h5>
-                                <small class="text-secondary">Question ID : {{ $question->id }}</small>
                             </div>
 
                             <div>
                                 @if($question->status == 'active')
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge rounded-pill p-2 bg-success">Active</span>
                                 @else
-                                <span class="badge bg-danger">Inactive</span>
+                                <span class="badge rounded-pill p-2 bg-danger">Inactive</span>
                                 @endif
                             </div>
                         </div>
 
-                        <hr>
-
-                        <div class="d-flex justify-content-end">
-                            <a href="{{route('questions.edit',$question->id)}}" class="btn btn-sm btn-primary rounded-pill me-2">
+                        <div class="d-flex justify-content-start mt-3">
+                            <a href="{{route('questions.edit',$question->id)}}" class="btn btn-sm btn-primary me-2">
                                 Edit
                             </a>
                             <form action="{{route('question.status',$question->id)}}" method="POST">
                                 @csrf
                                 @if($question->status == 'active')
-                                <button class="btn btn-sm btn-danger rounded-pill">
+                                <button class="btn btn-sm btn-danger">
                                     Deactivate
                                 </button>
                                 @else
-                                 <button class="btn btn-sm btn-success rounded-pill">
+                                 <button class="btn btn-sm btn-success ">
                                     Activate
                                 </button>
                                 @endif

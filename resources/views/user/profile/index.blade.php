@@ -5,30 +5,30 @@
     <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 col-md-8">
             <div class="card shadow-sm rounded-4 overflow-hidden">
-                <div class="bg-dark text-white p-4 position-relative">
+                <div class="bg-dark text-white p-2 position-relative">
                     @if($user->role == 'user')
                     <a href="{{route('user')}}"
-                        class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3">
-                        <i class="fas fa-times"></i>
+                        class="position-absolute top-0 end-0 m-3 text-light text-decoration-none border-0 bg-transparent shadow-none">
+                        <i class="fas fa-times fs-4"></i>
                     </a>
                     @else
                     <a href="{{route('admin')}}"
-                        class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-3">
-                        <i class="fas fa-times"></i>
+                        class="position-absolute top-0 end-0 m-3 text-light text-decoration-none border-0 bg-transparent shadow-none">
+                        <i class="fas fa-times fs-4"></i>
                     </a>
                     @endif
 
-                    <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center gap-2">
                         <div>
-                            <h3 class="mb-1 fw-bold">{{ $user->name }}</h3>
-                            <p class="mb-0 text-light opacity-75">User Profile Details</p>
+                            <h3 class="ms-3 mt-2 fw-bold">{{ $user->name }}</h3>
+                            <p class="ms-3">User Profile Details</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-body p-4 p-lg-5 bg-white">
-                    <div class="mb-4">
-                        <p class="text-uppercase small fw-semibold mb-3">Personal Information</p>
+                <div class="card-body p-2 p-lg-3 bg-white">
+                    <div class="mb-4 ms-3">
+                        <h4 class="text-uppercase small fw-semibold mb-3">Personal Information</h4>
 
                         <div class="bg-light rounded-4 p-3 mb-3 border">
                             <label class="small mb-1 d-block">Full Name</label>
@@ -41,11 +41,11 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center flex-wrap gap-2 pt-3 border-top">
-                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary rounded-pill">Edit</a>
-                        <a href="{{ route('password.form') }}" class="btn btn-success rounded-pill">Change Password</a>
+                    <div class="d-flex justify-content-center flex-wrap gap-2 pt-2">
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ route('password.form') }}" class="btn btn-success">Change Password</a>
                         @if($user->role == 'user')
-                        <button class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#deactivateModal">Deactivate</button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deactivateModal">Deactivate</button>
                         @endif
                     </div>
                 </div>

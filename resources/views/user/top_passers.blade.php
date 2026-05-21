@@ -3,12 +3,12 @@
 @section('content')
 
 <div class="container">
-    <div class="text-center mb-5 position-relative">
-        <h1 class="fw-bold" style="color: #ff7c9d;">Top Passers</h1>
+    <div class="position-relative mb-4">
         <a href="{{ auth()->check() ? (auth()->user()->role == 'admin' ? route('admin') : route('home')) : route('home') }}"
-            class="btn px-4 position-absolute end-0 top-0 rounded-3 text-white shadow-sm" style="background-color: #6c757d;">
-            <i class="fa fa-arrow-left me-2"></i><span class="d-none d-sm-inline">Back</span>
+           class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
+        <h1 class="fw-bold text-center" style="color: #ff7c9d;">Top Passers</h1>
     </div>
 
     <div class="row">
