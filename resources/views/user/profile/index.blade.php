@@ -1,53 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 col-md-8">
-            <div class="card shadow-sm rounded-4 overflow-hidden">
-                <div class="bg-dark text-white p-2 position-relative">
+            <div class="card shadow rounded-4 overflow-hidden border-0">
+                
+                <!-- Card Header Banner -->
+                <div class="bg-dark text-white p-4 position-relative">
                     @if($user->role == 'user')
-                    <a href="{{route('user')}}"
-                        class="position-absolute top-0 end-0 m-3 text-light text-decoration-none border-0 bg-transparent shadow-none">
-                        <i class="fas fa-times fs-4"></i>
-                    </a>
+                        <a href="{{ route('user') }}" class="position-absolute top-0 end-0 m-3 text-light opacity-75 hover-opacity-100 transition-base">
+                            <i class="fas fa-times fs-4"></i>
+                        </a>
                     @else
-                    <a href="{{route('admin')}}"
-                        class="position-absolute top-0 end-0 m-3 text-light text-decoration-none border-0 bg-transparent shadow-none">
-                        <i class="fas fa-times fs-4"></i>
-                    </a>
+                        <a href="{{ route('admin') }}" class="position-absolute top-0 end-0 m-3 text-light opacity-75 hover-opacity-100 transition-base">
+                            <i class="fas fa-times fs-4"></i>
+                        </a>
                     @endif
 
-                    <div class="d-flex align-items-center gap-2">
-                        <div>
-                            <h3 class="ms-3 mt-2 fw-bold">{{ $user->name }}</h3>
-                            <p class="ms-3">User Profile Details</p>
-                        </div>
+                    <div class="py-2">
+                        <h3 class="mb-1 fw-bold text-truncate" style="max-width: 85%;">{{ $user->name }}</h3>
+                        <p class="mb-0 text-muted-light small text-uppercase tracking-wider">User Profile Details</p>
                     </div>
                 </div>
 
-                <div class="card-body p-2 p-lg-3 bg-white">
-                    <div class="mb-4 ms-3">
-                        <h4 class="text-uppercase small fw-semibold mb-3">Personal Information</h4>
+                <!-- Card Body -->
+                <div class="card-body p-4 bg-white">
+                    
+                    <!-- Information Section -->
+                    <div class="mb-4">
+                        <h5 class="text-uppercase small fw-bold text-muted tracking-wider mb-3">Personal Information</h5>
 
-                        <div class="bg-light rounded-4 p-3 mb-3 border">
-                            <label class="small mb-1 d-block">Full Name</label>
-                            <div class="fw-semibold fs-5">{{ $user->name }}</div>
+                        <!-- Full Name Info Block -->
+                        <div class="bg-light rounded-3 p-3 mb-3 border border-light-subtle">
+                            <label class="small text-muted mb-1 d-block fw-medium">Full Name</label>
+                            <div class="fw-semibold text-dark fs-5">{{ $user->name }}</div>
                         </div>
 
-                        <div class="bg-light rounded-4 p-3 border">
-                            <label class="small mb-1 d-block">Email Address</label>
-                            <div class="fw-semibold fs-6">{{ $user->email }}</div>
+                        <!-- Email Address Info Block -->
+                        <div class="bg-light rounded-3 p-3 border border-light-subtle">
+                            <label class="small text-muted mb-1 d-block fw-medium">Email Address</label>
+                            <div class="fw-semibold text-dark-emphasis fs-6 text-break">{{ $user->email }}</div>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center flex-wrap gap-2 pt-2">
-                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ route('password.form') }}" class="btn btn-success">Change Password</a>
+                    <!-- Action Buttons Section -->
+                    <div class="d-flex justify-content-center gap-2 pt-2">
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary px-2 fw-medium shadow-sm">
+                            Edit Profile
+                        </a>
+                        
+                        <a href="{{ route('password.form') }}" class="btn text-white px-2 fw-medium shadow-sm" style="background-color: #dd4c70;">
+                            Change Password
+                        </a>
+                        
                         @if($user->role == 'user')
-                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deactivateModal">Deactivate</button>
+                            <button class="btn btn-danger text-white px-2 fw-medium" data-bs-toggle="modal" data-bs-target="#deactivateModal">
+                                Deactivate
+                            </button>
                         @endif
                     </div>
+
                 </div>
             </div>
         </div>
@@ -56,22 +69,32 @@
 
 {{-- Modern Bootstrap Modal --}}
 <div class="modal fade" id="deactivateModal" tabindex="-1" aria-labelledby="deactivateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
             <div class="modal-body p-4 text-center">
-                <h4 class="fw-bold mb-2" id="deactivateModalLabel">Deactivate User?</h4>
-                <p class="text-muted mb-4">Are you sure you want to deactivate <strong>{{ $user->name }}</strong>? </p>
+                <!-- Warning Visual Element -->
+                <div class="text-danger mb-3">
+                    <i class="fas fa-exclamation-circle fs-1"></i>
+                </div>
+                <h4 class="fw-bold text-dark mb-2" id="deactivateModalLabel">Deactivate Account?</h4>
+                <p class="text-muted small mb-4">Are you sure you want to deactivate <strong>{{ $user->name }}</strong>? This action can restrict application access.</p>
 
                 <div class="d-flex justify-content-center gap-2">
-                    <button type="button" class="btn btn-light border " data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-light border px-3 fw-medium" data-bs-dismiss="modal">Cancel</button>
 
-                    <form action="{{ route('user.status', $user->id) }}" method="POST">
+                    <form action="{{ route('user.status', $user->id) }}" method="POST" class="m-0">
                         @csrf
-                        <button type="submit" class="btn btn-danger ">Yes, Deactivate</button>
+                        <button type="submit" class="btn btn-danger px-3 rounded-3 fw-medium shadow-sm">Yes, Deactivate</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .transition-base { transition: all 0.2s ease-in-out; }
+    .hover-opacity-100:hover { opacity: 1 !important; }
+    .text-muted-light { color: rgba(255, 255, 255, 0.7); }
+</style>
 @endsection
