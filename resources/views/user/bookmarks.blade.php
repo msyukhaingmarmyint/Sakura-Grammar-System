@@ -7,33 +7,57 @@
         <a href="{{ route('user') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
+
         <h1 class="fw-bold" style="color: #ff7c9d;">Bookmark</h1>
     </div>
 
     <div class="row justify-content-center">
-        @if($bookmarks->count() > 0)
-        @foreach($bookmarks as $bookmark)
-        <div class="card p-3 mb-2 position-relative" style="border-color: #ff7c9d; background-color : #fff">
-            <h4>{{$loop->iteration}}. {{ $bookmark->lesson->title ?? 'No title' }}</h4>
-            <form action="{{ route('bookmark.destroy', $bookmark->id) }}" method="POST"
-                class="position-absolute top-0 end-0 m-3">
-                @csrf
-                @method('DELETE')
 
-                <button type="submit" style="border: none; background: none;">
-                    <i class="bi bi-x" style="font-size: 23px;"></i>
-                </button>
+        @forelse($bookmarks as $bookmark)
 
-            </form>
-            <p><span style="font-weight : bold">Structure :</span> {{ $bookmark->lesson->structure }}</p>
-            <p><span style="font-weight : bold">Explanation :</span>{{ $bookmark->lesson->explanation }}</p>
-            <p><span style="font-weight : bold">Example : </span>{{ $bookmark->lesson->example }}</p>
-        </div>
-        @endforeach
-        @else
-        <p>No bookmarks found.</p>
-        @endif
+            @php
+                $lesson = $bookmark->lesson;
+                $level = $lesson?->level;
+                $isInactive = !$lesson || $lesson->status !== 'active' || ($level && $level->status !== 'active');
+            @endphp
+
+            <div class="card p-3 mb-3 position-relative"
+                 style="border-color: #ff7c9d; background-color:#fff;">
+
+                <form action="{{ route('bookmark.destroy', $bookmark->id) }}"
+                      method="POST"
+                      class="position-absolute top-0 end-0 m-3">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" style="border:none; background:none;">
+                        <i class="bi bi-x text-dark" style="font-size: 23px;"></i>
+                    </button>
+                </form>
+
+                <h4>
+                    {{ $loop->iteration }}.
+                    {{ $lesson->title ?? 'Deleted / Inactive Lesson' }}
+
+                    @if($isInactive)
+                        <span class="badge bg-danger ms-2">Inactive</span>
+                    @endif
+                </h4>
+
+                @if($isInactive)
+                    <p class="text-danger">Sorry! This lesson is no available now.</p>
+                @else
+                    <p><strong>Structure:</strong> {{ $lesson->structure}}</p>
+                    <p><strong>Explanation:</strong> {{ $lesson->explanation }}</p>
+                    <p><strong>Example:</strong> {{ $lesson->example }}</p>
+                @endif
+            </div>
+
+        @empty
+            <p class="text-center">No bookmarks found.</p>
+        @endforelse
+
     </div>
 </div>
-</div>
+
 @endsection

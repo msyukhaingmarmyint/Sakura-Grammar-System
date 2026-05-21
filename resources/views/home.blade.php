@@ -97,156 +97,156 @@
     </section>
 
 
-   <section id="jlpt" class="mb-5 pt-3">
-    <div class="container">
-        <h1 class="fw-bold text-center mb-5">Information About JLPT</h1>
-        
-        <!-- Cards Grid Row -->
-        <div class="row justify-content-center g-4">
-            
-            <!-- Card 1: What is JLPT -->
-            <div class="col-xl-4 col-md-6 d-flex">
-                <div class="card bg-white shadow-sm rounded-4 overflow-hidden border-1 w-100 d-flex flex-column">
-                    <img src="{{ asset('img/jlpt1.png') }}" class="card-img-top bg-light-subtle p-3" style="height: 220px; object-fit: contain; width: 100%;" alt="What is JLPT">
-                    
-                    <!-- Centered Flex Body Wrapper -->
-                    <div class="card-body p-4 d-flex flex-column align-items-center text-center justify-content-between flex-grow-1">
-                        <div>
-                            <h4 class="card-title fw-bold text-dark mb-2">What is the JLPT?</h4>
-                            <p class="small mb-0 ">Learn about the 5 structural language levels of the exam.</p>
+    <section id="jlpt" class="mb-5 pt-3">
+        <div class="container">
+            <h1 class="fw-bold text-center mb-5">Information About JLPT</h1>
+
+            <!-- Cards Grid Row -->
+            <div class="row justify-content-center g-4">
+
+                <!-- Card 1: What is JLPT -->
+                <div class="col-xl-4 col-md-6 d-flex">
+                    <div class="card bg-white border-dark shadow-sm rounded-4 overflow-hidden border-1 w-100 d-flex flex-column">
+                        <img src="{{ asset('img/jlpt1.png') }}" class="card-img-top p-3" style="height: 220px; object-fit: contain; width: 100%;" alt="What is JLPT">
+
+                        <!-- Centered Flex Body Wrapper -->
+                        <div class="card-body p-4 d-flex flex-column align-items-center text-center justify-content-between flex-grow-1">
+                            <div>
+                                <h4 class="card-title fw-bold text-dark mb-2">What is the JLPT?</h4>
+                                <p class="small mb-0 ">Learn about the 5 structural language levels of the exam.</p>
+                            </div>
+
+                            <!-- Perfectly Centered Action Button -->
+                            <div class="pt-4 w-100">
+                                <button type="button" class="btn card-btn text-white px-4 fw-medium shadow-sm" data-bs-toggle="modal" data-bs-target="#info1">
+                                    Read More
+                                </button>
+                            </div>
                         </div>
-                        
-                        <!-- Perfectly Centered Action Button -->
-                        <div class="pt-4 w-100">
-                            <button type="button" class="btn card-btn text-white px-4 fw-medium shadow-sm"  data-bs-toggle="modal" data-bs-target="#info1">
-                                Read More
-                            </button>
+                    </div>
+
+                    <!-- Modal 1 -->
+                    <div class="modal fade" id="info1" tabindex="-1" aria-labelledby="info1Label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 rounded-4 shadow-lg">
+                                <div class="modal-header bg-dark text-white rounded-top-4 py-3">
+                                    <h5 class="modal-title fw-bold" id="info1Label">What is the JLPT?</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-4 text-secondary text-start">
+                                    <p class="mb-0">The JLPT is composed of 5 different levels, from N1 to N5, with N5 being the most basic and N1 being the most advanced. The content on this website is organized and divided based on these ability levels, so you can easily find lessons specific to your level.</p>
+                                </div>
+                                <div class="modal-footer border-0  pt-0 px-4 pb-4 justify-content-center">
+                                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Modal 1 -->
-                <div class="modal fade" id="info1" tabindex="-1" aria-labelledby="info1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content border-0 rounded-4 shadow-lg">
-                            <div class="modal-header bg-dark text-white rounded-top-4 py-3">
-                                <h5 class="modal-title fw-bold" id="info1Label">What is the JLPT?</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Card 2: What is CEFR -->
+                <div class="col-xl-4 col-md-6 d-flex">
+                    <div class="card bg-white border-dark shadow-sm rounded-4 overflow-hidden border-1 w-100 d-flex flex-column">
+                        <img src="{{ asset('img/jlpt2.png') }}" class="card-img-top p-3" style="height: 220px; object-fit: contain; width: 100%;" alt="What is CEFR">
+
+                        <!-- Centered Flex Body Wrapper -->
+                        <div class="card-body p-4 d-flex flex-column align-items-center text-center justify-content-between flex-grow-1">
+                            <div>
+                                <h4 class="card-title fw-bold text-dark mb-2">What is the CEFR?</h4>
+                                <p class=" small mb-0">See how JLPT scaling maps to global framework standards.</p>
                             </div>
-                            <div class="modal-body p-4 text-secondary text-start">
-                                <p class="mb-0">The JLPT is composed of 5 different levels, from N1 to N5, with N5 being the most basic and N1 being the most advanced. The content on this website is organized and divided based on these ability levels, so you can easily find lessons specific to your level.</p>
+
+                            <!-- Perfectly Centered Action Button -->
+                            <div class="pt-4 w-100">
+                                <button type="button" class="btn card-btn text-white px-4 fw-medium shadow-sm" data-bs-toggle="modal" data-bs-target="#info2">
+                                    Read More
+                                </button>
                             </div>
-                           <div class="modal-footer border-0  pt-0 px-4 pb-4 justify-content-center">
-                                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                    <!-- Modal 2 -->
+                    <div class="modal fade" id="info2" tabindex="-1" aria-labelledby="info2Label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 rounded-4 shadow-lg">
+                                <div class="modal-header bg-dark text-white rounded-top-4 py-3">
+                                    <h5 class="modal-title fw-bold" id="info2Label">What is the CEFR?</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-4 text-secondary text-start">
+                                    <p class="mb-3 fw-semibold text-dark small">The approximate CEFR level framework mapping corresponding to your minimum passing score criteria:</p>
+                                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+                                        <li><span class="badge bg-secondary me-2">N5</span> Score ≥ 80 is mapped to <strong>A1</strong></li>
+                                        <li><span class="badge bg-secondary me-2">N4</span> Score ≥ 90 is mapped to <strong>A2</strong></li>
+                                        <li><span class="badge bg-secondary me-2">N3</span> Score 95–103 maps to <strong>A2</strong>, and ≥ 104 to <strong>B1</strong></li>
+                                        <li><span class="badge bg-secondary me-2">N2</span> Score 90–111 maps to <strong>B1</strong>, and ≥ 112 to <strong>B2</strong></li>
+                                        <li><span class="badge bg-secondary me-2">N1</span> Score 100–141 maps to <strong>B2</strong>, and ≥ 142 to <strong>C1</strong></li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer border-0 pt-0 px-4 pb-4 justify-content-center">
+                                    <button type="button" class="btn btn-secondary px-4 fw-medium" data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Card 2: What is CEFR -->
-            <div class="col-xl-4 col-md-6 d-flex">
-                <div class="card bg-white shadow-sm rounded-4 overflow-hidden border-1 w-100 d-flex flex-column">
-                    <img src="{{ asset('img/jlpt2.png') }}" class="card-img-top bg-light-subtle p-3" style="height: 220px; object-fit: contain; width: 100%;" alt="What is CEFR">
-                    
-                    <!-- Centered Flex Body Wrapper -->
-                    <div class="card-body p-4 d-flex flex-column align-items-center text-center justify-content-between flex-grow-1">
-                        <div>
-                            <h4 class="card-title fw-bold text-dark mb-2">What is the CEFR?</h4>
-                            <p class=" small mb-0">See how JLPT scaling maps to global framework standards.</p>
+                <!-- Card 3: Benefits of JLPT -->
+                <div class="col-xl-4 col-md-6 d-flex">
+                    <div class="card bg-white border-dark shadow-sm rounded-4 overflow-hidden border-1 w-100 d-flex flex-column">
+                        <img src="{{ asset('img/jlpt3.avif') }}" class="card-img-top p-3" style="height: 220px; object-fit: contain; width: 100%;" alt="Benefits of JLPT">
+
+                        <!-- Centered Flex Body Wrapper -->
+                        <div class="card-body p-4 d-flex flex-column align-items-center text-center justify-content-between flex-grow-1">
+                            <div>
+                                <h4 class="card-title fw-bold text-dark mb-2">Benefits of JLPT</h4>
+                                <p class=" small mb-0">Discover career opportunities and tracking advantages.</p>
+                            </div>
+
+                            <!-- Perfectly Centered Action Button -->
+                            <div class="pt-4 w-100">
+                                <button type="button" class="btn card-btn text-white px-4 fw-medium shadow-sm" data-bs-toggle="modal" data-bs-target="#info3">
+                                    Read More
+                                </button>
+                            </div>
                         </div>
-                        
-                        <!-- Perfectly Centered Action Button -->
-                        <div class="pt-4 w-100">
-                            <button type="button" class="btn card-btn text-white px-4 fw-medium shadow-sm"  data-bs-toggle="modal" data-bs-target="#info2">
-                                Read More
-                            </button>
+                    </div>
+
+                    <!-- Modal 3 -->
+                    <div class="modal fade" id="info3" tabindex="-1" aria-labelledby="info3Label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 rounded-4 shadow-lg">
+                                <div class="modal-header bg-dark text-white rounded-top-4 py-3">
+                                    <h5 class="modal-title fw-bold" id="info3Label">Benefits of JLPT</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-4 text-secondary text-start">
+                                    <ol class="ps-3 mb-0 d-flex flex-column gap-3 small">
+                                        <li>
+                                            <strong class="text-dark d-block mb-1">Increased Employment Opportunities</strong>
+                                            <p class="text-muted mb-0">English teaching jobs are common in Japan, but for technical, corporate, or development careers, JLPT certifications are almost always a strict prerequisite to apply.</p>
+                                        </li>
+                                        <li>
+                                            <strong class="text-dark d-block mb-1">Increased Salary Negotiation</strong>
+                                            <p class="text-muted mb-0">Advanced business language competency directly empowers you to negotiate significantly higher base salaries and professional corporate allowances.</p>
+                                        </li>
+                                        <li>
+                                            <strong class="text-dark d-block mb-1">Individual Ability Gauge</strong>
+                                            <p class="text-muted mb-0">Even when studying for personal enjoyment, the structural curriculum serves as an excellent milestone matrix to track your proficiency goals.</p>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="modal-footer border-0 pt-0 px-4 pb-4 justify-content-center">
+                                    <button type="button" class="btn btn-secondary px-4 " data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Modal 2 -->
-              <div class="modal fade" id="info2" tabindex="-1" aria-labelledby="info2Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow-lg">
-            <div class="modal-header bg-dark text-white rounded-top-4 py-3">
-                <h5 class="modal-title fw-bold" id="info2Label">What is the CEFR?</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4 text-secondary text-start">
-                <p class="mb-3 fw-semibold text-dark small">The approximate CEFR level framework mapping corresponding to your minimum passing score criteria:</p>
-                <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
-                    <li><span class="badge bg-secondary me-2">N5</span> Score ≥ 80 is mapped to <strong>A1</strong></li>
-                    <li><span class="badge bg-secondary me-2">N4</span> Score ≥ 90 is mapped to <strong>A2</strong></li>
-                    <li><span class="badge bg-secondary me-2">N3</span> Score 95–103 maps to <strong>A2</strong>, and ≥ 104 to <strong>B1</strong></li>
-                    <li><span class="badge bg-secondary me-2">N2</span> Score 90–111 maps to <strong>B1</strong>, and ≥ 112 to <strong>B2</strong></li>
-                    <li><span class="badge bg-secondary me-2">N1</span> Score 100–141 maps to <strong>B2</strong>, and ≥ 142 to <strong>C1</strong></li>
-                </ul>
-            </div>
-            <div class="modal-footer border-0 pt-0 px-4 pb-4 justify-content-center">
-                <button type="button" class="btn btn-secondary px-4 fw-medium" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-    </div>
-</div>
-            </div>
-
-            <!-- Card 3: Benefits of JLPT -->
-            <div class="col-xl-4 col-md-6 d-flex">
-                <div class="card bg-white shadow-sm rounded-4 overflow-hidden border-1 w-100 d-flex flex-column">
-                    <img src="{{ asset('img/jlpt3.avif') }}" class="card-img-top bg-light-subtle p-3" style="height: 220px; object-fit: contain; width: 100%;" alt="Benefits of JLPT">
-                    
-                    <!-- Centered Flex Body Wrapper -->
-                    <div class="card-body p-4 d-flex flex-column align-items-center text-center justify-content-between flex-grow-1">
-                        <div>
-                            <h4 class="card-title fw-bold text-dark mb-2">Benefits of JLPT</h4>
-                            <p class=" small mb-0">Discover career opportunities and tracking advantages.</p>
-                        </div>
-                        
-                        <!-- Perfectly Centered Action Button -->
-                        <div class="pt-4 w-100">
-                            <button type="button" class="btn card-btn text-white px-4 fw-medium shadow-sm"  data-bs-toggle="modal" data-bs-target="#info3">
-                                Read More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal 3 -->
-                <div class="modal fade" id="info3" tabindex="-1" aria-labelledby="info3Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content border-0 rounded-4 shadow-lg">
-                            <div class="modal-header bg-dark text-white rounded-top-4 py-3">
-                                <h5 class="modal-title fw-bold" id="info3Label">Benefits of JLPT</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-4 text-secondary text-start">
-                                <ol class="ps-3 mb-0 d-flex flex-column gap-3 small">
-                                    <li>
-                                        <strong class="text-dark d-block mb-1">Increased Employment Opportunities</strong>
-                                        <p class="text-muted mb-0">English teaching jobs are common in Japan, but for technical, corporate, or development careers, JLPT certifications are almost always a strict prerequisite to apply.</p>
-                                    </li>
-                                    <li>
-                                        <strong class="text-dark d-block mb-1">Increased Salary Negotiation</strong>
-                                        <p class="text-muted mb-0">Advanced business language competency directly empowers you to negotiate significantly higher base salaries and professional corporate allowances.</p>
-                                    </li>
-                                    <li>
-                                        <strong class="text-dark d-block mb-1">Individual Ability Gauge</strong>
-                                        <p class="text-muted mb-0">Even when studying for personal enjoyment, the structural curriculum serves as an excellent milestone matrix to track your proficiency goals.</p>
-                                    </li>
-                                </ol>
-                            </div>
-                            <div class="modal-footer border-0 pt-0 px-4 pb-4 justify-content-center">
-                                <button type="button" class="btn btn-secondary px-4 " data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="pt-3">

@@ -20,7 +20,7 @@
 
                     <div class="py-2">
                         <h3 class="mb-1 fw-bold text-truncate" style="max-width: 85%;">{{ $user->name }}</h3>
-                        <p class="mb-0 text-muted-light small text-uppercase tracking-wider">User Profile Details</p>
+                        <p class="mb-0 text-white small text-uppercase tracking-wider">User Profile Details</p>
                     </div>
                 </div>
 
@@ -29,18 +29,18 @@
                     
                     <!-- Information Section -->
                     <div class="mb-4">
-                        <h5 class="text-uppercase small fw-bold text-muted tracking-wider mb-3">Personal Information</h5>
+                        <h5 class="text-uppercase small fw-bold text-dark tracking-wider mb-3">Personal Information</h5>
 
                         <!-- Full Name Info Block -->
                         <div class="bg-light rounded-3 p-3 mb-3 border border-light-subtle">
-                            <label class="small text-muted mb-1 d-block fw-medium">Full Name</label>
+                            <label class="small text-dark mb-1 d-block fw-medium">Full Name</label>
                             <div class="fw-semibold text-dark fs-5">{{ $user->name }}</div>
                         </div>
 
                         <!-- Email Address Info Block -->
                         <div class="bg-light rounded-3 p-3 border border-light-subtle">
-                            <label class="small text-muted mb-1 d-block fw-medium">Email Address</label>
-                            <div class="fw-semibold text-dark-emphasis fs-6 text-break">{{ $user->email }}</div>
+                            <label class="small text-dark mb-1 d-block fw-medium">Email Address</label>
+                            <div class="fw-semibold text-dark fs-6 text-break">{{ $user->email }}</div>
                         </div>
                     </div>
 
@@ -77,7 +77,7 @@
                     <i class="fas fa-exclamation-circle fs-1"></i>
                 </div>
                 <h4 class="fw-bold text-dark mb-2" id="deactivateModalLabel">Deactivate Account?</h4>
-                <p class="text-muted small mb-4">Are you sure you want to deactivate <strong>{{ $user->name }}</strong>? This action can restrict application access.</p>
+                <p class="text-dark small mb-4">Are you sure you want to deactivate <strong>{{ $user->name }}</strong>? This action can restrict application access.</p>
 
                 <div class="d-flex justify-content-center gap-2">
                     <button type="button" class="btn btn-light border px-3 fw-medium" data-bs-dismiss="modal">Cancel</button>
@@ -95,6 +95,6 @@
 <style>
     .transition-base { transition: all 0.2s ease-in-out; }
     .hover-opacity-100:hover { opacity: 1 !important; }
-    .text-muted-light { color: rgba(255, 255, 255, 0.7); }
+    .text-dark-light { color: rgba(255, 255, 255, 0.7); }
 </style>
 @endsection

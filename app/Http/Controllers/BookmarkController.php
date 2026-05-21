@@ -31,9 +31,9 @@ class BookmarkController extends Controller
 
     public function showBookmarks($user_id)
     {
-        $bookmarks = Bookmark::with('lesson')
-            ->where('user_id', $user_id)
-            ->get();
+        $bookmarks = Bookmark::with(['lesson.level'])
+                            ->where('user_id', $user_id)
+                            ->get();
         return view('user.bookmarks', compact('bookmarks'));
     }
 
