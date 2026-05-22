@@ -37,7 +37,7 @@
                                     <span class="input-group-text bg-light border-end-0">
                                         <input type="radio" name="correct_option" value="0" class="form-check-input mt-0" checked>
                                     </span>
-                                    <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" placeholder="Option 1" required>
+                                    <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" placeholder="Option 1">
                                     <button type="button" class="btn btn-danger border-start-0 px-3 remove-option">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
@@ -47,7 +47,7 @@
                                     <span class="input-group-text bg-light border-end-0">
                                         <input type="radio" name="correct_option" value="1" class="form-check-input mt-0">
                                     </span>
-                                    <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" placeholder="Option 2" required>
+                                    <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" placeholder="Option 2">
                                     <button type="button" class="btn btn-danger border-start-0 px-3 remove-option">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
