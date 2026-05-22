@@ -18,29 +18,29 @@
 
                         <!-- Name Input Field -->
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Name</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Name</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-user"></i>
                                 </span>
-                                <input type="text" name="name" class="form-control bg-light border-start-0 ps-2" value="{{ old('name', $user->name) }}">
+                                <input type="text" name="name" class="form-control  border-start-0 ps-2" value="{{ old('name', $user->name) }}">
                             </div>
                             @error('name')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <!-- Email Input Field -->
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Email Address</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Email Address</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-envelope"></i>
                                 </span>
-                                <input type="email" name="email" class="form-control bg-light border-start-0 ps-2" value="{{ old('email', $user->email) }}">
+                                <input type="email" name="email" class="form-control  border-start-0 ps-2" value="{{ old('email', $user->email) }}">
                             </div>
                             @error('email')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 

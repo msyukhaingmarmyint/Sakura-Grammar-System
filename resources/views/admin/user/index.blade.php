@@ -6,7 +6,7 @@
 
     <div class="position-relative mb-4">
         <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
-            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span>
 
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Users' List</h1>
@@ -77,28 +77,28 @@
                                     <span class="badge text-danger fs-6 fw-bold px-3 py-2">Inactive</span>
                                     @endif
                                 </td>
-<td class="py-3 text-center">
-    @if($user->status == 'inactive')
-    <div class="d-flex justify-content-center gap-2">
-        <form action="{{ route('users.status', $user->id) }}" method="POST" class="d-inline">
-            @csrf
-            <button class="btn btn-sm btn-success  px-3 shadow-sm">Activate</button>
-        </form>
+                                <td class="py-3 text-center">
+                                    @if($user->status == 'inactive')
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <form action="{{ route('users.status', $user->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button class="btn btn-sm btn-success  px-3 shadow-sm">Activate</button>
+                                        </form>
 
-        <button
-            type="button"
-            class="btn btn-sm btn-danger px-3"
-            data-bs-toggle="modal"
-            data-bs-target="#deleteModal"
-            data-user-id="{{ $user->id }}"
-            data-user-name="{{ $user->name }}">
-            Delete
-        </button>
-    </div>
-    @else
-    <span class="text-muted small fw-bold">-</span>
-    @endif
-</td>
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-danger px-3"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal"
+                                            data-user-id="{{ $user->id }}"
+                                            data-user-name="{{ $user->name }}">
+                                            Delete
+                                        </button>
+                                    </div>
+                                    @else
+                                    <span class="text-muted small fw-bold">-</span>
+                                    @endif
+                                </td>
                             </tr>
                             @empty
                             <tr>
@@ -166,7 +166,7 @@
         transition: 0.3s;
     }
 
- 
+
 
     .stats-card:hover {
         transform: translateY(-3px);
