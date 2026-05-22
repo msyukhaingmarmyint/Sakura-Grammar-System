@@ -9,9 +9,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Sakura Grammar</title>
-    <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
+<link rel="icon" type="image/png"  href="{{ asset('favicon.png') }}">
 
-    <!-- Scripts -->
+    <!-- Scripts --> 
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
     <!-- Fonts -->
