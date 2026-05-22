@@ -16,38 +16,38 @@
                         @method('PUT')
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Title</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Title</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-file-signature"></i>
                                 </span>
-                                <input type="text" name="title" class="form-control bg-light border-start-0 ps-2" value="{{ old('title', $exam->title) }}" required>
+                                <input type="text" name="title" class="form-control border-start-0 ps-2" value="{{ old('title', $exam->title) }}" required>
                             </div>
                             @error('title')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Pass Mark</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Pass Mark</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
-                                    <i class="fa-solid fa-award"></i>
+                                <span class="input-group-text bg-light border-end-0 text-dark">
+                                    <i class="fa-solid fa-award fa-lg"></i>
                                 </span>
-                                <input type="number" name="pass_mark" class="form-control bg-light border-start-0 ps-2" value="{{ old('pass_mark', $exam->pass_mark) }}" required>
+                                <input type="number" name="pass_mark" class="form-control border-start-0 ps-2" value="{{ old('pass_mark', $exam->pass_mark) }}" required>
                             </div>
                             @error('pass_mark')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Level Name</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Level Name</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-layer-group"></i>
                                 </span>
-                                <select name="level_id" class="form-select bg-light border-start-0 ps-2" required>
+                                <select name="level_id" class="form-select border-start-0 ps-2" required>
                                     @foreach($levels as $l)
                                         <option value="{{ $l->id }}" {{ old('level_id', $exam->level_id) == $l->id ? 'selected' : '' }}>
                                             {{ $l->name }}
@@ -56,7 +56,7 @@
                                 </select>
                             </div>
                             @error('level_id')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 

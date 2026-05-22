@@ -15,21 +15,21 @@
                         @csrf
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Question Text</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Question Text</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-circle-question"></i>
                                 </span>
-                                <input type="text" name="question" class="form-control bg-light border-start-0 ps-2" value="{{ old('question') }}" placeholder="Enter the examination question">
+                                <input type="text" name="question" class="form-control border-start-0 ps-2" value="{{ old('question') }}" placeholder="Enter the examination question">
                             </div>
                             @error('question')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-2">
-                                <i class="fa-solid fa-list-ul me-1"></i> Options (Select the Radio for Correct Answer)
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-2">
+                                Options (Select the Radio for Correct Answer)
                             </label>
 
                             <div id="options-wrapper">
@@ -37,7 +37,7 @@
                                     <span class="input-group-text bg-light border-end-0">
                                         <input type="radio" name="correct_option" value="0" class="form-check-input mt-0" checked>
                                     </span>
-                                    <input type="text" name="options[]" class="form-control bg-light border-start-0 border-end-0 ps-2" placeholder="Option 1" required>
+                                    <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" placeholder="Option 1" required>
                                     <button type="button" class="btn btn-danger border-start-0 px-3 remove-option">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
@@ -47,7 +47,7 @@
                                     <span class="input-group-text bg-light border-end-0">
                                         <input type="radio" name="correct_option" value="1" class="form-check-input mt-0">
                                     </span>
-                                    <input type="text" name="options[]" class="form-control bg-light border-start-0 border-end-0 ps-2" placeholder="Option 2" required>
+                                    <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" placeholder="Option 2" required>
                                     <button type="button" class="btn btn-danger border-start-0 px-3 remove-option">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
@@ -55,7 +55,7 @@
                             </div>
 
                             @error('options.*')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
 
                             <button type="button" id="add-option" class="btn btn-sm btn-dark rounded-2 px-3 mt-2 shadow-sm">
@@ -64,12 +64,12 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Assign to Exam</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Assign to Exam</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-file-signature"></i>
                                 </span>
-                                <select name="exam_id" class="form-select bg-light border-start-0 ps-2">
+                                <select name="exam_id" class="form-select border-start-0 ps-2">
                                     <option value="">Select Target Exam</option>
                                     @foreach($exams as $exam)
                                         <option value="{{ $exam->id }}" {{ old('exam_id') == $exam->id ? 'selected' : '' }}>
@@ -79,7 +79,7 @@
                                 </select>
                             </div>
                             @error('exam_id')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
@@ -112,8 +112,8 @@
             <span class="input-group-text bg-light border-end-0">
                 <input type="radio" name="correct_option" value="${optionIndex}" class="form-check-input mt-0">
             </span>
-            <input type="text" name="options[]" class="form-control bg-light border-start-0 border-end-0 ps-2" placeholder="Option ${optionIndex + 1}" required>
-            <button type="button" class="btn btn-outline-danger border-start-0 px-3 remove-option">
+            <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" placeholder="Option ${optionIndex + 1}" required>
+            <button type="button" class="btn btn-danger border-start-0 px-3 remove-option">
                 <i class="fa-solid fa-xmark"></i>
             </button>`;
 

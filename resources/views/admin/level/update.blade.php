@@ -16,34 +16,34 @@
                         @method('PUT')
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Name</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Name</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-layer-group"></i>
                                 </span>
-                                <input type="text" name="name" class="form-control bg-light border-start-0 ps-2" value="{{ old('name', $level->name) }}">
+                                <input type="text" name="name" class="form-control  border-start-0 ps-2" value="{{ old('name', $level->name) }}">
                             </div>
                             @error('name')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Description</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Description</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-align-left"></i>
                                 </span>
-                                <input type="text" name="description" class="form-control bg-light border-start-0 ps-2" value="{{ old('description', $level->description) }}">
+                                <input type="text" name="description" class="form-control  border-start-0 ps-2" value="{{ old('description', $level->description) }}">
                             </div>
                             @error('description')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="d-flex justify-content-center gap-2 mt-4">
                             <button type="submit" class="btn text-white px-4 rounded-3 fw-medium shadow-sm" style="background-color: #dd4c70;">
-                                Update
+                                Update Level
                             </button>
                             <a href="{{ route('levels.index') }}" class="btn btn-secondary px-4 rounded-3 fw-medium">
                                 Cancel

@@ -15,38 +15,38 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Exam Title</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Exam Title</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-file-signature"></i>
                                 </span>
-                                <input type="text" name="title" class="form-control bg-light border-start-0 ps-2" value="{{ old('title') }}" placeholder="e.g. N4 Examination">
+                                <input type="text" name="title" class="form-control border-start-0 ps-2" value="{{ old('title') }}" placeholder="e.g. N4 Examination">
                             </div>
                             @error('title')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Passing Score / Mark</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Passing Score / Mark</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
-                                    <i class="fa-solid fa-award"></i>
+                                <span class="input-group-text bg-light border-end-0 text-dark text-center">
+                                    <i class="fa-solid fa-award fa-lg"></i>
                                 </span>
-                                <input type="text" name="pass_mark" class="form-control bg-light border-start-0 ps-2" value="{{ old('pass_mark') }}" placeholder="e.g. 50">
+                                <input type="text" name="pass_mark" class="form-control border-start-0 ps-2" value="{{ old('pass_mark') }}" placeholder="e.g. 50">
                             </div>
                             @error('pass_mark')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Proficiency Level</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Proficiency Level</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-layer-group"></i>
                                 </span>
-                                <select name="level_id" class="form-select bg-light border-start-0 ps-2">
+                                <select name="level_id" class="form-select border-start-0 ps-2">
                                     <option value="">--- Select Level ---</option>
                                     @foreach($levels as $l)
                                         <option value="{{ $l->id }}" {{ (string) old('level_id', $lesson->level_id ?? '') === (string) $l->id ? 'selected' : '' }}>
@@ -56,7 +56,7 @@
                                 </select>
                             </div>
                             @error('level_id')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 

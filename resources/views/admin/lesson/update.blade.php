@@ -16,64 +16,64 @@
                         @method('PUT')
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Title</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Title</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-book-open"></i>
                                 </span>
-                                <input type="text" name="title" class="form-control bg-light border-start-0 ps-2" value="{{ old('title', $lesson->title) }}">
+                                <input type="text" name="title" class="form-control border-start-0 ps-2" value="{{ old('title', $lesson->title) }}">
                             </div>
                             @error('title')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Structure</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Structure</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
-                                    <i class="fa-solid fa-code-branch"></i>
+                                <span class="input-group-text bg-light border-end-0 text-dark">
+                                    <i class="fa-solid fa-code-branch fa-lg"></i>
                                 </span>
-                                <input type="text" name="structure" class="form-control bg-light border-start-0 ps-2" value="{{ old('structure', $lesson->structure) }}">
+                                <input type="text" name="structure" class="form-control border-start-0 ps-2" value="{{ old('structure', $lesson->structure) }}">
                             </div>
                             @error('structure')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Explanation</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Explanation</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-circle-info"></i>
                                 </span>
-                                <input type="text" name="explanation" class="form-control bg-light border-start-0 ps-2" value="{{ old('explanation', $lesson->explanation) }}">
+                                <input type="text" name="explanation" class="form-control border-start-0 ps-2" value="{{ old('explanation', $lesson->explanation) }}">
                             </div>
                             @error('explanation')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Example</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Example</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
-                                    <i class="fa-solid fa-quote-left"></i>
+                                <span class="input-group-text bg-light border-end-0 text-dark">
+                                    <i class="fa-solid fa-quote-left fa-lg"></i>
                                 </span>
-                                <input type="text" name="example" class="form-control bg-light border-start-0 ps-2" value="{{ old('example', $lesson->example) }}">
+                                <input type="text" name="example" class="form-control border-start-0 ps-2" value="{{ old('example', $lesson->example) }}">
                             </div>
                             @error('example')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-muted small fw-bold text-uppercase tracking-wider mb-1">Level Name</label>
+                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Level Name</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-layer-group"></i>
                                 </span>
-                                <select name="level_id" class="form-select bg-light border-start-0 ps-2">
+                                <select name="level_id" class="form-select border-start-0 ps-2">
                                     @foreach($levels as $l)
                                         <option value="{{ $l->id }}" {{ old('level_id', $lesson->level_id) == $l->id ? 'selected' : '' }}>
                                             {{ $l->name }}
@@ -82,7 +82,7 @@
                                 </select>
                             </div>
                             @error('level_id')
-                                <p class="text-danger small mt-1 mb-0"><i class="fa-solid fa-circle-exclamation me-1"></i> {{ $message }}</p>
+                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
