@@ -10,7 +10,7 @@
     }
 
    .navbar-brand {
-    margin-left: 20px !important;
+    margin-left: 1 !important;
 }
 
 .navbar-collapse {
@@ -20,7 +20,7 @@
 }
 
 .navbar-nav.ms-3 {
-    margin-left: 1 !important;
+    margin-right: 1 !important;
 }
  
     .nav-link.text-body {

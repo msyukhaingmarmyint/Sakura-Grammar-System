@@ -68,30 +68,43 @@
 </div>
 
 {{-- Modern Bootstrap Modal --}}
+{{-- Deactivate Account Modal --}}
 <div class="modal fade" id="deactivateModal" tabindex="-1" aria-labelledby="deactivateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content border-0 rounded-4 shadow-lg">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow">
             <div class="modal-body p-4 text-center">
-                <!-- Warning Visual Element -->
+
                 <div class="text-danger mb-3">
                     <i class="fas fa-exclamation-circle fs-1"></i>
                 </div>
-                <h4 class="fw-bold text-dark mb-2" id="deactivateModalLabel">Deactivate Account?</h4>
-                <p class="text-dark small mb-4">Are you sure you want to deactivate <strong>{{ $user->name }}</strong>? This action can restrict application access.</p>
+
+                <h4 class="fw-bold mb-2" id="deactivateModalLabel">
+                    Confirm Deactivation?
+                </h4>
+
+                <p class="text-muted mb-4">
+                    Are you sure you want to deactivate
+                    <strong>{{ $user->name }}</strong>?
+                    This action will restrict access to the application.
+                </p>
 
                 <div class="d-flex justify-content-center gap-2">
-                    <button type="button" class="btn btn-light border px-3 fw-medium" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
 
-                    <form action="{{ route('user.status', $user->id) }}" method="POST" class="m-0">
+                    <form action="{{ route('user.status', $user->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-danger px-3 rounded-3 fw-medium shadow-sm">Yes, Deactivate</button>
+                        <button type="submit" class="btn btn-danger">
+                            Yes, Deactivate
+                        </button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-
 <style>
     .transition-base { transition: all 0.2s ease-in-out; }
     .hover-opacity-100:hover { opacity: 1 !important; }

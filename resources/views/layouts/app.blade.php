@@ -57,6 +57,19 @@
             color: white;
             border-color: red;
         }
+        [data-bs-theme="dark"] #deactivateModal .modal-content {
+    background-color: #1e1e1e;
+}
+
+[data-bs-theme="dark"] #deactivateModal h4 {
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] #deactivateModal p,
+[data-bs-theme="dark"] #deactivateModal strong {
+    color: #bdbdbd;
+}
+        
     </style>
 </head>
 
