@@ -19,20 +19,23 @@ class LessonController extends Controller
         $status = $request->status;
         $levelName = $request->level;
 
+        $lessons = Lesson::query();
+
         if ($status == 'active') {
-            $lessons = Lesson::where('status', 'active')->paginate(6);
+            $lessons->where('status', 'active');
         } elseif ($status == 'inactive') {
-            $lessons = Lesson::where('status', 'inactive')->paginate(6);
-        } else {
-            $lessons = Lesson::paginate(6);
+            $lessons->where('status', 'inactive');
         }
-        
+
         if ($levelName) {
             $level = Level::where('name', $levelName)->first();
-            if ($level) {
-                $lessons = $level->lessons()->paginate(10);
+            if ($level && $level->exam) {
+                $lessons->where('level_id', $level->id);
             }
         }
+
+        $lessons = $lessons->paginate(6);
+        $lessons->appends($request->except('page'));
 
         $totalLessons = Lesson::count();
         $activeLessons = Lesson::where('status', 'active')->count();

@@ -95,17 +95,17 @@
                     </div>
 
                     <div class="d-flex justify-content-start mt-3">
-                        <a href="{{route('exams.edit',$exam->id)}}" class="btn btn-sm btn-primary me-2">
+                        <a href="{{route('exams.edit',$exam->id)}}" class="btn btn-sm btn-primary me-2 {{$exam->level->status == 'inactive' ? 'disabled' : ''}}">
                             Edit
                         </a>
                         <form action="{{route('exam.status',$exam->id)}}" method="POST">
                             @csrf
                             @if($exam->status == 'active')
-                            <button class="btn btn-sm btn-danger">
+                            <button class="btn btn-sm btn-danger {{$exam->level->status == 'inactive' ? 'disabled' : ''}}">
                                 Inactive
                             </button>
                             @else
-                            <button class="btn btn-sm btn-success">
+                            <button class="btn btn-sm btn-success {{$exam->level->status == 'inactive' ? 'disabled' : ''}}">
                                 Active
                             </button>
                             @endif

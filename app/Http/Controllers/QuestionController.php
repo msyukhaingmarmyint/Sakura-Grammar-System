@@ -24,27 +24,39 @@ class QuestionController extends Controller
         $status = $request->status;
         $levelName = $request->level;
 
+        $questions = Question::query();
+
         if ($status == 'active') {
-            $questions = Question::where('status', 'active')->paginate(6);
+            $questions->where('status', 'active');
         } elseif ($status == 'inactive') {
-            $questions = Question::where('status', 'inactive')->paginate(6);
-        } else {
-            $questions = Question::paginate(6);
+            $questions->where('status', 'inactive');
         }
 
         if ($levelName) {
             $level = Level::where('name', $levelName)->first();
-            if ($level) {
-                $questions = $level->exam->questions()->paginate(10);
+
+            if ($level && $level->exam) {
+                $questions->where('exam_id', $level->exam->id);
             }
         }
+
+        $questions = $questions->paginate(6);
+        $questions->appends($request->except('page'));
 
         $totalQuestions = Question::count();
         $activeQuestions = Question::where('status', 'active')->count();
         $inactiveQuestions = Question::where('status', 'inactive')->count();
         $levels = Level::all();
-        $colors = ['#ff7c9d','#e9c00a','#69c03a','#6e9ce0','#bd4af3'];
-        return view('admin.question.index', compact('questions', 'totalQuestions', 'activeQuestions', 'inactiveQuestions', 'levels','colors'));
+        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+
+        return view('admin.question.index', compact(
+            'questions',
+            'totalQuestions',
+            'activeQuestions',
+            'inactiveQuestions',
+            'levels',
+            'colors'
+        ));
     }
 
     public function create()
@@ -88,7 +100,7 @@ class QuestionController extends Controller
 
     public function edit($id)
     {
-        $exams = Exam::all();
+        $exams = Exam::where('status', 'active')->get();
         $question = Question::findOrFail($id);
         return view('admin.question.update', compact('exams', 'question'));
     }
@@ -97,6 +109,7 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $question = Question::with('options')->findOrFail($id);
+
 
         $request->validate([
             'question' => 'required',
@@ -122,13 +135,6 @@ class QuestionController extends Controller
 
         return redirect()->route('questions.index')
             ->with('success', 'Updated successfully!');
-    }
-
-    public function destroy($id)
-    {
-        $question = Question::findOrFail($id);
-        $question->delete();
-        return redirect()->route('questions.index');
     }
 
     public function changeStatus($id)

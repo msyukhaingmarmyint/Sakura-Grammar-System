@@ -135,9 +135,8 @@
                     </div>
 
                     <div class="d-flex justify-content-start mt-3">
-
                         <a href="{{ route('lessons.edit', $lesson->id) }}"
-                            class="btn btn-sm btn-primary me-2">
+                            class="btn btn-sm btn-primary me-2 {{$lesson->level->status == 'inactive' ? 'disabled' : ''}}">
                             Edit
                         </a>
 
@@ -145,11 +144,11 @@
                             @csrf
 
                             @if($lesson->status == 'active')
-                            <button class="btn btn-sm btn-danger">
+                            <button class="btn btn-sm btn-danger {{$lesson->level->status == 'inactive' ? 'disabled' : ''}}">
                                 Inactive
                             </button>
                             @else
-                            <button class="btn btn-sm btn-success">
+                            <button class="btn btn-sm btn-success {{$lesson->level->status == 'inactive' ? 'disabled' : ''}}">
                                 Active
                             </button>
                             @endif
@@ -169,7 +168,6 @@
 
     </div>
 
-    {{-- Pagination --}}
     <div class="d-flex justify-content-center mt-4">
         {{ $lessons->links() }}
     </div>

@@ -65,7 +65,6 @@
                                     <i class="fa-solid fa-file-signature"></i>
                                 </span>
                                 <select name="exam_id" class="form-select border-start-0 ps-2" required>
-                                    <option value="{{ $question->exam->id }}">{{ $question->exam->title }}</option>
                                     @foreach($exams as $e)
                                         @if($e->id != $question->exam->id)
                                             <option value="{{ $e->id }}" {{ old('exam_id') == $e->id ? 'selected' : '' }}>

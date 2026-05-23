@@ -133,7 +133,7 @@
 
                     <div class="d-flex justify-content-start mt-auto pt-3">
                         <a href="{{ route('questions.edit', $question->id) }}"
-                            class="btn btn-sm btn-primary me-2">
+                            class="btn btn-sm btn-primary me-2 {{$question->exam->status == 'inactive' ? 'disabled' : ''}}">
                             Edit
                         </a>
 
@@ -141,11 +141,11 @@
                             @csrf
 
                             @if($question->status == 'active')
-                            <button class="btn btn-sm btn-danger">
+                            <button class="btn btn-sm btn-danger {{$question->exam->status == 'inactive' ? 'disabled' : ''}}">
                                 Inactive
                             </button>
                             @else
-                            <button class="btn btn-sm btn-success">
+                            <button class="btn btn-sm btn-success {{$question->exam->status == 'inactive' ? 'disabled' : ''}}">
                                 Active
                             </button>
                             @endif
