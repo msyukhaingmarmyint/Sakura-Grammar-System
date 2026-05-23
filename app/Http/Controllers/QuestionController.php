@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\QuestionRequest;
 use App\Models\Attempt;
 use App\Models\Exam;
+use App\Models\Level;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $status = $request->status;
+        $levelName = $request->level;
 
         if ($status == 'active') {
             $questions = Question::where('status', 'active')->paginate(6);
@@ -30,10 +32,19 @@ class QuestionController extends Controller
             $questions = Question::paginate(6);
         }
 
+        if ($levelName) {
+            $level = Level::where('name', $levelName)->first();
+            if ($level) {
+                $questions = $level->exam->questions()->paginate(10);
+            }
+        }
+
         $totalQuestions = Question::count();
         $activeQuestions = Question::where('status', 'active')->count();
         $inactiveQuestions = Question::where('status', 'inactive')->count();
-        return view('admin.question.index', compact('questions', 'totalQuestions', 'activeQuestions', 'inactiveQuestions'));
+        $levels = Level::all();
+        $colors = ['#ff7c9d','#e9c00a','#69c03a','#6e9ce0','#bd4af3'];
+        return view('admin.question.index', compact('questions', 'totalQuestions', 'activeQuestions', 'inactiveQuestions', 'levels','colors'));
     }
 
     public function create()

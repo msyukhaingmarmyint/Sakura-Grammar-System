@@ -17,6 +17,7 @@ class LessonController extends Controller
     public function index(Request $request)
     {
         $status = $request->status;
+        $levelName = $request->level;
 
         if ($status == 'active') {
             $lessons = Lesson::where('status', 'active')->paginate(6);
@@ -25,11 +26,20 @@ class LessonController extends Controller
         } else {
             $lessons = Lesson::paginate(6);
         }
+        
+        if ($levelName) {
+            $level = Level::where('name', $levelName)->first();
+            if ($level) {
+                $lessons = $level->lessons()->paginate(10);
+            }
+        }
 
         $totalLessons = Lesson::count();
         $activeLessons = Lesson::where('status', 'active')->count();
         $inactiveLessons = Lesson::where('status', 'inactive')->count();
-        return view('admin.lesson.index', compact('lessons', 'totalLessons', 'activeLessons', 'inactiveLessons'));
+        $levels = Level::all();
+        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+        return view('admin.lesson.index', compact('lessons', 'totalLessons', 'activeLessons', 'inactiveLessons','levels','colors'));
     }
 
     public function create()

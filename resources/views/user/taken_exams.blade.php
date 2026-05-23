@@ -22,7 +22,7 @@
     </div>
 
     <div class="row justify-content-center">
-        @foreach($attempts as $attempt)
+        @forelse($attempts as $attempt)
         <div class="col-md-4 mb-3">
             <div class="card exam-card h-100 border-2 shadow-sm" style="border-color: {{ $colors[($attempt->exam_id - 1) % count($colors)] }};">
                 <div class="card-body">
@@ -43,7 +43,9 @@
                 </div>
             </div>
         </div>
-        @endforeach
+        @empty
+        <p class="text-center text-muted mt-4">Hasn't taken any exams yet.</p>
+        @endforelse
         <div class="d-flex justify-content-center mt-4">
             {{ $attempts->links() }}
         </div>

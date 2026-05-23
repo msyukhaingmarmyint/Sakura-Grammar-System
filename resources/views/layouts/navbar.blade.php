@@ -182,7 +182,7 @@
                 </li>
                 @if (Route::has('register'))
                 <li class="nav-item my-1 my-md-0">
-                    <a class="btn w-100" href="{{ route('register') }}" style="background-color: #ff7c9d; color: #fff;">
+                    <a class="btn w-100" href="{{ route('register') }}" style="background-color: #dd4c70; color: #fff;">
                         <i class="fas fa-user-plus"></i> Register
                     </a>
                 </li>

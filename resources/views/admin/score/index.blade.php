@@ -44,8 +44,8 @@
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Certificates' List</h1>
     </div>
 
-    <div class="row mb-4 g-3 d-flex justify-content-center">
-        <div class="col-md-2">
+    <div class="row mb-4 g-3 justify-content-center">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('scores.index', ['exam' => 'all']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">Total Certificates</h6>
@@ -54,7 +54,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('scores.index', ['exam' => '1']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">N5 Certificates</h6>
@@ -63,7 +63,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('scores.index', ['exam' => '2']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">N4 Certificates</h6>
@@ -72,7 +72,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('scores.index', ['exam' => '3']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">N3 Certificates</h6>
@@ -81,7 +81,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('scores.index', ['exam' => '4']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">N2 Certificates</h6>
@@ -90,7 +90,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('scores.index', ['exam' => '5']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">N1 Certificates</h6>
@@ -103,7 +103,7 @@
     <div class="card-body">
         <div class="row g-3">
             @forelse($certificates as $certificate)
-            <div class="col-md-6 col-lg-4">
+            <div class="col-6 col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-body user-card">
                         <div class="d-flex justify-content-between align-items-start">

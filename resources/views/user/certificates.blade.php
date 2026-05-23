@@ -57,7 +57,7 @@
 
     <div class="row justify-content-center">
 
-        @foreach($certificates as $certificate)
+        @forelse($certificates as $certificate)
         <div class="col-md-6 mb-2">
 
             <div class="certificate-card text-center">
@@ -102,7 +102,9 @@
                 </p>
             </div>
         </div>
-        @endforeach
+        @empty
+        <p class="text-center text-muted mt-4">Hasn't taken any certificates yet.</p>
+        @endforelse
         <div class="d-flex justify-content-center mt-4">
             {{ $certificates->links() }}
         </div>

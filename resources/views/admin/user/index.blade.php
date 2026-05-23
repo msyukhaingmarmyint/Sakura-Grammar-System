@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
 
     <div class="position-relative mb-4">
@@ -12,8 +11,8 @@
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Users' List</h1>
     </div>
 
-    <div class="row mb-3 g-3 d-flex justify-content-center">
-        <div class="col-md-2">
+    <div class="row mb-4 g-3 justify-content-center">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('users.index', ['status' => 'all']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">Total Users</h6>
@@ -22,7 +21,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('users.index', ['status' => 'active']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class=" text-body">Active Users</h6>
@@ -31,7 +30,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('users.index', ['status' => 'inactive']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">Inactive Users</h6>

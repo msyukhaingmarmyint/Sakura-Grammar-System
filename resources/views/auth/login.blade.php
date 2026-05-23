@@ -11,7 +11,7 @@
 
                     <div class="mb-3">
                         <label class="form-label text-body">Email Address</label>
-                        <input id="email" type="email"
+                        <input id="email" type="text"
                             class="form-control rounded-3"
                             name="email" value="{{ old('email') }}" autofocus>
 

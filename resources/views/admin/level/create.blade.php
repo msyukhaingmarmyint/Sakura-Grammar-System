@@ -31,7 +31,7 @@
                             <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Description</label>
                             <div class="input-group shadow-sm rounded-3 overflow-hidden">
                                 <span class="input-group-text bg-light border-end-0 text-dark">
-                                    <i class="fa-solid fa-align-left"></i>
+                                    <i class="fa-solid fa-align-left fa-lg"></i>
                                 </span>
                                 <input type="text" name="description" class="form-control border-start-0 ps-2" value="{{ old('description') }}" placeholder="Brief description of this proficiency tier">
                             </div>

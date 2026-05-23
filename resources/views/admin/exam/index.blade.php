@@ -39,14 +39,14 @@
 
     <div class="position-relative mb-4">
         <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
-            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span>
 
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Exams' List</h1>
     </div>
 
     <div class="row mb-4 g-3 d-flex justify-content-center">
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('exams.index', ['status' => 'all']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">Total Exams</h6>
@@ -55,7 +55,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('exams.index', ['status' => 'active']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">Active Exams</h6>
@@ -64,7 +64,7 @@
             </a>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-4 col-md-3 col-lg-2">
             <a href="{{ route('exams.index', ['status' => 'inactive']) }}" class="text-decoration-none">
                 <div class="card stats-card text-center p-3 shadow-sm">
                     <h6 class="text-body">Inactive Exams</h6>
@@ -74,56 +74,55 @@
         </div>
     </div>
 
-    <div class="card-body">
-        <div class="row g-3">
-            @forelse($exams as $exam)
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body user-card">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="fw-bold">{{ $exam->title }}</h5>
-                                <p class="mb-1">Pass mark : {{ $exam->pass_mark }}</p>
-                            </div>
-
-                            <div>
-                                @if($exam->status == 'active')
-                                <span class="badge rounded-pill p-2 bg-success">Active</span>
-                                @else
-                                <span class="badge rounded-pill p-2 bg-danger">Inactive</span>
-                                @endif
-                            </div>
+    <div class="row g-3">
+        @forelse($exams as $exam)
+        <div class="col-6 col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body user-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="fw-bold">{{ $exam->title }}</h5>
+                            <p class="mb-1">Pass mark : {{ $exam->pass_mark }}</p>
                         </div>
 
-                        <div class="d-flex justify-content-start mt-3">
-                            <a href="{{route('exams.edit',$exam->id)}}" class="btn btn-sm btn-primary me-2">
-                                Edit
-                            </a>
-                            <form action="{{route('exam.status',$exam->id)}}" method="POST">
-                                @csrf
-                                @if($exam->status == 'active')
-                                <button class="btn btn-sm btn-danger">
-                                    Inactive
-                                </button>
-                                @else
-                                <button class="btn btn-sm btn-success">
-                                    Active
-                                </button>
-                                @endif
-                            </form>
+                        <div>
+                            @if($exam->status == 'active')
+                            <span class="badge rounded-pill p-2 bg-success">Active</span>
+                            @else
+                            <span class="badge rounded-pill p-2 bg-danger">Inactive</span>
+                            @endif
                         </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start mt-3">
+                        <a href="{{route('exams.edit',$exam->id)}}" class="btn btn-sm btn-primary me-2">
+                            Edit
+                        </a>
+                        <form action="{{route('exam.status',$exam->id)}}" method="POST">
+                            @csrf
+                            @if($exam->status == 'active')
+                            <button class="btn btn-sm btn-danger">
+                                Inactive
+                            </button>
+                            @else
+                            <button class="btn btn-sm btn-success">
+                                Active
+                            </button>
+                            @endif
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-            @empty
-            <p class="text-center text-muted mt-4">No exams available.</p>
-            @endforelse
+        @empty
+        <p class="text-center text-muted mt-4">No exams available.</p>
+        @endforelse
 
-            <div class="d-flex justify-content-center mt-4">
-                {{ $exams->links() }}
-            </div>
+        <div class="d-flex justify-content-center mt-4">
+            {{ $exams->links() }}
         </div>
     </div>
+</div>
 </div>
 @endsection

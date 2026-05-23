@@ -20,7 +20,7 @@
                                 <span class="input-group-text bg-light border-end-0 text-dark">
                                     <i class="fa-solid fa-file-signature"></i>
                                 </span>
-                                <input type="text" name="title" class="form-control border-start-0 ps-2" value="{{ old('title') }}" placeholder="e.g. N4 Examination">
+                                <input type="text" name="title" class="form-control border-start-0 ps-2" value="{{ old('title') }}" placeholder="e.g. N4 Grammar Exam">
                             </div>
                             @error('title')
                                 <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
