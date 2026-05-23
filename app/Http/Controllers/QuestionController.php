@@ -22,7 +22,7 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $status = $request->status;
-        $examTitle = $request->exam;
+        $levelName = $request->level;
 
         $questions = Question::query();
 
@@ -32,16 +32,17 @@ class QuestionController extends Controller
             $questions->where('status', 'inactive');
         }
 
-        if ($examTitle) {
-            $exam = Exam::where('title', $examTitle)->first();
+        if ($levelName) {
 
-            if ($exam) {
-                $questions->where('exam_id', $exam->id);
+            $level = Level::where('name', $levelName)->first();
+
+            if ($level && $level->exam) {
+                $questions->where('exam_id', $level->exam->id);
             }
         }
 
         $questions = $questions->paginate(6);
-        $questions->appends($request->except('page'));
+        $questions = $questions->appends($request->except('page'));
 
         $totalQuestions = Question::count();
         $activeQuestions = Question::where('status', 'active')->count();
