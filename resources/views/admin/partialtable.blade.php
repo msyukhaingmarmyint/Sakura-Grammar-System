@@ -33,7 +33,7 @@
                     </td>
 
                     @if($type === 'pending')
-                 <td class="py-3 text-center">
+                    <td class="py-3 text-center">
                         <div class="d-flex flex-column flex-md-row gap-2 justify-content-center">
                             <a href="{{ route('reactivation.accept', $request->id) }}"
                                 class="btn btn-sm text-white px-3 rounded-3 shadow-sm"
@@ -51,13 +51,15 @@
                     </td>
                     @endif
                 </tr>
+                @forelse($filteredRequests as $request)
+                <tr class="hover-row">
+                    <td>{{ $request->user?->name ?? 'Unknown User' }}</td>
+                    <td>{{ $request->status }}</td>
+                </tr>
                 @empty
                 <tr>
-                    <td colspan="4" class="text-center py-5 text-muted">
-                        <div class="py-3">
-                            <i class="fa fa-folder-open fa-3x mb-3" style="color: #ffccd5;"></i>
-                            <p class="mb-0 fw-medium">No {{ $type }} requests found.</p>
-                        </div>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        No {{ $type }} requests found.
                     </td>
                 </tr>
                 @endforelse

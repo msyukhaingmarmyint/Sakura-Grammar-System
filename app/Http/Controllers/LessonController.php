@@ -14,33 +14,57 @@ class LessonController extends Controller
         $this->middleware(['auth', 'role:admin'])->only(['index', 'create', 'store', 'update', 'edit', 'changeStatus']);
     }
 
-    public function index(Request $request)
-    {
-        $status = $request->status;
-        $levelName = $request->level;
+public function index(Request $request)
+{
+    $status = $request->status;
+    $levelName = $request->level;
 
-        if ($status == 'active') {
-            $lessons = Lesson::where('status', 'active')->paginate(6);
-        } elseif ($status == 'inactive') {
-            $lessons = Lesson::where('status', 'inactive')->paginate(6);
-        } else {
-            $lessons = Lesson::paginate(6);
-        }
-        
-        if ($levelName) {
-            $level = Level::where('name', $levelName)->first();
-            if ($level) {
-                $lessons = $level->lessons()->paginate(10);
-            }
-        }
+    // 1. Base query for calculating dynamic metrics
+    // It starts with Lesson, but filters down if a specific level is requested
+    $statsQuery = Lesson::query();
 
-        $totalLessons = Lesson::count();
-        $activeLessons = Lesson::where('status', 'active')->count();
-        $inactiveLessons = Lesson::where('status', 'inactive')->count();
-        $levels = Level::all();
-        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
-        return view('admin.lesson.index', compact('lessons', 'totalLessons', 'activeLessons', 'inactiveLessons','levels','colors'));
+    if ($levelName) {
+        $statsQuery->whereHas('level', function ($query) use ($levelName) {
+            $query->where('name', $levelName);
+        });
     }
+
+    // Calculate dynamic counts based strictly on the selected level's footprint
+    $totalLessons    = (clone $statsQuery)->count();
+    $activeLessons   = (clone $statsQuery)->where('status', 'active')->count();
+    $inactiveLessons = (clone $statsQuery)->where('status', 'inactive')->count();
+
+    // 2. Base query for the actual dataset loaded onto the cards
+    $lessonsQuery = Lesson::query();
+
+    // Filter by level if one is active in the URL parameter strings
+    if ($levelName) {
+        $lessonsQuery->whereHas('level', function ($query) use ($levelName) {
+            $query->where('name', $levelName);
+        });
+    }
+
+    // Filter by status if an active/inactive toggle is explicitly set
+    if ($status === 'active' || $status === 'inactive') {
+        $lessonsQuery->where('status', $status);
+    }
+
+    // Finalize the paginated data and ensure query attributes stick around across page clicks
+    $lessons = $lessonsQuery->paginate(6)->withQueryString();
+
+    // Static assets for layout lookups
+    $levels = Level::all();
+    $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+
+    return view('admin.lesson.index', compact(
+        'lessons', 
+        'totalLessons', 
+        'activeLessons', 
+        'inactiveLessons', 
+        'levels', 
+        'colors'
+    ));
+}
 
     public function create()
     {

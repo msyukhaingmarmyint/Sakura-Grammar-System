@@ -69,8 +69,8 @@
 
     <div class="row g-3 mb-4 justify-content-center">
         <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ route('questions.index', ['status' => 'all']) }}" class="text-decoration-none">
-                <div class="card stats-card text-center p-3 shadow-sm">
+            <a href="{{ route('questions.index', array_merge(request()->query(), ['status' => 'all'])) }}" class="text-decoration-none">
+                <div class="card stats-card text-center p-3 shadow-sm {{ request('status', 'all') == 'all' ? 'border-primary' : '' }}">
                     <h6 class="text-body">Total Questions</h6>
                     <h2 class="fw-bold text-primary">{{ $totalQuestions }}</h2>
                 </div>
@@ -78,8 +78,8 @@
         </div>
 
         <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ route('questions.index', ['status' => 'active']) }}" class="text-decoration-none">
-                <div class="card stats-card text-center p-3 shadow-sm">
+            <a href="{{ route('questions.index', array_merge(request()->query(), ['status' => 'active'])) }}" class="text-decoration-none">
+                <div class="card stats-card text-center p-3 shadow-sm {{ request('status') == 'active' ? 'border-success' : '' }}">
                     <h6 class="text-body">Active Questions</h6>
                     <h2 class="fw-bold text-success">{{ $activeQuestions }}</h2>
                 </div>
@@ -87,22 +87,26 @@
         </div>
 
         <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ route('questions.index', ['status' => 'inactive']) }}" class="text-decoration-none">
-                <div class="card stats-card text-center p-3 shadow-sm">
+            <a href="{{ route('questions.index', array_merge(request()->query(), ['status' => 'inactive'])) }}" class="text-decoration-none">
+                <div class="card stats-card text-center p-3 shadow-sm {{ request('status') == 'inactive' ? 'border-danger' : '' }}">
                     <h6 class="text-body">Inactive Questions</h6>
                     <h2 class="fw-bold text-danger">{{ $inactiveQuestions }}</h2>
                 </div>
             </a>
         </div>
-
     </div>
-
     <div class="mb-4 d-flex justify-content-center flex-wrap gap-2">
+        <a href="{{ route('questions.index', array_merge(request()->query(), ['level' => null, 'page' => null])) }}"
+            class="btn btn-sm level-btn {{ !request('level') ? 'active-level' : '' }}"
+            style="--clr: #6c757d; color: #6c757d; border: 2px solid #6c757d;">
+            All Levels
+        </a>
+
         @foreach($levels as $index => $level)
         @php
         $color = $colors[$index % count($colors)];
         @endphp
-        <a href="{{ route('questions.index', ['level' => $level->name]) }}"
+        <a href="{{ route('questions.index', array_merge(request()->query(), ['level' => $level->name, 'page' => null])) }}"
             class="btn btn-sm level-btn {{ request('level') == $level->name ? 'active-level' : '' }}"
             style="--clr: {{ $color }}; color: {{ $color }}; border: 2px solid {{ $color }};">
             {{ $level->name }}
