@@ -64,13 +64,10 @@ class LevelController extends Controller
 
         $status = $level->status == 'active' ? 'inactive' : 'active';
 
-        // Level
         $level->update(['status' => $status]);
 
-        // Lessons
         $level->lessons()->update(['status' => $status]);
 
-        // Exam + Questions
         if ($level->exam) {
 
             $level->exam->update([

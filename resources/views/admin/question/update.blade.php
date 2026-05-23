@@ -24,33 +24,35 @@
                                 <input type="text" name="question" class="form-control border-start-0 ps-2" value="{{ old('question', $question->question) }}" required>
                             </div>
                             @error('question')
-                                <p class="text-danger small mt-1 mb-0">
-                                     {{ $message }}</p>
+                            <p class="text-danger small mt-1 mb-0">
+                                {{ $message }}
+                            </p>
                             @enderror
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-2">
-                                 Options (Select the Radio for Correct Answer)
+                                Options (Select the Radio for Correct Answer)
                             </label>
 
                             <div id="options-wrapper">
                                 @foreach($question->options as $index => $option)
-                                    <div class="input-group shadow-sm rounded-3 overflow-hidden mb-2 option-item">
-                                        <span class="input-group-text bg-light border-end-0">
-                                            <input type="radio" name="correct_option" value="{{ $index }}" class="form-check-input mt-0" {{ $option->is_correct ? 'checked' : '' }}>
-                                        </span>
-                                        <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" value="{{ $option->option_text }}" required>
-                                        <button type="button" class="btn btn-danger border-start-0 px-3 remove-option">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </div>
+                                <div class="input-group shadow-sm rounded-3 overflow-hidden mb-2 option-item">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <input type="radio" name="correct_option" value="{{ $index }}" class="form-check-input mt-0" {{ $option->is_correct ? 'checked' : '' }}>
+                                    </span>
+                                    <input type="text" name="options[]" class="form-control border-start-0 border-end-0 ps-2" value="{{ $option->option_text }}" required>
+                                    <button type="button" class="btn btn-danger border-start-0 px-3 remove-option">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
                                 @endforeach
                             </div>
 
                             @error('options.*')
-                                <p class="text-danger small mt-1 mb-0">
-                                     {{ $message }}</p>
+                            <p class="text-danger small mt-1 mb-0">
+                                {{ $message }}
+                            </p>
                             @enderror
 
                             <button type="button" id="add-option" class="btn btn-sm btn-dark rounded-2 px-3 mt-2 shadow-sm">
@@ -66,17 +68,16 @@
                                 </span>
                                 <select name="exam_id" class="form-select border-start-0 ps-2" required>
                                     @foreach($exams as $e)
-                                        @if($e->id != $question->exam->id)
-                                            <option value="{{ $e->id }}" {{ old('exam_id') == $e->id ? 'selected' : '' }}>
-                                                {{ $e->title }}
-                                            </option>
-                                        @endif
+                                    <option value="{{ $e->id }}" {{ old('exam_id', $question->exam_id) == $e->id ? 'selected' : '' }}>
+                                        {{ $e->title }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
                             @error('exam_id')
-                                <p class="text-danger small mt-1 mb-0">
-                                     {{ $message }}</p>
+                            <p class="text-danger small mt-1 mb-0">
+                                {{ $message }}
+                            </p>
                             @enderror
                         </div>
 
@@ -97,7 +98,11 @@
 </div>
 
 <script>
-    let optionIndex = {{ $question->options->count() }};
+    let optionIndex = {
+        {
+            $question - > options - > count()
+        }
+    };
 
     // Dynamic Option Appending handler injection 
     document.getElementById('add-option').addEventListener('click', function() {

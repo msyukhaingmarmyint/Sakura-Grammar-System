@@ -19,8 +19,8 @@ class ExamController extends Controller
     }
 
     public function showExam()
-    {   
-        $levels = Level::where('status','active')->with('exam')->get();
+    {
+        $levels = Level::where('status', 'active')->with('exam')->get();
         $exams = Exam::all();
         $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
         return view('admin.exam.showExam', compact('exams', 'colors'));
@@ -75,12 +75,13 @@ class ExamController extends Controller
     {
         $exam = Exam::findOrFail($id);
 
-        if ($exam->status == 'active') {
-            $exam->status = 'inactive';
-        } else {
-            $exam->status = 'active';
-        }
-        $exam->save();
+        $status = $exam->status == 'active' ? 'inactive' : 'active';
+
+        $exam->update(['status' => $status]);
+
+        // Update all related questions
+        $exam->questions()->update(['status' => $status]);
+
         return back()->with('success', 'Change status successfully');
     }
 
@@ -98,7 +99,7 @@ class ExamController extends Controller
             return back()->with('error', 'You have reached the maximum 3 attempts for this exam.');
         }
 
-        $answers = $request->input('answers', []); 
+        $answers = $request->input('answers', []);
         $timeTaken = (int) $request->input('time_taken', 0);
 
         $totalQuestions = 5;
