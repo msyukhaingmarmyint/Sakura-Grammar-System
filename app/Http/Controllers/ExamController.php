@@ -31,11 +31,11 @@ class ExamController extends Controller
         $status = $request->status;
 
         if ($status == 'active') {
-            $exams = Exam::where('status', 'active')->paginate(6);
+            $exams = Exam::where('status', 'active')->paginate(6)->withQueryString();
         } elseif ($status == 'inactive') {
-            $exams = Exam::where('status', 'inactive')->paginate(6);
+            $exams = Exam::where('status', 'inactive')->paginate(6)->withQueryString();
         } else {
-            $exams = Exam::paginate(6);
+            $exams = Exam::paginate(6)->withQueryString();
         }
 
         $totalExams = Exam::count();

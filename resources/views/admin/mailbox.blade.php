@@ -9,43 +9,43 @@
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Users Requests' List</h1>
     </div>
 
+    <!-- Tab Filter Navigation -->
     <div class="card shadow-sm rounded-4 border-0 overflow-hidden mb-4">
         <div class="bg-light p-2">
-            <ul class="nav nav-pills flex-column flex-md-row gap-2" id="requestTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active fw-semibold rounded-3 py-2" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" style="color: #ff7c9d;">
+            <ul class="nav nav-pills flex-column flex-md-row gap-2" id="requestTabs">
+                <li class="nav-item">
+                    <a href="{{ route('requests.index', ['status' => 'pending']) }}" 
+                       class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'pending' ? 'active' : '' }}" 
+                       style="color: #ff7c9d;">
                         <i class="fa fa-clock me-2"></i>Pending Requests
-                    </button>
+                    </a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-semibold rounded-3 py-2" id="accepted-tab" data-bs-toggle="tab" data-bs-target="#accepted" type="button" role="tab" style="color: #ff7c9d;">
+                <li class="nav-item">
+                    <a href="{{ route('requests.index', ['status' => 'accepted']) }}" 
+                       class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'accepted' ? 'active' : '' }}" 
+                       style="color: #ff7c9d;">
                         <i class="fa fa-check-circle me-2"></i>Accepted Accounts
-                    </button>
+                    </a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-semibold rounded-3 py-2" id="rejected-tab" data-bs-toggle="tab" data-bs-target="#rejected" type="button" role="tab" style="color: #ff7c9d;">
+                <li class="nav-item">
+                    <a href="{{ route('requests.index', ['status' => 'rejected']) }}" 
+                       class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'rejected' ? 'active' : '' }}" 
+                       style="color: #ff7c9d;">
                         <i class="fa fa-times-circle me-2"></i>Rejected Requests
-                    </button>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 
-    <!-- Tab Content Panes -->
-    <div class="tab-content" id="requestTabsContent">
-
-        <div class="tab-pane fade show active" id="pending" role="tabpanel">
-            @include('admin.partialtable', ['filteredRequests' => $requests->where('status', 'pending'), 'type' => 'pending'])
+    <!-- Active Table View Element Block -->
+    <div class="card border-0 shadow-sm rounded-4 p-3">
+        @include('admin.partialtable', ['filteredRequests' => $filteredRequests, 'type' => $status])
+        
+        <!-- Pagination Links Generation Engine Container -->
+        <div class="d-flex justify-content-center mt-4">
+            {{ $filteredRequests->links() }}
         </div>
-
-        <div class="tab-pane fade" id="accepted" role="tabpanel">
-            @include('admin.partialtable', ['filteredRequests' => $requests->where('status', 'accepted'), 'type' => 'accepted'])
-        </div>
-
-        <div class="tab-pane fade" id="rejected" role="tabpanel">
-            @include('admin.partialtable', ['filteredRequests' => $requests->where('status', 'rejected'), 'type' => 'rejected'])
-        </div>
-
     </div>
 </div>
 

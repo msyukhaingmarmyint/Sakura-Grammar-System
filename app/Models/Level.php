@@ -13,9 +13,7 @@ class Level extends Model
         'name','description','status',
     ];
 
-    public function lessons(){
-        return $this->hasMany(Lesson::class);
-    }
+   
 
     public function exam()
     {
@@ -24,5 +22,17 @@ class Level extends Model
 
     public function bookmarks(){
         return $this->hasMany(Bookmark::class);
+    }
+
+    
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
     }
 }

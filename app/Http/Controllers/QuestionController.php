@@ -19,46 +19,57 @@ class QuestionController extends Controller
         $this->middleware(['auth', 'role:admin'])->only(['index', 'create', 'store', 'update', 'edit', 'destroy', 'changeStatus']);
     }
 
-    public function index(Request $request)
-    {
-        $status = $request->status;
-        $levelName = $request->level;
+public function index(Request $request)
+{
+    $status = $request->status;
+    $levelName = $request->level;
 
-        $questions = Question::query();
+    // 1. Base query for calculating dynamic stats
+    // We start with Question, but if a level is selected, we filter down through the relationships
+    $statsQuery = Question::query();
 
-        if ($status == 'active') {
-            $questions->where('status', 'active');
-        } elseif ($status == 'inactive') {
-            $questions->where('status', 'inactive');
-        }
-
-        if ($levelName) {
-
-            $level = Level::where('name', $levelName)->first();
-
-            if ($level && $level->exam) {
-                $questions->where('exam_id', $level->exam->id);
-            }
-        }
-
-        $questions = $questions->paginate(6);
-        $questions = $questions->appends($request->except('page'));
-
-        $totalQuestions = Question::count();
-        $activeQuestions = Question::where('status', 'active')->count();
-        $inactiveQuestions = Question::where('status', 'inactive')->count();
-        $levels = Level::all();
-        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
-
-        return view('admin.question.index', compact(
-            'questions',
-            'totalQuestions',
-            'activeQuestions',
-            'inactiveQuestions',
-            'levels',
-            'colors'
-        ));
+    if ($levelName) {
+        $statsQuery->whereHas('exam.level', function ($query) use ($levelName) {
+            $query->where('name', $levelName);
+        });
     }
+
+    // Calculate dynamic counts based strictly on the selected level
+    $totalQuestions    = (clone $statsQuery)->count();
+    $activeQuestions   = (clone $statsQuery)->where('status', 'active')->count();
+    $inactiveQuestions = (clone $statsQuery)->where('status', 'inactive')->count();
+
+    // 2. Base query for the actual list of questions displayed on the page
+    $questionsQuery = Question::query();
+
+    // Apply level filter if selected
+    if ($levelName) {
+        $questionsQuery->whereHas('exam.level', function ($query) use ($levelName) {
+            $query->where('name', $levelName);
+        });
+    }
+
+    // Apply status filter if selected (and not set to 'all')
+    if ($status === 'active' || $status === 'inactive') {
+        $questionsQuery->where('status', $status);
+    }
+
+    // Get final paginated result with query string parameters attached
+    $questions = $questionsQuery->paginate(6)->withQueryString();
+
+    // Standard lookup assets
+    $levels = Level::all();
+    $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+
+    return view('admin.question.index', compact(
+        'questions', 
+        'totalQuestions', 
+        'activeQuestions', 
+        'inactiveQuestions', 
+        'levels', 
+        'colors'
+    ));
+}
 
     public function create()
     {

@@ -14,36 +14,46 @@ class LessonController extends Controller
         $this->middleware(['auth', 'role:admin'])->only(['index', 'create', 'store', 'update', 'edit', 'changeStatus']);
     }
 
-    public function index(Request $request)
-    {
-        $status = $request->status;
-        $levelName = $request->level;
+public function index(Request $request)
+{
+    $status = $request->status;
+    $levelName = $request->level;
+    $statsQuery = Lesson::query();
 
-        $lessons = Lesson::query();
-
-        if ($status == 'active') {
-            $lessons->where('status', 'active');
-        } elseif ($status == 'inactive') {
-            $lessons->where('status', 'inactive');
-        }
-
-        if ($levelName) {
-            $level = Level::where('name', $levelName)->first();
-            if ($level && $level->exam) {
-                $lessons->where('level_id', $level->id);
-            }
-        }
-
-        $lessons = $lessons->paginate(6);
-        $lessons->appends($request->except('page'));
-
-        $totalLessons = Lesson::count();
-        $activeLessons = Lesson::where('status', 'active')->count();
-        $inactiveLessons = Lesson::where('status', 'inactive')->count();
-        $levels = Level::all();
-        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
-        return view('admin.lesson.index', compact('lessons', 'totalLessons', 'activeLessons', 'inactiveLessons','levels','colors'));
+    if ($levelName) {
+        $statsQuery->whereHas('level', function ($query) use ($levelName) {
+            $query->where('name', $levelName);
+        });
     }
+    $totalLessons    = (clone $statsQuery)->count();
+    $activeLessons   = (clone $statsQuery)->where('status', 'active')->count();
+    $inactiveLessons = (clone $statsQuery)->where('status', 'inactive')->count();
+
+   
+    $lessonsQuery = Lesson::query(); 
+    if ($levelName) {
+        $lessonsQuery->whereHas('level', function ($query) use ($levelName) {
+            $query->where('name', $levelName);
+        });
+    }
+
+    if ($status === 'active' || $status === 'inactive') {
+        $lessonsQuery->where('status', $status);
+    }
+
+    $lessons = $lessonsQuery->paginate(6)->withQueryString();
+    $levels = Level::all();
+    $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+
+    return view('admin.lesson.index', compact(
+        'lessons', 
+        'totalLessons', 
+        'activeLessons', 
+        'inactiveLessons', 
+        'levels', 
+        'colors'
+    ));
+}
 
     public function create()
     {

@@ -31,11 +31,11 @@ class UserController extends Controller
         $status = $request->status;
 
         if ($status == 'active') {
-            $users = User::where('status', 'active')->where('role', 'user')->paginate(6);
+            $users = User::where('status', 'active')->where('role', 'user')->paginate(6)->withQueryString();
         } elseif ($status == 'inactive') {
-            $users = User::where('status', 'inactive')->where('role', 'user')->paginate(6);
+            $users = User::where('status', 'inactive')->where('role', 'user')->paginate(6)->withQueryString();
         } else {
-            $users = User::where('role', 'user')->paginate(6);
+            $users = User::where('role', 'user')->paginate(6)->withQueryString();
         }
 
         $totalUsers = User::where('role', 'user')->count();
@@ -71,25 +71,25 @@ class UserController extends Controller
         if ($exam == '1') {
             $certificates = Certificate::whereHas('attempt', function ($query) {
                 $query->where('exam_id', 1);
-            })->paginate(6);
+            })->paginate(6)->withQueryString();
         } elseif ($exam == '2') {
             $certificates = Certificate::whereHas('attempt', function ($query) {
                 $query->where('exam_id', 2);
-            })->paginate(6);
+            })->paginate(6)->withQueryString();
         } elseif ($exam == '3') {
             $certificates = Certificate::whereHas('attempt', function ($query) {
                 $query->where('exam_id', 3);
-            })->paginate(6);
+            })->paginate(6)->withQueryString();
         } elseif ($exam == '4') {
             $certificates = Certificate::whereHas('attempt', function ($query) {
                 $query->where('exam_id', 4);
-            })->paginate(6);
+            })->paginate(6)->withQueryString();
         } elseif ($exam == '5') {
             $certificates = Certificate::whereHas('attempt', function ($query) {
                 $query->where('exam_id', 5);
-            })->paginate(6);
+            })->paginate(6)->withQueryString();
         } else {
-            $certificates = Certificate::paginate(6);
+            $certificates = Certificate::paginate(6)->withQueryString();
         }
 
         $totalCertificates = Certificate::count();

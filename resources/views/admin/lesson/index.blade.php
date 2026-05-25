@@ -53,6 +53,7 @@
 </style>
 
 <div class="container">
+<div class="container">
 
     <div class="position-relative mb-4">
         <a href="{{ route('admin') }}"
@@ -66,10 +67,11 @@
         </h1>
     </div>
 
+    <!-- Stats Cards Grid -->
     <div class="row g-3 mb-4 justify-content-center">
         <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ route('lessons.index', ['status' => 'all']) }}" class="text-decoration-none">
-                <div class="card stats-card text-center p-3 shadow-sm">
+            <a href="{{ route('lessons.index', array_merge(request()->query(), ['status' => 'all'])) }}" class="text-decoration-none">
+                <div class="card stats-card text-center p-3 shadow-sm {{ request('status', 'all') == 'all' ? 'border-primary' : '' }}">
                     <h6 class="text-body">Total Lessons</h6>
                     <h2 class="fw-bold text-primary">{{ $totalLessons }}</h2>
                 </div>
@@ -77,8 +79,8 @@
         </div>
 
         <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ route('lessons.index', ['status' => 'active']) }}" class="text-decoration-none">
-                <div class="card stats-card text-center p-3 shadow-sm">
+            <a href="{{ route('lessons.index', array_merge(request()->query(), ['status' => 'active'])) }}" class="text-decoration-none">
+                <div class="card stats-card text-center p-3 shadow-sm {{ request('status') == 'active' ? 'border-success' : '' }}">
                     <h6 class="text-body">Active Lessons</h6>
                     <h2 class="fw-bold text-success">{{ $activeLessons }}</h2>
                 </div>
@@ -86,51 +88,68 @@
         </div>
 
         <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ route('lessons.index', ['status' => 'inactive']) }}" class="text-decoration-none">
-                <div class="card stats-card text-center p-3 shadow-sm">
+            <a href="{{ route('lessons.index', array_merge(request()->query(), ['status' => 'inactive'])) }}" class="text-decoration-none">
+                <div class="card stats-card text-center p-3 shadow-sm {{ request('status') == 'inactive' ? 'border-danger' : '' }}">
                     <h6 class="text-body">Inactive Lessons</h6>
                     <h2 class="fw-bold text-danger">{{ $inactiveLessons }}</h2>
                 </div>
             </a>
         </div>
-
     </div>
 
+    <!-- Levels Filter Buttons Container -->
     <div class="mb-4 d-flex justify-content-center flex-wrap gap-2">
-        @foreach($levels as $index => $level)
-        @php
-        $color = $colors[$index % count($colors)];
-        @endphp
-        <a href="{{ route('lessons.index', ['level' => $level->name]) }}"
-            class="btn btn-sm level-btn {{ request('level') == $level->name ? 'active-level' : '' }}"
-            style="--clr: {{ $color }}; color: {{ $color }}; border: 2px solid {{ $color }};">
-            {{ $level->name }}
+        <a href="{{ route('lessons.index', array_merge(request()->query(), ['level' => null, 'page' => null])) }}"
+            class="btn btn-sm level-btn {{ !request('level') ? 'active-level' : '' }}"
+            style="--clr: #6c757d; color: #6c757d; border: 2px solid #6c757d;">
+            All Levels
         </a>
+
+        @foreach($levels as $index => $level)
+            @php
+                $color = $colors[$index % count($colors)];
+            @endphp
+            <a href="{{ route('lessons.index', array_merge(request()->query(), ['level' => $level->name, 'page' => null])) }}"
+                class="btn btn-sm level-btn {{ request('level') == $level->name ? 'active-level' : '' }}"
+                style="--clr: {{ $color }}; color: {{ $color }}; border: 2px solid {{ $color }};">
+                {{ $level->name }}
+            </a>
         @endforeach
     </div>
 
+    <!-- Lessons Grid -->
     <div class="row g-3">
-
         @forelse($lessons as $lesson)
-
-        <div class="col-6 col-md-6 col-lg-4">
-
-            <div class="card h-100 shadow-sm border-0">
-
-                <div class="card-body user-card">
-
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <h5 class="fw-bold">{{ $lesson->title }}</h5>
-                            <p class="mb-1">{{ $lesson->structure }}</p>
+            <div class="col-6 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body user-card d-flex flex-column justify-content-between">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="fw-bold">{{ $lesson->title }}</h5>
+                                <p class="mb-1 text-muted small">{{ $lesson->structure }}</p>
+                            </div>
+                            <div>
+                                @if($lesson->status == 'active')
+                                    <span class="badge rounded-pill p-2 bg-success">Active</span>
+                                @else
+                                    <span class="badge rounded-pill p-2 bg-danger">Inactive</span>
+                                @endif
+                            </div>
                         </div>
 
-                        <div>
-                            @if($lesson->status == 'active')
-                            <span class="badge rounded-pill p-2 bg-success">Active</span>
-                            @else
-                            <span class="badge rounded-pill p-2 bg-danger">Inactive</span>
-                            @endif
+                        <div class="d-flex justify-content-start mt-3">
+                            <a href="{{ route('lessons.edit', $lesson->id) }}" class="btn btn-sm btn-primary me-2">
+                                Edit
+                            </a>
+
+                            <form action="{{ route('lesson.status', $lesson->id) }}" method="POST">
+                                @csrf
+                                @if($lesson->status == 'active')
+                                    <button class="btn btn-sm btn-danger">Inactive</button>
+                                @else
+                                    <button class="btn btn-sm btn-success">Active</button>
+                                @endif
+                            </form>
                         </div>
                     </div>
 
@@ -159,13 +178,11 @@
 
                 </div>
             </div>
-
-        </div>
-
         @empty
-        <p class="text-center text-muted mt-4">No lessons available.</p>
+            <div class="col-12">
+                <p class="text-center text-muted mt-4">No lessons available.</p>
+            </div>
         @endforelse
-
     </div>
 
     <div class="d-flex justify-content-center mt-4">
