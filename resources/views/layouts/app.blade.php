@@ -11,7 +11,6 @@
     
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}?v={{ time() }}">
 
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Scripts --> 
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->

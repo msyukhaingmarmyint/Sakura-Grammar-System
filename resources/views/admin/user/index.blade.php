@@ -6,7 +6,6 @@
     <div class="position-relative mb-4">
         <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span>
-
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Users' List</h1>
     </div>
@@ -40,8 +39,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 mx-auto mb-5">
             <div class="card shadow-sm rounded-4 border-0 overflow-hidden">
                 <div class="table-responsive">
                     <table class="table table-danger align-middle m-0">
@@ -51,7 +50,6 @@
                                 <th class="py-3">User Name</th>
                                 <th class="py-3">Email Address</th>
                                 <th class="py-3 text-center" style="width: 140px;">Status</th>
-                                <th class="pe-4 py-3 text-center" style="width: 240px;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +64,7 @@
                                 <td class="py-3 fw-semibold">
                                     {{ $user->name }}
                                 </td>
-                                <td class="py-3 ">
+                                <td class="py-3">
                                     {{ $user->email }}
                                 </td>
                                 <td class="py-3 text-center">
@@ -76,54 +74,10 @@
                                     <span class="badge text-danger fs-6 fw-bold px-3 py-2">Inactive</span>
                                     @endif
                                 </td>
-                                <td class="py-3 text-center">
-                                    @if($user->status == 'inactive')
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <form action="{{ route('users.status', $user->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            <button class="btn btn-sm btn-success  px-3 shadow-sm">Activate</button>
-                                        </form>
-
-                                        <button
-                                            type="button"
-                                            class="btn btn-sm btn-danger px-3"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal"
-                                            data-user-id="{{ $user->id }}"
-                                            data-user-name="{{ $user->name }}">
-                                            Delete
-                                        </button>
-                                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content border-0 rounded-4 shadow">
-                                                    <div class="modal-body p-4 text-center">
-                                                        <h4 class="fw-bold mb-2" id="deleteModalLabel">Delete User?</h4>
-                                                        <p class="text-muted mb-4">
-                                                            Are you sure you want to delete <strong id="modalUserName"></strong>? This processing sequence cannot be reversed.
-                                                        </p>
-
-                                                        <div class="d-flex justify-content-center gap-2">
-                                                            <button type="button" class="btn btn-light border  px-4" data-bs-dismiss="modal">Cancel</button>
-
-                                                            <form id="deleteUserForm" method="POST">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button type="submit" class="btn btn-danger px-4 shadow-sm">Yes, Delete</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @else
-                                    <span class="small fw-bold">N/A</span>
-                                    @endif
-                                </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">
+                                <td colspan="4" class="text-center text-muted py-4">
                                     No users available matching this folder setup directory.
                                 </td>
                             </tr>
@@ -139,8 +93,6 @@
         </div>
     </div>
 </div>
-
-
 
 <style>
     .table-cherry-header {
@@ -166,8 +118,6 @@
         transition: 0.3s;
     }
 
-
-
     .stats-card:hover {
         transform: translateY(-3px);
         box-shadow: 0 5px 15px rgba(255, 124, 157, 0.1);
@@ -190,21 +140,4 @@
         border-color: #fff !important;
     }
 </style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var deleteModal = document.getElementById('deleteModal');
-        if (deleteModal) {
-            deleteModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var userId = button.getAttribute('data-user-id');
-                var userName = button.getAttribute('data-user-name');
-
-                document.getElementById('modalUserName').textContent = userName;
-                document.getElementById('deleteUserForm').action = '/user/delete/' + userId;
-            });
-        }
-    });
-</script>
-
 @endsection

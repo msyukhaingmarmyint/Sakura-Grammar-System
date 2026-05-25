@@ -14,7 +14,7 @@
             <tbody>
                 @forelse($filteredRequests as $request)
                 <tr class="hover-row transition">
-                    <td class="ps-4 py-3 fw-medium ">
+                    <td class="ps-4 py-3 fw-medium">
                         {{ $request->email }}
                     </td>
 
@@ -24,11 +24,11 @@
 
                     <td class="py-3 text-center">
                         @if($type === 'pending')
-                        <span class="badge   text-dark px-3 py-2 fs-6 fw-bold">Pending</span>
+                        <span class="badge text-dark px-3 py-2 fs-6 fw-bold">Pending</span>
                         @elseif($type === 'accepted')
-                        <span class="badge   text-success px-3 py-2 fs-6 fw-bold">Active</span>
+                        <span class="badge text-success px-3 py-2 fs-6 fw-bold">Active</span>
                         @else
-                        <span class="badge  text-danger px-3 py-2 fs-6 fw-bold">Inactive</span>
+                        <span class="badge text-danger px-3 py-2 fs-6 fw-bold">Inactive</span>
                         @endif
                     </td>
 
@@ -46,24 +46,17 @@
                                 style="background-color: #e74c3c;">
                                 <i class="fa fa-trash me-1"></i> Reject
                             </a>
-
                         </div>
                     </td>
                     @endif
                 </tr>
-                @forelse($filteredRequests as $request)
-                <tr class="hover-row">
-                    <td>{{ $request->user?->name ?? 'Unknown User' }}</td>
-                    <td>{{ $request->status }}</td>
-                </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="text-center text-muted py-4">
+                    <td colspan="{{ $type === 'pending' ? 4 : 3 }}" class="text-center text-muted py-4">
                         No {{ $type }} requests found.
                     </td>
                 </tr>
-                @endforelse
-            </tbody>
+                @endforelse </tbody>
         </table>
     </div>
 </div>

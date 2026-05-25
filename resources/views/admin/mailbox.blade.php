@@ -4,7 +4,7 @@
 <div class="container">
     <div class="position-relative mb-4">
         <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
-            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
+            <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span>
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Users Requests' List</h1>
     </div>
@@ -14,23 +14,23 @@
         <div class="bg-light p-2">
             <ul class="nav nav-pills flex-column flex-md-row gap-2" id="requestTabs">
                 <li class="nav-item">
-                    <a href="{{ route('requests.index', ['status' => 'pending']) }}" 
-                       class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'pending' ? 'active' : '' }}" 
-                       style="color: #ff7c9d;">
+                    <a href="{{ route('admin.mailbox', ['status' => 'pending']) }}"
+                        class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'pending' ? 'active' : '' }}"
+                        style="color: #ff7c9d;">
                         <i class="fa fa-clock me-2"></i>Pending Requests
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('requests.index', ['status' => 'accepted']) }}" 
-                       class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'accepted' ? 'active' : '' }}" 
-                       style="color: #ff7c9d;">
+                    <a href="{{ route('admin.mailbox', ['status' => 'accepted']) }}"
+                        class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'accepted' ? 'active' : '' }}"
+                        style="color: #ff7c9d;">
                         <i class="fa fa-check-circle me-2"></i>Accepted Accounts
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('requests.index', ['status' => 'rejected']) }}" 
-                       class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'rejected' ? 'active' : '' }}" 
-                       style="color: #ff7c9d;">
+                    <a href="{{ route('admin.mailbox', ['status' => 'rejected']) }}"
+                        class="nav-link fw-semibold rounded-3 py-2 text-center {{ $status === 'rejected' ? 'active' : '' }}"
+                        style="color: #ff7c9d;">
                         <i class="fa fa-times-circle me-2"></i>Rejected Requests
                     </a>
                 </li>
@@ -38,11 +38,9 @@
         </div>
     </div>
 
-    <!-- Active Table View Element Block -->
-    <div class="card border-0 shadow-sm rounded-4 p-3">
+    <div class="position-relative mt-2">
         @include('admin.partialtable', ['filteredRequests' => $filteredRequests, 'type' => $status])
-        
-        <!-- Pagination Links Generation Engine Container -->
+
         <div class="d-flex justify-content-center mt-4">
             {{ $filteredRequests->links() }}
         </div>

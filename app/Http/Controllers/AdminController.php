@@ -58,13 +58,16 @@ class AdminController extends Controller
         );
     }
 
-    public function mailbox()
-    {
-        $requests = ReactivationRequest::latest()->get();
+public function mailbox(Request $request)
+{
+   
+    $status = $request->query('status', 'pending');
 
-        return view(
-            'admin.mailbox',
-            compact('requests')
-        );
-    }
+    $filteredRequests = ReactivationRequest::where('status', $status)
+        ->latest()
+        ->paginate(10); 
+
+    
+    return view('admin.mailbox', compact('filteredRequests', 'status'));
+}
 }

@@ -133,7 +133,7 @@
                                     <h5 class="modal-title fw-bold" id="info1Label">What is the JLPT?</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body p-4 text-white text-start">
+                                <div class="modal-body p-4  text-start">
                                     <p class="mb-0">The JLPT is composed of 5 different levels, from N1 to N5, with N5 being the most basic and N1 being the most advanced. The content on this website is organized and divided based on these ability levels, so you can easily find lessons specific to your level.</p>
                                 </div>
                                 <div class="modal-footer border-0  pt-0 px-4 pb-4 justify-content-center">
@@ -173,8 +173,8 @@
                                     <h5 class="modal-title fw-bold" id="info2Label">What is the CEFR?</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body p-4 text-white text-start">
-                                    <p class="mb-3 fw-semibold text-white small">The approximate CEFR level framework mapping corresponding to your minimum passing score criteria:</p>
+                                <div class="modal-body p-4  text-start">
+                                    <p class="mb-3 fw-semibold  small">The approximate CEFR level framework mapping corresponding to your minimum passing score criteria:</p>
                                     <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
                                         <li><span class="badge bg-secondary me-2">N5</span> Score ≥ 80 is mapped to <strong>A1</strong></li>
                                         <li><span class="badge bg-secondary me-2">N4</span> Score ≥ 90 is mapped to <strong>A2</strong></li>
@@ -216,11 +216,11 @@
                     <div class="modal fade" id="info3" tabindex="-1" aria-labelledby="info3Label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content border-0 rounded-4 shadow-lg">
-                                <div class="modal-header bg-dark text-white rounded-top-4 py-3">
+                                <div class="modal-header bg-dark  rounded-top-4 py-3">
                                     <h5 class="modal-titlefw-bold" id="info3Label">Benefits of JLPT</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body p-4 text-white text-start">
+                                <div class="modal-body p-4 text-start">
                                     <ol class="ps-3 mb-0 d-flex flex-column gap-3 small">
                                         <li>
                                             <strong class="d-block mb-1">Increased Employment Opportunities</strong>

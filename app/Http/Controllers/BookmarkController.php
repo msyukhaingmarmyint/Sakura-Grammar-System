@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
 use App\Models\Lesson;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
 class BookmarkController extends Controller
@@ -26,7 +27,7 @@ class BookmarkController extends Controller
             ]);
         }
         $scrollTo = $request->scroll_to;
-        return redirect()->to(url()->previous() . '#' . $scrollTo);
+        return redirect()->to(url()->previous() . '#' . $scrollTo)->with('success','Bookmark added successfully.');
     }
 
     public function showBookmarks($user_id)
@@ -43,6 +44,6 @@ class BookmarkController extends Controller
             ->where('user_id', auth()->id())
             ->firstOrFail();
         $bookmark->delete();
-        return back();
+        return back()->with('success','Bookmark removed successfully.');
     }
 }
