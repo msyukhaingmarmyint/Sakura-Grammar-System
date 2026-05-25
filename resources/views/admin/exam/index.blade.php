@@ -33,6 +33,12 @@
     [data-bs-theme="dark"] .stats-card {
         border-color: #fff !important;
     }
+
+    .btn.disabled, 
+.btn:disabled {
+    pointer-events: auto !important;
+    cursor: not-allowed !important;
+}
 </style>
 
 <div class="container">

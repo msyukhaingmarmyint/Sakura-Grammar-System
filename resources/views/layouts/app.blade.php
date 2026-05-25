@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Sakura Grammar</title>
-<link rel="icon" type="image/png"  href="{{ asset('favicon.png') }}">
+    
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}?v={{ time() }}">
+
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Scripts --> 
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->

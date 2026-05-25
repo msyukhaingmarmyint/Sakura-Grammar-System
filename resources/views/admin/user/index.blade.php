@@ -61,7 +61,7 @@
                             @endphp
                             <tr class="hover-row transition {{ $rowClass }}">
                                 <td class="ps-4 py-3 text-center fw-bold font-mono text-secondary">
-                                    #{{ $loop->iteration }}
+                                    #{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
                                 </td>
                                 <td class="py-3 fw-semibold">
                                     {{ $user->name }}
@@ -93,9 +93,31 @@
                                             data-user-name="{{ $user->name }}">
                                             Delete
                                         </button>
+                                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border-0 rounded-4 shadow">
+                                                    <div class="modal-body p-4 text-center">
+                                                        <h4 class="fw-bold mb-2" id="deleteModalLabel">Delete User?</h4>
+                                                        <p class="text-muted mb-4">
+                                                            Are you sure you want to delete <strong id="modalUserName"></strong>? This processing sequence cannot be reversed.
+                                                        </p>
+
+                                                        <div class="d-flex justify-content-center gap-2">
+                                                            <button type="button" class="btn btn-light border  px-4" data-bs-dismiss="modal">Cancel</button>
+
+                                                            <form id="deleteUserForm" method="POST">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="submit" class="btn btn-danger px-4 shadow-sm">Yes, Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     @else
-                                    <span class="text-muted small fw-bold">-</span>
+                                    <span class="small fw-bold">N/A</span>
                                     @endif
                                 </td>
                             </tr>
@@ -118,28 +140,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow">
-            <div class="modal-body p-4 text-center">
-                <h4 class="fw-bold mb-2" id="deleteModalLabel">Delete User?</h4>
-                <p class="text-muted mb-4">
-                    Are you sure you want to delete <strong id="modalUserName"></strong>? This processing sequence cannot be reversed.
-                </p>
 
-                <div class="d-flex justify-content-center gap-2">
-                    <button type="button" class="btn btn-light border  px-4" data-bs-dismiss="modal">Cancel</button>
-
-                    <form id="deleteUserForm" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger px-4 shadow-sm">Yes, Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <style>
     .table-cherry-header {
