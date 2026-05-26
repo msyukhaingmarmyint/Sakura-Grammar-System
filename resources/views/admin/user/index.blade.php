@@ -49,6 +49,7 @@
                                 <th class="ps-4 py-3 text-center" style="width: 100px;">ID</th>
                                 <th class="py-3">User Name</th>
                                 <th class="py-3">Email Address</th>
+                                <th class="py-3 text-center">Created At</th>
                                 <th class="py-3 text-center" style="width: 140px;">Status</th>
                             </tr>
                         </thead>
@@ -67,6 +68,9 @@
                                 <td class="py-3">
                                     {{ $user->email }}
                                 </td>
+                                <td class="py-3 text-center">
+    {{ $user->created_at->format('Y-n-j') }}
+</td>
                                 <td class="py-3 text-center">
                                     @if($user->status == 'active')
                                     <span class="badge text-success fs-6 fw-bold px-3 py-2">Active</span>

@@ -31,7 +31,7 @@ class LessonRequest extends FormRequest
                 Rule::unique('lessons', 'title')->ignore($this->route('lesson')),
             ],
             'structure' => 'required',
-            'explanation' => 'required',
+            'explanation' => 'required|string|max:255',
             'example' => 'required',
             'level_id' => 'required',
         ];

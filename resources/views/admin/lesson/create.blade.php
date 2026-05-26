@@ -41,17 +41,31 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Explanation</label>
-                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
-                                <span class="input-group-text bg-light border-end-0 text-dark">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </span>
-                                <input type="text" name="explanation" class="form-control border-start-0 ps-2" value="{{ old('explanation') }}" placeholder="Used when making a polite request...">
-                            </div>
-                            @error('explanation')
-                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
-                            @enderror
-                        </div>
+    <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">
+        Explanation
+    </label>
+
+    <div class="shadow-sm rounded-3 overflow-hidden border">
+        <div class="bg-light px-3 py-2 border-bottom">
+            <i class="fa-solid fa-circle-info text-dark"></i>
+        </div>
+
+        <textarea
+            id="explanation"
+            name="explanation"
+            class="form-control border-0 rounded-0"
+            rows="4"
+            maxlength="255"
+            placeholder="Used when making a polite request...">{{ old('explanation') }}</textarea>
+    </div>
+    <div class="text-end mt-1">
+        <small id="charCount" class="text-muted">0 / 255</small>
+    </div>
+
+    @error('explanation')
+        <p class="text-danger small mt-1 mb-0">{{ $message }}</p>
+    @enderror
+</div>
 
                         <div class="mb-3">
                             <label class="form-label text-dark small fw-bold text-uppercase tracking-wider mb-1">Example Sentence</label>
@@ -101,4 +115,27 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const textarea = document.getElementById('explanation');
+    const counter = document.getElementById('charCount');
+    const maxLength = 255;
+
+    function updateCounter() {
+        const length = textarea.value.length;
+        counter.textContent = `${length} / ${maxLength}`;
+
+        if (length > 220) {
+            counter.classList.add('text-danger');
+            counter.classList.remove('text-muted');
+        } else {
+            counter.classList.add('text-muted');
+            counter.classList.remove('text-danger');
+        }
+    }
+
+    updateCounter();
+    textarea.addEventListener('input', updateCounter);
+});
+</script>
 @endsection

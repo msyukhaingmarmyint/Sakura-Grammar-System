@@ -11,9 +11,13 @@
 
                     <div class="mb-3">
                         <label class="form-label text-body">Email Address</label>
-                        <input id="email" type="text"
-                            class="form-control rounded-3"
-                            name="email" value="{{ old('email') }}" autofocus>
+                        <input id="email" type="email"
+    class="form-control rounded-3"
+    name="email"
+    value="{{ old('email') }}"
+    required
+    autocomplete="email"
+    autofocus>
 
                         @error('email')
                         <p class="text-danger">{{ $message }}</p>
@@ -23,8 +27,10 @@
                     <div class="mb-3 position-relative">
                         <label class="form-label text-body">Password</label>
                         <input id="password" type="password"
-                            class="form-control rounded-3 pe-5"
-                            name="password">
+    class="form-control rounded-3 pe-5"
+    name="password"
+    required
+    autocomplete="current-password">
 
                         <span onclick="togglePassword()"
                             style="position:absolute; top:38px; right:15px; cursor:pointer;">

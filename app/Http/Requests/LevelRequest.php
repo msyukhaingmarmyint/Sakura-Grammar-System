@@ -31,7 +31,7 @@ class LevelRequest extends FormRequest
                 'string',
                 Rule::unique('levels', 'name')->ignore($this->route('level')),
             ],
-            'description' => 'required',
+           'description' => 'required|string|max:255',
         ];
     }
 }
