@@ -15,7 +15,7 @@
 </style>
 <div class="container">
     <div class="text-center mb-5 position-relative">
-        <a href="{{ route('user') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+        <a href="{{ route('user') }}" class="pe-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
         <h1 class="fw-bold" style="color: #ff7c9d;">Taken Exams</h1>

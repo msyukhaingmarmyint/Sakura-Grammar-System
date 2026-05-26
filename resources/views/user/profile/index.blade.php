@@ -5,17 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-xl-5 col-lg-6 col-md-8">
             <div class="card shadow rounded-4 overflow-hidden border-0">
-                
+
                 <!-- Card Header Banner -->
                 <div class="bg-dark text-white p-4 position-relative">
                     @if($user->role == 'user')
-                        <a href="{{ route('user') }}" class="position-absolute top-0 end-0 m-3 text-light opacity-75 hover-opacity-100 transition-base">
-                            <i class="fas fa-times fs-4"></i>
-                        </a>
+                    <a href="{{ route('user') }}" class="position-absolute top-0 end-0 m-3 text-light opacity-75 hover-opacity-100 transition-base">
+                        <i class="fas fa-times fs-4"></i>
+                    </a>
                     @else
-                        <a href="{{ route('admin') }}" class="position-absolute top-0 end-0 m-3 text-light opacity-75 hover-opacity-100 transition-base">
-                            <i class="fas fa-times fs-4"></i>
-                        </a>
+                    <a href="{{ route('admin') }}" class="position-absolute top-0 end-0 m-3 text-light opacity-75 hover-opacity-100 transition-base">
+                        <i class="fas fa-times fs-4"></i>
+                    </a>
                     @endif
 
                     <div class="py-2">
@@ -26,7 +26,7 @@
 
                 <!-- Card Body -->
                 <div class="card-body p-4 bg-white">
-                    
+
                     <!-- Information Section -->
                     <div class="mb-4">
                         <h5 class="text-uppercase small fw-bold text-dark tracking-wider mb-3">Personal Information</h5>
@@ -46,21 +46,19 @@
 
                     <!-- Action Buttons Section -->
                     <div class="d-flex justify-content-center gap-2 pt-2">
-                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary px-2 fw-medium shadow-sm">
+                        <a href="{{ route('user.edit', $user->id) }}"
+                            class="btn btn-primary fw-medium shadow-sm {{ $user->role == 'user' ? 'w-50' : 'w-100' }}">
                             Edit Profile
                         </a>
-                        
-                        <a href="{{ route('password.form') }}" class="btn text-white px-2 fw-medium shadow-sm" style="background-color: #dd4c70;">
-                            Change Password
-                        </a>
-                        
+
                         @if($user->role == 'user')
-                            <button class="btn btn-danger text-white px-2 fw-medium" data-bs-toggle="modal" data-bs-target="#deactivateModal">
-                                Deactivate
-                            </button>
+                        <button class="btn btn-danger text-white fw-medium w-50"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deactivateModal">
+                            Deactivate
+                        </button>
                         @endif
                     </div>
-
                 </div>
             </div>
         </div>
@@ -106,8 +104,16 @@
     </div>
 </div>
 <style>
-    .transition-base { transition: all 0.2s ease-in-out; }
-    .hover-opacity-100:hover { opacity: 1 !important; }
-    .text-dark-light { color: rgba(255, 255, 255, 0.7); }
+    .transition-base {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .hover-opacity-100:hover {
+        opacity: 1 !important;
+    }
+
+    .text-dark-light {
+        color: rgba(255, 255, 255, 0.7);
+    }
 </style>
 @endsection

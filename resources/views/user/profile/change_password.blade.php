@@ -118,12 +118,12 @@
                             </button>
 
                             @if(Auth::user()->role == 'user')
-                                <a href="{{ route('user.profile', Auth::user()->id) }}"
+                                <a href="{{ route('user', Auth::user()->id) }}"
                                     class="btn btn-secondary px-4 rounded-3 fw-medium">
                                     Cancel
                                 </a>
                             @else
-                                <a href="{{ route('users.index') }}"
+                                <a href="{{ route('admin') }}"
                                     class="btn btn-secondary px-4 rounded-3 fw-medium">
                                     Cancel
                                 </a>
