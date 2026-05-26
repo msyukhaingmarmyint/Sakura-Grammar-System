@@ -52,11 +52,15 @@
         border-color: #fff !important;
     }
 
-    .btn.disabled, 
-.btn:disabled {
-    pointer-events: auto !important;
-    cursor: not-allowed !important;
-}
+
+    .btn.disabled,
+    .btn[disabled] {
+        pointer-events: auto !important;
+        cursor: not-allowed !important;
+        opacity: 0.5;
+        box-shadow: none !important;
+        transform: none !important;
+    }
 </style>
 
 <div class="container">
@@ -142,20 +146,32 @@
                     </div>
 
                     <div class="d-flex justify-content-start mt-auto pt-3">
-                        <a href="{{ route('questions.edit', $question->id) }}"
-                            class="btn btn-sm btn-primary me-2 {{$question->exam->status == 'inactive' ? 'disabled' : ''}}">
+                        @if($question->exam->status == 'inactive')
+                        <a href="#"
+                            class="btn btn-sm btn-primary me-2 disabled"
+                            onclick="return false;">
                             Edit
                         </a>
+                        @else
+                        <a href="{{ route('questions.edit', $question->id) }}"
+                            class="btn btn-sm btn-primary me-2">
+                            Edit
+                        </a>
+                        @endif
 
                         <form action="{{ route('question.status', $question->id) }}" method="POST">
                             @csrf
 
                             @if($question->status == 'active')
-                            <button class="btn btn-sm btn-danger {{$question->exam->status == 'inactive' ? 'disabled' : ''}}">
+                            <button type="submit"
+                                class="btn btn-sm btn-danger {{ $question->exam->status == 'inactive' ? 'disabled' : '' }}"
+                                {{ $question->exam->status == 'inactive' ? 'disabled onclick=return(false);' : '' }}>
                                 Inactive
                             </button>
                             @else
-                            <button class="btn btn-sm btn-success {{$question->exam->status == 'inactive' ? 'disabled' : ''}}">
+                            <button type="submit"
+                                class="btn btn-sm btn-success {{ $question->exam->status == 'inactive' ? 'disabled' : '' }}"
+                                {{ $question->exam->status == 'inactive' ? 'disabled onclick=return(false);' : '' }}>
                                 Active
                             </button>
                             @endif
@@ -169,8 +185,8 @@
         @endforelse
     </div>
 
-    <div class="d-flex justify-content-center mt-4">
-        {{ $questions->links() }}
+    <div class="d-flex justify-content-end mt-4">
+        {{ $questions->links('components.paginations') }}
     </div>
 </div>
 @endsection

@@ -41,7 +41,7 @@ public function index(Request $request)
         $lessonsQuery->where('status', $status);
     }
 
-    $lessons = $lessonsQuery->paginate(6)->withQueryString();
+    $lessons = $lessonsQuery->paginate(6)->withQueryString()->onEachSide(1);
     $levels = Level::all();
     $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
 
