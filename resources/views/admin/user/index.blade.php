@@ -59,8 +59,11 @@
                             $rowClass = $user->status == 'active' ? 'row-active-bg' : 'row-inactive-bg';
                             @endphp
                             <tr class="hover-row transition {{ $rowClass }}">
-                                <td class="ps-4 py-3 text-center fw-bold font-mono text-secondary">
-                                    #{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                <td class="ps-4 py-3 text-center">
+                                    <span class="d-inline-flex align-items-center justify-content-center fw-bold rounded-circle text-white shadow-sm"
+                                        style="background-color: #ff7c9d; width: 28px; height: 28px; font-size: 0.85rem;">
+                                        {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                    </span>
                                 </td>
                                 <td class="py-3 fw-semibold">
                                     {{ $user->name }}
@@ -91,8 +94,8 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center mt-4">
-                {{ $users->links() }}
+            <div class="d-flex justify-content-end mt-4">
+                {{ $users->links('components.paginations') }}
             </div>
         </div>
     </div>

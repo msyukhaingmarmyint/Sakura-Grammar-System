@@ -111,7 +111,6 @@
                                 <h5 class="fw-bold">User Name : {{ $certificate->attempt?->user?->name ?? 'Deleted User' }}</h5>
                                 <p class="mb-1">Passed Exam : {{ $certificate->attempt?->exam?->title ?? 'Unknown Exam' }}</p>
                                 <p class="mb-1">Score : {{ $certificate->attempt?->mark ?? 'N/A' }}</p>
-                                <small class="text-secondary">Certificate ID : {{ $certificate->id }}</small>
                             </div>
                         </div>
                     </div>
@@ -120,8 +119,8 @@
             @empty
             <p class="text-center text-muted mt-4">No certificates available.</p>
             @endforelse
-            <div class="d-flex justify-content-center mt-4">
-                {{ $certificates->links() }}
+            <div class="d-flex justify-content-end mt-4">
+                {{ $certificates->links('components.paginations') }}
             </div>
         </div>
     </div>

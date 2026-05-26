@@ -53,9 +53,58 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            if ($errors->has('password')) {
+                $passwordErrors = $errors->get('password');
+
+                $firstError = array_shift($passwordErrors);
+
+                // 3. Loop through remaining errors and strip "The password must contain" or "password"
+                $cleanedRemaining = array_map(function($msg) {
+                    // Removes "The password must contain " (case-insensitive)
+                    $msg = preg_replace('/^the password must contain\s+/i', '', $msg);
+                    // Also handles variations starting with "The password..."
+                    $msg = preg_replace('/^the password\s+/i', '', $msg);
+                    return $msg;
+                }, $passwordErrors);
+
+                // 4. Combine them cleanly using commas, and an "and" for the final rule
+                if (!empty($cleanedRemaining)) {
+                    // Turn "at least one symbol." into "at least one symbol" by removing trailing dots
+                    $firstError = rtrim($firstError, '.');
+                    
+                    foreach ($cleanedRemaining as &$msg) {
+                        $msg = rtrim($msg, '.');
+                    }
+
+                    if (count($cleanedRemaining) > 1) {
+                        $lastMsg = array_pop($cleanedRemaining);
+                        $combinedSentence = $firstError . ', ' . implode(', ', $cleanedRemaining) . ', and ' . $lastMsg . '.';
+                    } else {
+                        $combinedSentence = $firstError . ' and ' . $cleanedRemaining[0] . '.';
+                    }
+                } else {
+                    $combinedSentence = $firstError;
+                }
+
+                // 5. Build the fresh MessageBag wrapper
+                $messages = $errors->getMessages();
+                $messages['password'] = [$combinedSentence];
+
+                $errors = new \Illuminate\Support\MessageBag();
+                $errors->merge($messages);
+            }
+
+            return redirect()->back()
+                ->withInput($request->only('name', 'email'))
+                ->withErrors($errors);
+        }
 
         event(new Registered($user = $this->create($request->all())));
 
@@ -69,31 +118,24 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $validator = Validator::make($data, [
             'name'     => ['required', 'string', 'max:255'],
-            'email' => [
-            'required', 
-            'string', 
-            'email', 
-            'max:255', 
-            'unique:users',
-            'regex:/^[a-zA-Z0-9.]+@gmail\.com$/i' 
-        ],
+            'email'    => [
+                'required', 
+                'string', 
+                'email', 
+                'max:255', 
+                'unique:users',
+                'regex:/^[a-zA-Z0-9.]+@gmail\.com$/i' 
+            ],
             'password' => [
-            'required', 
-            'string', 
-            'confirmed',
-            Password::min(8)             // Enforces a secure minimum length of 12 characters
-                ->letters()               // Requires at least one letter
-                ->mixedCase()             // Requires both uppercase and lowercase letters
-                ->numbers()               // Requires at least one numeric character
-                ->symbols()               // Requires special characters (!, @, #, $, etc.)
-               
-        ],
-
-
+                'required', 
+                'string', 
+                'confirmed',
+                Password::min(8),
+            ],
             'password_confirmation' => ['required'],
         ], [
             'name.required' => 'Please enter your full name.',
@@ -103,8 +145,38 @@ class RegisterController extends Controller
             'password.confirmed' => 'Passwords do not match.',
             'password_confirmation.required' => 'Confirm password is required!',
         ]);
-    }
 
+        $validator->after(function ($validator) use ($data) {
+            if (empty($data['password'])) {
+                return;
+            }
+
+            $password = $data['password'];
+            $missing = [];
+
+            if (!preg_match('/[A-Z]/', $password)) {
+                $missing[] = 'uppercase letter';
+            }
+            if (!preg_match('/[0-9]/', $password)) {
+                $missing[] = 'number';
+            }
+            if (!preg_match('/[\W_]/', $password)) {
+                $missing[] = 'special symbol';
+            }            if (!empty($missing)) {
+                if (count($missing) === 3) {
+                    $msg = 'Password must contain at least one uppercase letter, number, and special symbol.';
+                } elseif (count($missing) === 2) {
+                    $msg = 'Password must contain at least one ' . $missing[0] . ' and ' . $missing[1] . '.';
+                } else {
+                    $msg = 'Password must contain at least one ' . $missing[0] . '.';
+                }
+
+                $validator->errors()->add('password', $msg);
+            }
+        });
+
+        return $validator;
+    }
 
     /**
      * Create a new user instance after a valid registration.

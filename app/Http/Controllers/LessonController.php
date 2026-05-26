@@ -55,6 +55,7 @@ class LessonController extends Controller
         ));
     }
 
+
     public function create()
     {
         $levels = Level::where('status', 'active')->get();

@@ -124,8 +124,8 @@
         @endforelse
     </div>
 
-    <div class="d-flex justify-content-center mt-4">
-        {{ $levels->links() }}
+    <div class="d-flex justify-content-end mt-4">
+        {{ $levels->links('components.paginations') }}
     </div>
 </div>
 @endsection
