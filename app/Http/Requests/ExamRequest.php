@@ -43,8 +43,8 @@ class ExamRequest extends FormRequest
             'title.unique'       => 'An exam with this title already exists.',
             'pass_mark.required' => 'The passing mark is required.',
             'pass_mark.integer'  => 'The passing mark must be a valid number. Text characters or words are not allowed.',
-            'pass_mark.min'      => 'The passing mark cannot be less than 0.',
-            'pass_mark.max'      => 'The passing mark cannot be greater than 100.',
+            'pass_mark.min'      => 'The passing mark cannot be less than 10.',
+            'pass_mark.max'      => 'The passing mark cannot be greater than 50.',
             'level_id.required'  => 'Please select a difficulty level for this exam.',
             'level_id.exists'    => 'The selected difficulty level does not exist.',
         ];
