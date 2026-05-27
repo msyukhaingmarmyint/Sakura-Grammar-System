@@ -121,12 +121,12 @@ public function register(Request $request)
 protected function validator(array $data)
     {
         $validator = Validator::make($data, [
-            'name'     => ['required', 'string', 'max:255'],
+            'name'     => ['required', 'string', 'max:30'],
             'email'    => [
                 'required', 
                 'string', 
                 'email', 
-                'max:255', 
+                'max:50', 
                 'unique:users',
                 'regex:/^[a-zA-Z0-9.]+@gmail\.com$/i' 
             ],

@@ -28,9 +28,10 @@ class ExamRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
+                'max:50',
                 Rule::unique('exams', 'title')->ignore($this->route('exam')),
             ],
-            'pass_mark' => 'required|integer|min:0|max:100',
+            'pass_mark' => 'required|integer|min:10|max:50',
             'level_id'  => 'required|exists:levels,id',
         ];
     }

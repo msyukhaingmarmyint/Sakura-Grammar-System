@@ -14,7 +14,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CertificateMail;
 use App\Models\ReactivationRequest;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 class UserController extends Controller
 {
     public function __construct()
@@ -31,11 +32,11 @@ class UserController extends Controller
         $status = $request->status;
 
         if ($status == 'active') {
-            $users = User::where('status', 'active')->where('role', 'user')->paginate(6)->withQueryString();
+            $users = User::where('status', 'active')->where('role', 'user')->paginate(5)->withQueryString();
         } elseif ($status == 'inactive') {
-            $users = User::where('status', 'inactive')->where('role', 'user')->paginate(6)->withQueryString();
+            $users = User::where('status', 'inactive')->where('role', 'user')->paginate(5)->withQueryString();
         } else {
-            $users = User::where('role', 'user')->paginate(6)->withQueryString();
+            $users = User::where('role', 'user')->paginate(5)->withQueryString();
         }
 
         $totalUsers = User::where('role', 'user')->count();
@@ -168,10 +169,15 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'email',
+            'name' => 'required|string|max:30',
+            'email'    => [
+                'required', 
+                'string', 
+                'email', 
+                'max:50', 
+                'unique:users',
+                'regex:/^[a-zA-Z0-9.]+@gmail\.com$/i' 
+            ,
                 Rule::unique('users')->ignore($user->id),
             ],
         ]);
@@ -254,19 +260,92 @@ class UserController extends Controller
         return view('user.profile.change_password');
     }
 
+/**
+     * Change the authenticated user's password.
+     */
     public function changePassword(Request $request)
     {
-        $request->validate([
-            'current_password' => 'required',
-            'new_password' => 'required|min:8|confirmed',
-            'new_password_confirmation' => 'required',
+       
+        $validator = Validator::make($request->all(), [
+            'current_password'          => ['required'],
+            'new_password'              => ['required', 'string', 'confirmed', Password::min(8)],
+            'new_password_confirmation' => ['required'],
         ], [
-            'current_password.required' => 'Current password is required.',
-            'new_password.required' => 'New password is required.',
-            'new_password.min' => 'Password must be at least 8 characters.',
-            'new_password.confirmed' => 'Passwords do not match.',
+            'current_password.required'          => 'Current password is required.',
+            'new_password.required'              => 'New password is required.',
+            'new_password.min'                   => 'Password must be at least 8 characters.',
+            'new_password.confirmed'             => 'Passwords do not match.',
             'new_password_confirmation.required' => 'Confirm password is required!',
         ]);
+        $validator->after(function ($validator) use ($request) {
+            if (empty($request->new_password)) {
+                return;
+            }
+
+            $password = $request->new_password;
+            $missing = [];
+
+            if (!preg_match('/[A-Z]/', $password)) {
+                $missing[] = 'uppercase letter';
+            }
+            if (!preg_match('/[0-9]/', $password)) {
+                $missing[] = 'number';
+            }
+            if (!preg_match('/[\W_]/', $password)) {
+                $missing[] = 'special symbol';
+            }
+
+            if (!empty($missing)) {
+                if (count($missing) === 3) {
+                    $msg = 'Password must contain at least one uppercase letter, number, and special symbol.';
+                } elseif (count($missing) === 2) {
+                    $msg = 'Password must contain at least one ' . $missing[0] . ' and ' . $missing[1] . '.';
+                } else {
+                    $msg = 'Password must contain at least one ' . $missing[0] . '.';
+                }
+
+                $validator->errors()->add('new_password', $msg);
+            }
+        });
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            if ($errors->has('new_password')) {
+                $passwordErrors = $errors->get('new_password');
+                $firstError = array_shift($passwordErrors);
+
+                $cleanedRemaining = array_map(function($msg) {
+                    $msg = preg_replace('/^the password must contain\s+/i', '', $msg);
+                    $msg = preg_replace('/^the password\s+/i', '', $msg);
+                    return $msg;
+                }, $passwordErrors);
+
+                if (!empty($cleanedRemaining)) {
+                    $firstError = rtrim($firstError, '.');
+                    
+                    foreach ($cleanedRemaining as &$msg) {
+                        $msg = rtrim($msg, '.');
+                    }
+
+                    if (count($cleanedRemaining) > 1) {
+                        $lastMsg = array_pop($cleanedRemaining);
+                        $combinedSentence = $firstError . ', ' . implode(', ', $cleanedRemaining) . ', and ' . $lastMsg . '.';
+                    } else {
+                        $combinedSentence = $firstError . ' and ' . $cleanedRemaining[0] . '.';
+                    }
+                } else {
+                    $combinedSentence = $firstError;
+                }
+
+                $messages = $errors->getMessages();
+                $messages['new_password'] = [$combinedSentence];
+
+                $errors = new \Illuminate\Support\MessageBag();
+                $errors->merge($messages);
+            }
+
+            return redirect()->back()->withErrors($errors);
+        }
 
         $user = auth()->user();
 
@@ -276,8 +355,10 @@ class UserController extends Controller
             ]);
         }
 
+        // 5. Encrypt and save updates cleanly
         $user->password = Hash::make($request->new_password);
         $user->save();
+
         return redirect()->route('user')->with('success', 'Password changed successfully');
     }
 
