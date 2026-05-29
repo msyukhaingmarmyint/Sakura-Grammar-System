@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="position-relative mb-4">
-        <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+        <a href="{{ route('admin') }}" class="pe-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span>
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Users' List</h1>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8 mx-auto mb-5">
+        <div class="col-12 mb-5">
             <div class="card shadow-sm rounded-4 border-0 overflow-hidden">
                 <div class="table-responsive">
                     <table class="table table-danger align-middle m-0">
@@ -49,8 +49,8 @@
                                 <th class="ps-4 py-3 text-center" style="width: 100px;">ID</th>
                                 <th class="py-3">User Name</th>
                                 <th class="py-3">Email Address</th>
-                                <th class="py-3 text-center">Created At</th>
-                                <th class="py-3 text-center" style="width: 140px;">Status</th>
+                                <th class="py-3">Created At</th>
+                                <th class="py-3">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,8 +59,11 @@
                             $rowClass = $user->status == 'active' ? 'row-active-bg' : 'row-inactive-bg';
                             @endphp
                             <tr class="hover-row transition {{ $rowClass }}">
-                                <td class="ps-4 py-3 text-center fw-bold font-mono text-secondary">
-                                    #{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                <td class="ps-4 py-3 text-center">
+                                    <span class="d-inline-flex align-items-center justify-content-center fw-bold rounded-circle text-white shadow-sm"
+                                        style="background-color: #ff7c9d; width: 28px; height: 28px; font-size: 0.85rem;">
+                                        {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                    </span>
                                 </td>
                                 <td class="py-3 fw-semibold">
                                     {{ $user->name }}
@@ -68,20 +71,27 @@
                                 <td class="py-3">
                                     {{ $user->email }}
                                 </td>
+<<<<<<< HEAD
                                 <td class="py-3 text-center">
                                     {{ $user->created_at->format('Y-n-j') }}
                                 </td>
                                 <td class="py-3 text-center">
+=======
+                                <td class="py-3">
+                                    {{ $user->created_at->format('Y-m-d') }}
+                                </td>
+                                <td class="py-3">
+>>>>>>> 15e8550ccb57204a179306521dc0698052a52398
                                     @if($user->status == 'active')
-                                    <span class="badge text-success fs-6 fw-bold px-3 py-2">Active</span>
+                                    <span class="badge text-success fs-6 fw-bold  py-2">Active</span>
                                     @else
-                                    <span class="badge text-danger fs-6 fw-bold px-3 py-2">Inactive</span>
+                                    <span class="badge text-danger fs-6 fw-bold  py-2">Inactive</span>
                                     @endif
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted py-4">
+                                <td colspan="5" class="text-center text-muted py-4">
                                     No users available matching this folder setup directory.
                                 </td>
                             </tr>
@@ -91,8 +101,8 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center mt-4">
-                {{ $users->links() }}
+            <div class="d-flex justify-content-end mt-4">
+                {{ $users->links('components.paginations') }}
             </div>
         </div>
     </div>

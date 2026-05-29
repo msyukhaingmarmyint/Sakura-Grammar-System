@@ -38,7 +38,7 @@
 
 <div class="container">
     <div class="position-relative mb-4">
-        <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+        <a href="{{ route('admin') }}" class="pe-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span>
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Certificates' List</h1>
@@ -111,7 +111,6 @@
                                 <h5 class="fw-bold">User Name : {{ $certificate->attempt?->user?->name ?? 'Deleted User' }}</h5>
                                 <p class="mb-1">Passed Exam : {{ $certificate->attempt?->exam?->title ?? 'Unknown Exam' }}</p>
                                 <p class="mb-1">Score : {{ $certificate->attempt?->mark ?? 'N/A' }}</p>
-                                <small class="text-secondary">Certificate ID : {{ $certificate->id }}</small>
                             </div>
                         </div>
                     </div>
@@ -120,8 +119,8 @@
             @empty
             <p class="text-center text-muted mt-4">No certificates available.</p>
             @endforelse
-            <div class="d-flex justify-content-center mt-4">
-                {{ $certificates->links() }}
+            <div class="d-flex justify-content-end mt-4">
+                {{ $certificates->links('components.paginations') }}
             </div>
         </div>
     </div>

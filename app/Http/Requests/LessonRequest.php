@@ -28,12 +28,13 @@ class LessonRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
+                'max:255',
                 Rule::unique('lessons', 'title')->ignore($this->route('lesson')),
             ],
-            'structure' => 'required',
+           'structure' => 'required|string|max:255',
             'explanation' => 'required|string|max:255',
-            'example' => 'required',
-            'level_id' => 'required',
+           'example' => 'required|string|max:255',
+            'level_id' => 'required|exists:levels,id',
         ];
     }
 }

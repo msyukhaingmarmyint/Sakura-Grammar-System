@@ -20,7 +20,6 @@ class ExamController extends Controller
 
     public function showExam()
     {
-        $levels = Level::where('status', 'active')->with('exam')->get();
         $exams = Exam::all();
         $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
         return view('admin.exam.showExam', compact('exams', 'colors'));
@@ -31,11 +30,11 @@ class ExamController extends Controller
         $status = $request->status;
 
         if ($status == 'active') {
-            $exams = Exam::where('status', 'active')->paginate(6)->withQueryString();
+            $exams = Exam::where('status', 'active')->latest()->paginate(6)->withQueryString();
         } elseif ($status == 'inactive') {
-            $exams = Exam::where('status', 'inactive')->paginate(6)->withQueryString();
+            $exams = Exam::where('status', 'inactive')->latest()->paginate(6)->withQueryString();
         } else {
-            $exams = Exam::paginate(6)->withQueryString();
+            $exams = Exam::latest()->paginate(6)->withQueryString();
         }
 
         $totalExams = Exam::count();

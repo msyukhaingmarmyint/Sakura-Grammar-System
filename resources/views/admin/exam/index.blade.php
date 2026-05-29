@@ -34,19 +34,21 @@
         border-color: #fff !important;
     }
 
-    .btn.disabled, 
-.btn:disabled {
-    pointer-events: auto !important;
-    cursor: not-allowed !important;
-}
+    .btn.disabled,
+    .btn[disabled] {
+        pointer-events: auto !important;
+        cursor: not-allowed !important;
+        opacity: 0.5;
+        box-shadow: none !important;
+        transform: none !important;
+    }
 </style>
 
 <div class="container">
 
     <div class="position-relative mb-4">
-        <a href="{{ route('admin') }}" class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+        <a href="{{ route('admin') }}" class="pe-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span>
-
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Exams' List</h1>
     </div>
@@ -101,17 +103,32 @@
                     </div>
 
                     <div class="d-flex justify-content-start mt-3">
-                        <a href="{{route('exams.edit',$exam->id)}}" class="btn btn-sm btn-primary me-2 {{$exam->level->status == 'inactive' ? 'disabled' : ''}}">
+                        @if($exam->level->status == 'inactive')
+                        <a href="#"
+                            class="btn btn-sm btn-primary me-2 disabled"
+                            onclick="return false;">
                             Edit
                         </a>
-                        <form action="{{route('exam.status',$exam->id)}}" method="POST">
+                        @else
+                        <a href="{{ route('exams.edit', $exam->id) }}"
+                            class="btn btn-sm btn-primary me-2">
+                            Edit
+                        </a>
+                        @endif
+
+                        <form action="{{ route('exam.status', $exam->id) }}" method="POST">
                             @csrf
+
                             @if($exam->status == 'active')
-                            <button class="btn btn-sm btn-danger {{$exam->level->status == 'inactive' ? 'disabled' : ''}}">
+                            <button type="submit"
+                                class="btn btn-sm btn-danger {{ $exam->level->status == 'inactive' ? 'disabled' : '' }}"
+                                {{ $exam->level->status == 'inactive' ? 'disabled onclick=return(false);' : '' }}>
                                 Inactive
                             </button>
                             @else
-                            <button class="btn btn-sm btn-success {{$exam->level->status == 'inactive' ? 'disabled' : ''}}">
+                            <button type="submit"
+                                class="btn btn-sm btn-success {{ $exam->level->status == 'inactive' ? 'disabled' : '' }}"
+                                {{ $exam->level->status == 'inactive' ? 'disabled onclick=return(false);' : '' }}>
                                 Active
                             </button>
                             @endif
@@ -125,8 +142,8 @@
         <p class="text-center text-muted mt-4">No exams available.</p>
         @endforelse
 
-        <div class="d-flex justify-content-center mt-4">
-            {{ $exams->links() }}
+        <div class="d-flex justify-content-end mt-4">
+            {{ $exams->links('components.paginations') }}
         </div>
     </div>
 </div>

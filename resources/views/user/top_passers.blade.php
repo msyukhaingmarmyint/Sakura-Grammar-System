@@ -5,7 +5,7 @@
 <div class="container">
     <div class="position-relative mb-4">
         <a href="{{ auth()->check() ? (auth()->user()->role == 'admin' ? route('admin') : route('home')) : route('home') }}"
-           class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+           class="pe-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i> <span class="d-none d-sm-inline">Back</span> 
         </a>
         <h1 class="fw-bold text-center" style="color: #ff7c9d;">Top Passers</h1>

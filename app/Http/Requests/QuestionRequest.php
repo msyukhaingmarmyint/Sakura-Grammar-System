@@ -28,14 +28,15 @@ class QuestionRequest extends FormRequest
             'question' => [
                 'required',
                 'string',
+                'max:255',
                 Rule::unique('questions', 'question')->ignore($this->route('question')),
             ],
-            'a' => 'required',
-            'b' => 'required',
-            'c' => 'required',
-            'd' => 'required',
-            'correct_answer' => 'required',
-            'exam_id' => 'required',
+            'a' => 'required|string|max:255',
+            'b' => 'required|string|max:255',
+            'c' => 'required|string|max:255',
+            'd' => 'required|string|max:255',
+            'correct_answer' => 'required|string|in:a,b,c,d',
+            'exam_id' => 'required|exists:exams:id',
         ];
     }
 }

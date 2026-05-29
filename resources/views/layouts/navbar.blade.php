@@ -22,7 +22,7 @@
     }
 
     .dropdown-item:hover,
-    .nav-link.text-body:hover {
+    .nav-link.text-body.with-color:hover {
         background-color: #ff7c9d !important;
         color: white !important;
         border-radius: 6px !important;
@@ -96,7 +96,7 @@
 
                 @guest
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-body dropdown-toggle {{ $activeLevel ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link text-body with-color dropdown-toggle {{ $activeLevel ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Level
                     </a>
                     <ul class="dropdown-menu">
@@ -110,49 +110,49 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->is('/#about') ? 'active' : '' }}" href="{{ url('/') }}#about">About</a>
+                    <a class="nav-link text-body with-color {{ request()->is('/#about') ? 'active' : '' }}" href="{{ url('/') }}#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->is('/#jlpt') ? 'active' : '' }}" href="{{ url('/') }}#jlpt">JLPT</a>
+                    <a class="nav-link text-body with-color {{ request()->is('/#jlpt') ? 'active' : '' }}" href="{{ url('/') }}#jlpt">JLPT</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->is('/#contact') ? 'active' : '' }}" href="{{ url('/') }}#contact">Contact</a>
+                    <a class="nav-link text-body with-color {{ request()->is('/#contact') ? 'active' : '' }}" href="{{ url('/') }}#contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('showExam') ? 'active' : '' }}" href="{{ route('showExam') }}">Exam</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('showExam') ? 'active' : '' }}" href="{{ route('showExam') }}">Exam</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{ route('showTopPassers') }}">Top Passers</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{ route('showTopPassers') }}">Top Passers</a>
                 </li>
                 @else
                 @if(Auth::user()->role === 'admin')
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('admin') ? 'active' : '' }}" href="{{ route('admin') }}">Dashboard</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('admin') ? 'active' : '' }}" href="{{ route('admin') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('levels.index') ? 'active' : '' }}" href="{{ route('levels.index') }}">Levels</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('levels.index') ? 'active' : '' }}" href="{{ route('levels.index') }}">Levels</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('lessons.index') ? 'active' : '' }}" href="{{ route('lessons.index') }}">Lessons</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('lessons.index') ? 'active' : '' }}" href="{{ route('lessons.index') }}">Lessons</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('questions.index') ? 'active' : '' }}" href="{{ route('questions.index') }}">Questions</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('questions.index') ? 'active' : '' }}" href="{{ route('questions.index') }}">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('exams.index') ? 'active' : '' }}" href="{{ route('exams.index') }}">Exams</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('exams.index') ? 'active' : '' }}" href="{{ route('exams.index') }}">Exams</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">Users</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('scores.index') ? 'active' : '' }}" href="{{ route('scores.index') }}">Certificates</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('scores.index') ? 'active' : '' }}" href="{{ route('scores.index') }}">Certificates</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{ route('showTopPassers') }}">Top Passers</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{ route('showTopPassers') }}">Top Passers</a>
                 </li>
                 @else
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-body dropdown-toggle {{ $activeLevel ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link text-body with-color dropdown-toggle {{ $activeLevel ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Level
                     </a>
                     <ul class="dropdown-menu">
@@ -166,19 +166,19 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->is('/#about') ? 'active' : '' }}" href="{{ url('/') }}#about">About</a>
+                    <a class="nav-link text-body with-color {{ request()->is('/#about') ? 'active' : '' }}" href="{{ url('/') }}#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->is('/#jlpt') ? 'active' : '' }}" href="{{ url('/') }}#jlpt">JLPT</a>
+                    <a class="nav-link text-body with-color {{ request()->is('/#jlpt') ? 'active' : '' }}" href="{{ url('/') }}#jlpt">JLPT</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->is('/#contact') ? 'active' : '' }}" href="{{ url('/') }}#contact">Contact</a>
+                    <a class="nav-link text-body with-color {{ request()->is('/#contact') ? 'active' : '' }}" href="{{ url('/') }}#contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('showExam') ? 'active' : '' }}" href="{{ route('showExam') }}">Exam</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('showExam') ? 'active' : '' }}" href="{{ route('showExam') }}">Exam</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-body {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{ route('showTopPassers') }}">Top Passers</a>
+                    <a class="nav-link text-body with-color {{ request()->routeIs('showTopPassers') ? 'active' : '' }}" href="{{ route('showTopPassers') }}">Top Passers</a>
                 </li>
                 @endif
                 @endguest
@@ -262,6 +262,12 @@
 
                         <hr class="dropdown-divider">
                         <li>
+                            <a class="dropdown-item text-body text-start" href="{{ route('password.form') }}">
+                                <i class="bi bi-key-fill me-2"></i> Change Password
+                            </a>
+                        </li>
+
+                        <li>
                             <button type="button" class="dropdown-item text-body text-start w-100 border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt me-2"></i> Logout
                             </button>
@@ -296,7 +302,7 @@
 </div>
 
 <script>
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link.with-color');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             navLinks.forEach(node => node.classList.remove('active'));

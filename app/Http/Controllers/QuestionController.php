@@ -24,8 +24,6 @@ public function index(Request $request)
     $status = $request->status;
     $levelName = $request->level;
 
-    // 1. Base query for calculating dynamic stats
-    // We start with Question, but if a level is selected, we filter down through the relationships
     $statsQuery = Question::query();
 
     if ($levelName) {
@@ -34,28 +32,23 @@ public function index(Request $request)
         });
     }
 
-    // Calculate dynamic counts based strictly on the selected level
     $totalQuestions    = (clone $statsQuery)->count();
     $activeQuestions   = (clone $statsQuery)->where('status', 'active')->count();
     $inactiveQuestions = (clone $statsQuery)->where('status', 'inactive')->count();
 
-    // 2. Base query for the actual list of questions displayed on the page
     $questionsQuery = Question::query();
 
-    // Apply level filter if selected
     if ($levelName) {
         $questionsQuery->whereHas('exam.level', function ($query) use ($levelName) {
             $query->where('name', $levelName);
         });
     }
 
-    // Apply status filter if selected (and not set to 'all')
     if ($status === 'active' || $status === 'inactive') {
         $questionsQuery->where('status', $status);
     }
 
-    // Get final paginated result with query string parameters attached
-    $questions = $questionsQuery->paginate(6)->withQueryString();
+    $questions = $questionsQuery->latest()->paginate(6)->withQueryString();
 
     // Standard lookup assets
     $levels = Level::all();

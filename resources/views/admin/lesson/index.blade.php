@@ -51,11 +51,14 @@
         border-color: #fff !important;
     }
 
-    .btn.disabled, 
-.btn:disabled {
-    pointer-events: auto !important;
-    cursor: not-allowed !important;
-}
+    .btn.disabled,
+    .btn[disabled] {
+        pointer-events: auto !important;
+        cursor: not-allowed !important;
+        opacity: 0.5;
+        box-shadow: none !important;
+        transform: none !important;
+    }
 </style>
 
 <div class="container">
@@ -63,7 +66,7 @@
 
         <div class="position-relative mb-4">
             <a href="{{ route('admin') }}"
-                class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+                class="pe-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
                 <i class="fa fa-arrow-left me-2"></i>
                 <span class="d-none d-sm-inline">Back</span>
             </a>
@@ -143,24 +146,33 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-start mt-3">
-                            <a href="{{ route('lessons.edit', $lesson->id) }}"
-                                class="btn btn-sm btn-primary me-2 {{$lesson->level->status == 'inactive' ? 'disabled' : ''}}">
+
+                            @if($lesson->level->status == 'inactive')
+                            <a href="#" class="btn btn-sm btn-primary me-2 disabled" onclick="return false;">
                                 Edit
                             </a>
+                            @else
+                            <a href="{{ route('lessons.edit', $lesson->id) }}" class="btn btn-sm btn-primary me-2">
+                                Edit
+                            </a>
+                            @endif
 
                             <form action="{{ route('lesson.status', $lesson->id) }}" method="POST">
                                 @csrf
 
                                 @if($lesson->status == 'active')
-                                <button class="btn btn-sm btn-danger {{$lesson->level->status == 'inactive' ? 'disabled' : ''}}">
+                                <button type="submit"
+                                    class="btn btn-sm btn-danger"
+                                    {{ $lesson->level->status == 'inactive' ? 'disabled onclick=return(false);' : '' }}>
                                     Inactive
                                 </button>
                                 @else
-                                <button class="btn btn-sm btn-success {{$lesson->level->status == 'inactive' ? 'disabled' : ''}}">
+                                <button type="submit"
+                                    class="btn btn-sm btn-success"
+                                    {{ $lesson->level->status == 'inactive' ? 'disabled onclick=return(false);' : '' }}>
                                     Active
                                 </button>
                                 @endif
-
                             </form>
 
                         </div>
@@ -178,8 +190,8 @@
             @endforelse
         </div>
 
-        <div class="d-flex justify-content-center mt-4">
-            {{ $lessons->links() }}
+        <div class="d-flex justify-content-end mt-4">
+            {{ $lessons->links('components.paginations') }}
         </div>
 
     </div>

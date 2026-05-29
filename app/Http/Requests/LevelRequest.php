@@ -29,6 +29,7 @@ class LevelRequest extends FormRequest
                 'required',
                 'regex:/^[A-Za-z0-9\s]+$/',
                 'string',
+                'max:20',
                 Rule::unique('levels', 'name')->ignore($this->route('level')),
             ],
            'description' => 'required|string|max:255',

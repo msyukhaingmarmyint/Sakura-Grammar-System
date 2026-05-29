@@ -4,7 +4,7 @@
 <div class="container d-flex align-items-center justify-content-center">
     <div class="col-md-5">
         <div class="card shadow-lg rounded-4">
-            <div class="card-body p-5">
+            <div class="card-body p-4">
                 <h3 class="text-center text-body mb-4 fw-bold">Login</h3>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
@@ -59,7 +59,7 @@
                     <div class="text-center">
                         <small class="text-body">
                             Don't you have an account yet?
-                            <a href="{{ route('register') }}" class="text-decoration-none">Register</a>
+                            <a href="{{ route('register') }}" class="text-decoration-none"  style="color: #ff7c9d;">Register</a>
                         </small>
                     </div>
                 </form>

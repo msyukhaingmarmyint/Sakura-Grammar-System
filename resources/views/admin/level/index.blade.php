@@ -39,7 +39,7 @@
 <div class="container">
     <div class="position-relative mb-4">
         <a href="{{ route('admin') }}"
-           class="px-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
+           class="pe-4 position-absolute start-0 top-0 fs-4 text-decoration-none text-body">
             <i class="fa fa-arrow-left me-2"></i>
             <span class="d-none d-sm-inline">Back</span>
         </a>
@@ -124,8 +124,8 @@
         @endforelse
     </div>
 
-    <div class="d-flex justify-content-center mt-4">
-        {{ $levels->links() }}
+    <div class="d-flex justify-content-end mt-4">
+        {{ $levels->links('components.paginations') }}
     </div>
 </div>
 @endsection
