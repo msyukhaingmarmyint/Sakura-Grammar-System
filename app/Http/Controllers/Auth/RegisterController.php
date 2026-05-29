@@ -27,7 +27,7 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * 
+     * Where to redirect users after registration.
      *
      * @var string
      */
@@ -57,7 +57,19 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->create($request->all())));
+        // Upload profile image
+        $profilePath = null;
+
+        if ($request->hasFile('profile')) {
+            $profilePath = $request->file('profile')
+                ->store('profiles', 'public');
+        }
+
+        // Add profile into request data
+        $data = $request->all();
+        $data['profile'] = $profilePath;
+
+        event(new Registered($user = $this->create($data)));
 
         return redirect()->route('login')
         ->with('success', 'Account created successfully! Please login.');
@@ -95,6 +107,12 @@ class RegisterController extends Controller
 
 
             'password_confirmation' => ['required'],
+            'profile' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png',
+                'max:2048'
+            ],
         ], [
             'name.required' => 'Please enter your full name.',
             'email.required' => 'Email is required!',
@@ -103,6 +121,7 @@ class RegisterController extends Controller
             'password.confirmed' => 'Passwords do not match.',
             'password_confirmation.required' => 'Confirm password is required!',
         ]);
+        
     }
 
 
@@ -118,6 +137,7 @@ class RegisterController extends Controller
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
+            'profile'  => $data['profile'] ?? null,
             'role'     => 'user',
         ]);
     }

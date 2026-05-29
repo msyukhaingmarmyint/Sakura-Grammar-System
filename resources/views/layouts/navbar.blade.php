@@ -59,6 +59,19 @@
         .nav-link.text-body.active {
             margin: 4px 0 !important;
         }
+
+        .navbar-profile-img {
+            width: 38px;
+            height: 38px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid white;
+            transition: 0.3s;
+        }
+
+        .navbar-profile-img:hover {
+            transform: scale(1.05);
+        }
     }
 </style>
 
@@ -189,8 +202,28 @@
                 @endif
                 @else
                 <li class="nav-item dropdown w-100 text-start styles-dropdown-fix" style="width: auto !important;">
-                    <a class="nav-link text-body dropdown-toggle px-2 px-md-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->name }}
+                    <a class="nav-link text-body dropdown-toggle d-flex align-items-center gap-2 px-2 px-md-0"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        <!-- User Profile -->
+                        <img
+                            src="{{ Auth::user()->profile
+        ? asset('storage/' . Auth::user()->profile)
+        :asset('img/image.png') }}"
+                            alt="Profile"
+                            width="38"
+                            height="38"
+                            class="rounded-circle border shadow-sm"
+                            style="object-fit: cover;">
+
+                        <!-- Username -->
+                        <span class="fw-semibold">
+                            {{ Auth::user()->name }}
+                        </span>
+
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li class="my-1">

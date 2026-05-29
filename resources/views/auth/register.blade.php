@@ -7,9 +7,39 @@
             <div class="card-body p-5">
                 <h3 class="text-center text-body mb-4 fw-bold">Register</h3>
 
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
 
+                    <!-- Profile Image -->
+                    <div class="mb-3 text-center">
+                        <label class="form-label text-body d-block">Profile Image</label>
+
+                        <!-- Profile Preview -->
+                        <img id="profilePreview"
+                            src="img/image.png"
+                            class="rounded-circle border shadow-sm mb-3"
+                            width="120"
+                            height="120"
+                            style="object-fit: cover;">
+
+                        <!-- Upload Button BELOW image -->
+                        <div>
+                            <label for="profile" class="btn btn-outline-primary rounded-3 px-4">
+                                <i class="fa fa-upload me-1"></i> Upload Photo
+                            </label>
+
+                            <input type="file"
+                                name="profile"
+                                id="profile"
+                                accept="image/*"
+                                onchange="previewProfile(event)"
+                                style="display: none;">
+                        </div>
+
+                        @error('profile')
+                        <p class="text-danger small mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <!-- Full Name -->
                     <div class="mb-3">
                         <label class="form-label text-body">Full Name</label>
@@ -49,7 +79,7 @@
                             <i id="eye1" class="fa fa-eye text-muted"></i>
                         </span>
 
-                         <div class="mt-2">
+                        <div class="mt-2">
                             <div class="progress" style="height: 6px;">
                                 <div id="strengthBar" class="progress-bar transition-base" role="progressbar" style="width: 0%"></div>
                             </div>
@@ -71,7 +101,7 @@
                         <span onclick="togglePassword('password-confirm','eye2')" style="position:absolute; top:38px; right:15px; cursor:pointer" class="z-3">
                             <i id="eye2" class="fa fa-eye text-muted"></i>
                         </span>
-                        
+
                         @error('password_confirmation')
                         <p class="text-danger small mt-1">{{ $message }}</p>
                         @enderror
@@ -101,16 +131,16 @@
     .transition-base {
         transition: all 0.3s ease-in-out;
     }
+
     .small-helper-text {
         font-size: 0.75rem;
     }
 </style>
 
 <script>
-
     function checkGmailValidity(email) {
         const helpText = document.getElementById('emailHelpText');
-        
+
         if (!email) {
             helpText.textContent = 'Must be a valid Gmail account';
             helpText.className = 'text-muted fw-semibold';
@@ -147,9 +177,9 @@
     function checkPasswordStrength(password) {
         const bar = document.getElementById('strengthBar');
         const text = document.getElementById('strengthText');
-        
+
         let score = 0;
-        
+
         if (!password) {
             bar.style.width = '0%';
             text.textContent = 'Enter a password';
@@ -159,10 +189,10 @@
 
         if (password.length >= 8) score += 25;
         if (password.length >= 12) score += 15;
-        if (/[A-Z]/.test(password)) score += 15; 
-        if (/[a-z]/.test(password)) score += 15; 
-        if (/[0-9]/.test(password)) score += 15; 
-        if (/[^A-Za-z0-9]/.test(password)) score += 15; 
+        if (/[A-Z]/.test(password)) score += 15;
+        if (/[a-z]/.test(password)) score += 15;
+        if (/[0-9]/.test(password)) score += 15;
+        if (/[^A-Za-z0-9]/.test(password)) score += 15;
         if (score < 40) {
             bar.style.width = '25%';
             bar.className = 'progress-bar bg-danger';
@@ -180,5 +210,21 @@
             text.className = 'text-success fw-bold';
         }
     }
+
+    function previewProfile(event) {
+        const output = document.getElementById('profilePreview');
+
+        if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        } else {
+            output.src = "img/image.png";
+        }
+    }
 </script>
+
+
 @endsection

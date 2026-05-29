@@ -167,6 +167,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => [
@@ -174,11 +175,23 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($user->id),
             ],
+            'profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        // update text fields
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->update();
-        return redirect()->route('user.profile', compact('id'))
+
+        // update profile image (IMPORTANT)
+        if ($request->hasFile('profile')) {
+            $profilePath = $request->file('profile')->store('profiles', 'public');
+            $user->profile = $profilePath;
+        }
+
+        $user->save();
+
+        return redirect()
+            ->route('user.profile', $user->id)
             ->with('success', 'User updated successfully!');
     }
 

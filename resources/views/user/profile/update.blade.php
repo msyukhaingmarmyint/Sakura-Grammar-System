@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body p-4 bg-white">
-                    <form action="{{ route('user.update', $user->id) }}" method="POST">
+                    <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -26,7 +26,7 @@
                                 <input type="text" name="name" class="form-control  border-start-0 ps-2" value="{{ old('name', $user->name) }}">
                             </div>
                             @error('name')
-                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
+                            <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
                             @enderror
                         </div>
 
@@ -40,7 +40,40 @@
                                 <input type="email" name="email" class="form-control  border-start-0 ps-2" value="{{ old('email', $user->email) }}">
                             </div>
                             @error('email')
-                                <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
+                            <p class="text-danger small mt-1 mb-0"> {{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Profile Image -->
+                        <div class="mb-3 text-center">
+                            <label class="form-label text-body d-block">Profile Image</label>
+
+                            <!-- Profile Preview -->
+                            <img id="profilePreview"
+                                src="{{ $user->profile
+        ? asset('storage/' . $user->profile)
+        : asset('img/image.png') }}"
+                                class="rounded-circle border shadow-sm mb-3"
+                                width="120"
+                                height="120"
+                                style="object-fit: cover;">
+
+                            <!-- Upload Button BELOW image -->
+                            <div>
+                                <label for="profile" class="btn btn-outline-primary rounded-3 px-4">
+                                    <i class="fa fa-upload me-1"></i> Upload Photo
+                                </label>
+
+                                <input type="file"
+                                    name="profile"
+                                    id="profile"
+                                    accept="image/*"
+                                    onchange="previewProfile(event)"
+                                    style="display: none;">
+                            </div>
+
+                            @error('profile')
+                            <p class="text-danger small mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -50,9 +83,9 @@
                             </button>
 
                             @if($user->role == 'user')
-                                <a href="{{ route('user.profile', $user->id) }}" class="btn btn-secondary px-4 rounded-3 fw-medium">Cancel</a>
+                            <a href="{{ route('user.profile', $user->id) }}" class="btn btn-secondary px-4 rounded-3 fw-medium">Cancel</a>
                             @else
-                                <a href="{{ route('users.index') }}" class="btn btn-secondary px-4 rounded-3 fw-medium">Cancel</a>
+                            <a href="{{ route('users.index') }}" class="btn btn-secondary px-4 rounded-3 fw-medium">Cancel</a>
                             @endif
                         </div>
                     </form>
@@ -62,4 +95,15 @@
         </div>
     </div>
 </div>
+<script>
+    function previewProfile(event) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            document.getElementById('profilePreview').src = reader.result;
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 @endsection
