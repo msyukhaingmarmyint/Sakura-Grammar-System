@@ -16,6 +16,7 @@ use App\Mail\CertificateMail;
 use App\Models\ReactivationRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -171,27 +172,27 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:30',
-            'email'    => [
-                'required', 
-                'string', 
-                'email', 
-                'max:50', 
-                'unique:users',
-                'regex:/^[a-zA-Z0-9.]+@gmail\.com$/i' 
-            ,
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:50',
+                'regex:/^[a-zA-Z0-9.]+@gmail\.com$/i',
                 Rule::unique('users')->ignore($user->id),
             ],
             'profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // update text fields
         $user->name = $request->name;
         $user->email = $request->email;
 
-        // update profile image (IMPORTANT)
         if ($request->hasFile('profile')) {
-            $profilePath = $request->file('profile')->store('profiles', 'public');
-            $user->profile = $profilePath;
+            $file = $request->file('profile');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('profiles'), $filename);
+
+            $user->profile = 'profiles/' . $filename;
         }
 
         $user->save();
@@ -273,12 +274,12 @@ class UserController extends Controller
         return view('user.profile.change_password');
     }
 
-/**
+    /**
      * Change the authenticated user's password.
      */
     public function changePassword(Request $request)
     {
-       
+
         $validator = Validator::make($request->all(), [
             'current_password'          => ['required'],
             'new_password'              => ['required', 'string', 'confirmed', Password::min(8)],
@@ -327,7 +328,7 @@ class UserController extends Controller
                 $passwordErrors = $errors->get('new_password');
                 $firstError = array_shift($passwordErrors);
 
-                $cleanedRemaining = array_map(function($msg) {
+                $cleanedRemaining = array_map(function ($msg) {
                     $msg = preg_replace('/^the password must contain\s+/i', '', $msg);
                     $msg = preg_replace('/^the password\s+/i', '', $msg);
                     return $msg;
@@ -335,7 +336,7 @@ class UserController extends Controller
 
                 if (!empty($cleanedRemaining)) {
                     $firstError = rtrim($firstError, '.');
-                    
+
                     foreach ($cleanedRemaining as &$msg) {
                         $msg = rtrim($msg, '.');
                     }
@@ -375,18 +376,17 @@ class UserController extends Controller
         return redirect()->route('user')->with('success', 'Password changed successfully');
     }
 
-
     public function sendRequest(Request $request)
     {
-        $user = User::where('email',$request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return back()->with('error','User not found.');
+            return back()->with('error', 'User not found.');
         }
 
         $existingRequest = ReactivationRequest::where('user_id', $user->id)
-        ->where('status', 'pending')
-        ->first();
+            ->where('status', 'pending')
+            ->first();
 
         if ($existingRequest) {
             return back()->with('error', 'Reactivation request already sent. Please wait for admin response.');
@@ -406,6 +406,49 @@ class UserController extends Controller
             }
         );
 
-        return back()->with('success','Request sent successfully.');
+        return back()->with('success', 'Request sent successfully.');
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $attempts = Attempt::with([
+            'exam.level',
+            'certificate'
+        ])
+            ->where('user_id', $id)
+            ->orderBy('exam_id', 'asc')
+            ->get();
+
+        $attemptsCount = $attempts->count();
+        $certificatesCount = $attempts->whereNotNull('certificate')->count();
+
+        $levelCounts = $attempts
+            ->groupBy(function ($attempt) {
+                return optional($attempt->exam->level)->name ?? 'Unknown';
+            })
+            ->map(function ($group) {
+                return $group->count();
+            });
+
+        $certificateLevelCounts = $attempts
+            ->filter(function ($attempt) {
+                return $attempt->certificate !== null;
+            })
+            ->groupBy(function ($attempt) {
+                return optional($attempt->exam->level)->name ?? 'Unknown';
+            })
+            ->map(function ($group) {
+                return $group->count();
+            });
+
+        return view('admin.user.details', compact(
+            'user',
+            'attempts',
+            'attemptsCount',
+            'certificatesCount',
+            'levelCounts',
+            'certificateLevelCounts'
+        ));
     }
 }

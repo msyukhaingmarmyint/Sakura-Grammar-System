@@ -19,12 +19,9 @@
                     @endif
 
                     <div class="d-flex align-items-center gap-3 py-2">
-
                         <!-- Profile Image -->
                         <img
-                            src="{{ $user->profile
-            ? asset('storage/' . $user->profile)
-            : asset('img/image.png') }}"
+                            src="{{ $user->profile? asset($user->profile):asset('profiles/default.png') }}"
                             alt="Profile"
                             width="60"
                             height="60"
@@ -47,12 +44,6 @@
 
                 <!-- Card Body -->
                 <div class="card-body p-4 bg-white">
-
-<<<<<<< HEAD
-                   
-
-=======
->>>>>>> 15e8550ccb57204a179306521dc0698052a52398
                     <!-- Information Section -->
                     <div class="mb-4">
                         <h5 class="text-uppercase small fw-bold text-dark tracking-wider mb-3">Personal Information</h5>
@@ -77,19 +68,10 @@
                             Edit Profile
                         </a>
 
-<<<<<<< HEAD
-                        <a href="{{ route('password.form') }}" class="btn text-white px-2 fw-medium shadow-sm" style="background-color: #dd4c70;">
-                            Change Password
-                        </a>
-
-                        @if($user->role == 'user')
-                        <button class="btn btn-danger text-white px-2 fw-medium" data-bs-toggle="modal" data-bs-target="#deactivateModal">
-=======
                         @if($user->role == 'user')
                         <button class="btn btn-danger text-white fw-medium w-50"
                             data-bs-toggle="modal"
                             data-bs-target="#deactivateModal">
->>>>>>> 15e8550ccb57204a179306521dc0698052a52398
                             Deactivate
                         </button>
                         @endif
@@ -100,7 +82,7 @@
     </div>
 </div>
 
-{{-- Modern Bootstrap Modal --}}
+
 {{-- Deactivate Account Modal --}}
 <div class="modal fade" id="deactivateModal" tabindex="-1" aria-labelledby="deactivateModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

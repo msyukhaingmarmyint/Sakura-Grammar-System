@@ -50,9 +50,7 @@
 
                             <!-- Profile Preview -->
                             <img id="profilePreview"
-                                src="{{ $user->profile
-        ? asset('storage/' . $user->profile)
-        : asset('img/image.png') }}"
+                                src="{{ $user->profile? asset($user->profile):asset('profiles/default.png') }}"
                                 class="rounded-circle border shadow-sm mb-3"
                                 width="120"
                                 height="120"

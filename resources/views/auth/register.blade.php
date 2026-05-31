@@ -9,15 +9,13 @@
 
                 <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
-
-<<<<<<< HEAD
                     <!-- Profile Image -->
                     <div class="mb-3 text-center">
                         <label class="form-label text-body d-block">Profile Image</label>
 
                         <!-- Profile Preview -->
                         <img id="profilePreview"
-                            src="img/image.png"
+                            src="{{ asset('profiles/default.png') }}"
                             class="rounded-circle border shadow-sm mb-3"
                             width="120"
                             height="120"
@@ -42,8 +40,6 @@
                         @enderror
                     </div>
                     <!-- Full Name -->
-=======
->>>>>>> 15e8550ccb57204a179306521dc0698052a52398
                     <div class="mb-3">
                         <label class="form-label text-body">Full Name</label>
                         <input id="name" type="text"

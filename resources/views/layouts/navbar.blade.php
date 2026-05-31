@@ -210,9 +210,7 @@
 
                         <!-- User Profile -->
                         <img
-                            src="{{ Auth::user()->profile
-        ? asset('storage/' . Auth::user()->profile)
-        :asset('img/image.png') }}"
+                            src="{{ Auth::user()->profile? asset(Auth::user()->profile):asset('profiles/default.png') }}"
                             alt="Profile"
                             width="38"
                             height="38"

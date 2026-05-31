@@ -163,11 +163,6 @@ protected function validator(array $data)
             'password.confirmed' => 'Passwords do not match.',
             'password_confirmation.required' => 'Confirm password is required!',
         ]);
-<<<<<<< HEAD
-        
-    }
-=======
->>>>>>> 15e8550ccb57204a179306521dc0698052a52398
 
         $validator->after(function ($validator) use ($data) {
             if (empty($data['password'])) {

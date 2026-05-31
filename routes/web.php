@@ -92,7 +92,7 @@ Route::post('/user/status/{id}', [UserController::class, 'changeStatus'])->name(
 Route::get('/taken/exams/{id}', [UserController::class, 'showTakenExams'])->name('user.takenExams');
 Route::get('/get/certificates/{id}', [UserController::class, 'getCertificate'])->name('user.getCertificate');
 Route::get('/taken/certificates/{id}', [UserController::class, 'showTakenCertificates'])->name('user.takenCertificates');
-
+Route::get('/user/details/{id}', [UserController::class, 'show'])->name('user.show');
 
 Route::get('/scores', [UserController::class, 'showScore'])->name('scores.index');
 Route::get('/top/passers', [UserController::class, 'showTopPassers'])->name('showTopPassers');

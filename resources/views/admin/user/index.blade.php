@@ -49,8 +49,8 @@
                                 <th class="ps-4 py-3 text-center" style="width: 100px;">ID</th>
                                 <th class="py-3">User Name</th>
                                 <th class="py-3">Email Address</th>
-                                <th class="py-3">Created At</th>
                                 <th class="py-3">Status</th>
+                                <th class="py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,22 +71,17 @@
                                 <td class="py-3">
                                     {{ $user->email }}
                                 </td>
-<<<<<<< HEAD
-                                <td class="py-3 text-center">
-                                    {{ $user->created_at->format('Y-n-j') }}
-                                </td>
-                                <td class="py-3 text-center">
-=======
                                 <td class="py-3">
-                                    {{ $user->created_at->format('Y-m-d') }}
-                                </td>
-                                <td class="py-3">
->>>>>>> 15e8550ccb57204a179306521dc0698052a52398
                                     @if($user->status == 'active')
                                     <span class="badge text-success fs-6 fw-bold  py-2">Active</span>
                                     @else
                                     <span class="badge text-danger fs-6 fw-bold  py-2">Inactive</span>
                                     @endif
+                                </td>
+                                <td class="py-3">
+                                    <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary rounded-3">
+                                        View details
+                                    </a>
                                 </td>
                             </tr>
                             @empty
