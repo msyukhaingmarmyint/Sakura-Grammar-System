@@ -65,9 +65,7 @@
                                 </td>
 
                                 <td class="py-3 text-center">
-                                    {{ $attempt->mark }} points
-
-                                </td>
+{{ $attempt->mark }} / 50                               </td>
 
                                 <td class="pe-4 py-3 text-end small font-mono">
                                     

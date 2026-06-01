@@ -56,11 +56,11 @@
                         </div>
                     </div>
 
-                    @if($exam->status == 'inactive')
+                  @if($exam->status == 'inactive' || $exam->questions_count < 5)
+    <button class="btn btn-secondary border mt-auto" disabled>
+       Sorry! Not available now.
+    </button>
 
-                    <button class="btn btn-secondary border mt-auto" disabled>
-                        Sorry! No avaliable now  
-                    </button>
 
                     @elseif($userAttempts >= 3)
 

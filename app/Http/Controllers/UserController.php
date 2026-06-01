@@ -66,53 +66,45 @@ class UserController extends Controller
         return view('user.certificates', compact('certificates'));
     }
 
-    public function showScore(Request $request)
-    {
-        $exam = $request->exam;
-
-        if ($exam == '1') {
-            $certificates = Certificate::whereHas('attempt', function ($query) {
-                $query->where('exam_id', 1);
-            })->paginate(6)->withQueryString();
-        } elseif ($exam == '2') {
-            $certificates = Certificate::whereHas('attempt', function ($query) {
-                $query->where('exam_id', 2);
-            })->paginate(6)->withQueryString();
-        } elseif ($exam == '3') {
-            $certificates = Certificate::whereHas('attempt', function ($query) {
-                $query->where('exam_id', 3);
-            })->paginate(6)->withQueryString();
-        } elseif ($exam == '4') {
-            $certificates = Certificate::whereHas('attempt', function ($query) {
-                $query->where('exam_id', 4);
-            })->paginate(6)->withQueryString();
-        } elseif ($exam == '5') {
-            $certificates = Certificate::whereHas('attempt', function ($query) {
-                $query->where('exam_id', 5);
-            })->paginate(6)->withQueryString();
-        } else {
-            $certificates = Certificate::paginate(6)->withQueryString();
+  public function showScore(Request $request)
+{
+    $status = $request->status;
+    $selectedExamId = $request->exam;
+    $statsQuery = Certificate::query();
+    if (!empty($selectedExamId) && $selectedExamId !== 'all') {
+        $statsQuery->whereHas('attempt', function ($q) use ($selectedExamId) {
+            $q->where('exam_id', $selectedExamId);
+        });
+    }
+    $totalCertificates = (clone $statsQuery)->count();
+    
+    $certificatesQuery = Certificate::with([
+        'attempt.user', 
+        'attempt.exam' => function ($q) {
+            $q->withCount('questions');
         }
-
-        $totalCertificates = Certificate::count();
-        $n5Certificates = Certificate::whereHas('attempt', function ($query) {
-            $query->where('exam_id', 1);
-        })->count();
-        $n4Certificates = Certificate::whereHas('attempt', function ($query) {
-            $query->where('exam_id', 2);
-        })->count();
-        $n3Certificates = Certificate::whereHas('attempt', function ($query) {
-            $query->where('exam_id', 3);
-        })->count();
-        $n2Certificates = Certificate::whereHas('attempt', function ($query) {
-            $query->where('exam_id', 4);
-        })->count();
-        $n1Certificates = Certificate::whereHas('attempt', function ($query) {
-            $query->where('exam_id', 5);
-        })->count();
-        return view('admin.score.index', compact('certificates', 'totalCertificates', 'n5Certificates', 'n4Certificates', 'n3Certificates', 'n2Certificates', 'n1Certificates'));
+    ]);
+    if (!empty($selectedExamId) && $selectedExamId !== 'all') {
+        $certificatesQuery->whereHas('attempt', function ($q) use ($selectedExamId) {
+            $q->where('exam_id', $selectedExamId);
+        });
     }
 
+    $certificates = $certificatesQuery->latest()->paginate(5)->withQueryString();
+    $examsWithStats = Exam::withCount(['attempts as certificates_count' => function ($q) {
+        $q->whereHas('certificate');
+    }])->get();
+
+    $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+
+    return view('admin.score.index', compact(
+        'certificates', 
+        'totalCertificates', 
+        'examsWithStats', 
+        'selectedExamId',
+        'colors'
+    ));
+}
     public function showTopPassers()
     {
         $attempts = Attempt::with(['user', 'exam'])

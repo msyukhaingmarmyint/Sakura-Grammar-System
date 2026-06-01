@@ -6,6 +6,7 @@ use App\Http\Requests\ExamRequest;
 use App\Models\Attempt;
 use App\Models\Exam;
 use App\Models\Level;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,12 +19,17 @@ class ExamController extends Controller
         $this->middleware(['auth', 'role:admin'])->only(['index', 'create', 'store', 'update', 'edit', 'changeStatus']);
     }
 
-    public function showExam()
-    {
-        $exams = Exam::all();
-        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
-        return view('admin.exam.showExam', compact('exams', 'colors'));
-    }
+public function showExam()
+{
+    
+    $exams = Exam::all()->map(function ($exam) {
+        $exam->questions_count = $exam->questions()->count();
+        return $exam;
+    });
+    $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+
+    return view('admin.exam.showExam', compact('exams', 'colors'));
+}
 
     public function index(Request $request)
     {
@@ -84,56 +90,56 @@ class ExamController extends Controller
         return back()->with('success', 'Change status successfully');
     }
 
-    public function storeResult(Request $request, $examId)
-    {
-        // Load exam with questions and their options
-        $exam = Exam::with('questions.options')->findOrFail($examId);
 
-        // Check user's attempts
-        $userAttempts = Attempt::where('user_id', Auth::id())
-            ->where('exam_id', $examId)
-            ->count();
+public function storeResult(Request $request, $examId)
+{
+    $exam = Exam::with('questions.options')->findOrFail($examId);
 
-        if ($userAttempts >= 3) {
-            return back()->with('error', 'You have reached the maximum 3 attempts for this exam.');
-        }
+    $userAttempts = Attempt::where('user_id', Auth::id())
+        ->where('exam_id', $examId)
+        ->count();
 
-        $answers = $request->input('answers', []);
-        $timeTaken = (int) $request->input('time_taken', 0);
+    if ($userAttempts >= 3) {
+        return back()->with('error', 'You have reached the maximum 3 attempts for this exam.');
+    }
 
-        $totalQuestions = 5;
-        $correctAnswers = 0;
+    $answers = $request->input('answers', []); 
+    $timeTaken = (int) $request->input('time_taken', 0);
 
-        foreach ($exam->questions as $question) {
-            if (isset($answers[$question->id])) {
-                $selectedOptionId = $answers[$question->id];
+    $correctAnswers = 0;
+    
+    foreach ($exam->questions as $question) {
+        if (isset($answers[$question->id])) {
+            $selectedOptionId = $answers[$question->id];
 
-                // Find the correct option
-                $correctOption = $question->options->firstWhere('is_correct', true);
+            $correctOption = $question->options->firstWhere('is_correct', true);
 
-                if ($correctOption && $selectedOptionId == $correctOption->id) {
-                    $correctAnswers++;
-                }
+            if ($correctOption && $selectedOptionId == $correctOption->id) {
+                $correctAnswers++;
             }
         }
-
-        $mark = $correctAnswers * 10; // you can change per question
-        $status = $mark >= $exam->pass_mark ? 'pass' : 'fail';
-
-        Attempt::create([
-            'user_id' => Auth::id(),
-            'exam_id' => $examId,
-            'time_taken' => $timeTaken,
-            'attempt_count' => $userAttempts + 1,
-            'correct_answers' => $correctAnswers,
-            'total_questions' => $totalQuestions,
-            'mark' => $mark,
-            'status' => $status
-        ]);
-
-        return redirect()->route('exam.showResult', $examId)
-            ->with('success', 'Exam submitted successfully!');
     }
+
+    $totalQuestions = count($answers) > 0 ? count($answers) : 5;
+    
+    $mark = $correctAnswers * 10; 
+    $status = $mark >= $exam->pass_mark ? 'pass' : 'fail';
+
+Attempt::create([
+        'user_id' => Auth::id(),
+        'exam_id' => $examId,
+        'time_taken' => $timeTaken,
+        'attempt_count' => $userAttempts + 1,
+        'correct_answers' => $correctAnswers,
+        'total_questions' => $totalQuestions,
+        'mark' => $mark,
+        'status' => $status,
+        'user_choices' => $answers 
+    ]);
+
+    return redirect()->route('exam.showResult', $examId)
+        ->with('success', 'Exam submitted successfully!');
+}
 
 
     public function showResult($examId)
@@ -151,4 +157,38 @@ class ExamController extends Controller
 
         return view('admin.exam.showResult', compact('attempt', 'exam', 'totalAttempts'));
     }
+
+public function reviewAttempt($attemptId)
+    {
+        $attempt = Attempt::with('exam')->findOrFail($attemptId);
+        $exam = $attempt->exam;
+
+        $choices = $attempt->user_choices;
+        if (is_string($choices)) {
+            $choices = json_decode($choices, true);
+        }
+        $choices = $choices ?? [];
+
+        $questionIds = array_keys($choices);
+
+        if (empty($questionIds)) {
+            $questions = Question::where('exam_id', $exam->id)->with('options')->take(5)->get();
+        } else {
+            $questions = Question::whereIn('id', $questionIds)
+                ->with('options')
+                ->get()
+                ->sortBy(function ($question) use ($questionIds) {
+                    return array_search((string)$question->id, array_map('strval', $questionIds));
+                })
+                ->values();
+        }
+
+        $colors = ['#ff7c9d', '#e9c00a', '#69c03a', '#6e9ce0', '#bd4af3'];
+        $levelColor = $colors[($exam->id - 1) % count($colors)];
+
+        return view('admin.exam.review', compact('attempt', 'exam', 'questions', 'levelColor'));
+    }
 }
+
+
+
