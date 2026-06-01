@@ -77,7 +77,7 @@
 
                 <div class="card-footer bg-transparent border-0 pt-0 pb-4 px-4 text-center">
                     <a href="{{ route('exam.review', $attempt->id) }}" 
-                       class="btn review-btn text-white w-100 py-2 rounded-pill fw-bold border-0 shadow-sm"
+                       class="btn review-btn text-white w-100 py-2 fw-bold border-0 shadow-sm"
                        style="background-color: {{ $themeColor }};">
                         <i class="fa fa-search me-2 small"></i> Review Answers
                     </a>

@@ -36,26 +36,26 @@
                     </div>
 <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
                         @if($totalAttempts < 3)
-                            <a href="{{ route('question.showByExam', $exam->id) }}" class="btn action-btn btn-outline-primary px-4 py-2 rounded-pill fw-bold">
+                            <a href="{{ route('question.showByExam', $exam->id) }}" class="btn action-btn btn-primary px-4 py-2 fw-bold">
                                 <i class="fa fa-redo me-2 small"></i> Retake Exam ({{ 3 - $totalAttempts }} left)
                             </a>
                         @endif
 
                         @if($attempt->status == 'pass')
-                            <a href="{{ route('user.getCertificate', $attempt->id) }}" class="btn action-btn btn-success px-4 py-2 rounded-pill fw-bold text-white shadow-sm">
+                            <a href="{{ route('user.getCertificate', $attempt->id) }}" class="btn action-btn btn-success px-4 py-2  fw-bold text-white shadow-sm">
                                 <i class="fa fa-award me-2"></i> Get Certificate
                             </a>
                         @else
-                            <button class="btn btn-secondary px-4 py-2 rounded-pill fw-bold opacity-70" disabled style="cursor: not-allowed;">
+                            <button class="btn btn-secondary px-4 py-2  fw-bold opacity-70" disabled style="cursor: not-allowed;">
                                 <i class="fa fa-lock me-2 small"></i> Pass to Unlock Certificate
                             </button>
                         @endif
 
-                        <a href="{{ route('exam.review', $attempt->id) }}" class="btn action-btn btn-info px-4 py-2 rounded-pill fw-bold text-white shadow-sm">
+                        <a href="{{ route('exam.review', $attempt->id) }}" class="btn action-btn btn-info px-4 py-2  fw-bold text-white shadow-sm">
                             <i class="fa fa-search me-2 small"></i> Review Answers
                         </a>
 
-                        <a href="{{ route('showExam') }}" class="btn action-btn btn-light border px-4 py-2 rounded-pill fw-bold text-secondary">
+                        <a href="{{ route('showExam') }}" class="btn action-btn btn-secondary border px-4 py-2 fw-bold text-white">
                             Back to Exams
                         </a>
                     </div>

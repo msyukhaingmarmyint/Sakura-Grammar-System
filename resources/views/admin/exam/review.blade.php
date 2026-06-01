@@ -142,7 +142,7 @@
             @endforeach
 
             <div class="d-flex align-items-center justify-content-start gap-2 pt-2 mb-5">
-                <a href="{{ route('showExam') }}" class="btn text-white px-4 py-2 rounded-3 fw-medium shadow-sm"
+                <a href="{{ url()->previous() }}" class="btn text-white px-4 py-2 rounded-3 fw-medium shadow-sm"
                     style="background-color: {{ $levelColor }};">
                     Return to Exams
                 </a>
