@@ -50,7 +50,7 @@
                                 <th class="py-3">User Name</th>
                                 <th class="py-3">Email Address</th>
                                 <th class="py-3">Status</th>
-                                <th class="py-3">Action</th>
+                                <th class="py-3 px-5">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,9 +79,11 @@
                                     @endif
                                 </td>
                                 <td class="py-3">
-                                    <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary rounded-3">
-                                        View details
-                                    </a>
+                                   <a href="{{ route('user.show', $user->id) }}" 
+   class="btn shadow-sm px-3 py-2  fw-bold text-white transition" 
+   style="background-color: #ff7c9d; border: none; font-size: 0.85rem;">
+    <i class="fa fa-eye me-1"></i> View Details
+</a>
                                 </td>
                             </tr>
                             @empty
