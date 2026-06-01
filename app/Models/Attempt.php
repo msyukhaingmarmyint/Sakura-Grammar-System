@@ -9,9 +9,13 @@ class Attempt extends Model
 {
     protected $fillable = [
         'user_id', 'exam_id', 'attempt_count', 'correct_answers','time_taken',
-        'total_questions', 'mark', 'status'
+        'total_questions', 'mark', 'user_choices', 'status'
     ];
 
+protected $casts = [
+        'user_choices' => 'array',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -24,6 +28,11 @@ class Attempt extends Model
 
     public function certificate(){
         return $this->hasOne(Certificate::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Option::class); 
     }
 }
 

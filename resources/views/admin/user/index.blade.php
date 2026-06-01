@@ -85,7 +85,7 @@
                             @empty
                             <tr>
                                 <td colspan="5" class="text-center text-muted py-4">
-                                    No users available matching this folder setup directory.
+                                    No users.
                                 </td>
                             </tr>
                             @endforelse

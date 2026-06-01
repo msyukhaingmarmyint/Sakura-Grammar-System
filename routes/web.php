@@ -69,6 +69,7 @@ Route::resource('/exams', ExamController::class);
 Route::get('/exam', [ExamController::class, 'showExam'])->name('showExam');
 Route::post('/exam/status/{id}', [ExamController::class, 'changeStatus'])->name('exam.status');
 Route::get('/exam/inactive', [ExamController::class, 'inactive'])->name('exam.inactive');
+Route::get('/exam/result/{attempt}/review', [ExamController::class, 'reviewAttempt'])->name('exam.review');
 
 // For Questions
 Route::resource('/questions', QuestionController::class);
